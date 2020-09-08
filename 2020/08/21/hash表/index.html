@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="hash表"><meta name="keywords" content="数据结构,hash表"><meta name="author" content="来一口"><meta name="copyright" content="来一口"><title>hash表 | 来一口‘s blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.8.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.8.2"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script><!-- hexo-inject:begin --><!-- hexo-inject:end -->var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '5.1.1'
+} </script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="来一口‘s blog" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash-Map"><span class="toc-number">1.</span> <span class="toc-text">Hash Map</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hashmap%E5%86%B2%E7%AA%81"><span class="toc-number">1.1.</span> <span class="toc-text">hashmap冲突</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%88%E4%BB%A5Java%E4%B8%AD%E7%9A%84Hashmap%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">注意事项（以Java中的Hashmap为例）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hash%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">hash函数的构造方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E6%B3%95"><span class="toc-number">1.3.1.</span> <span class="toc-text">直接定制法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E5%88%86%E6%9E%90%E6%B3%95"><span class="toc-number">1.3.2.</span> <span class="toc-text">数字分析法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B3%E6%96%B9%E5%8F%96%E4%B8%AD%E6%B3%95"><span class="toc-number">1.3.3.</span> <span class="toc-text">平方取中法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%98%E5%8F%A0%E6%B3%95"><span class="toc-number">1.3.4.</span> <span class="toc-text">折叠法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C"><span class="toc-number">1.4.</span> <span class="toc-text">字符串哈希</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2376191261,361962468&amp;fm=26&amp;gp=0.jpg"></div><div class="author-info__name text-center">来一口</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">22</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">40</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">6</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友链</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://www.luogu.com.cn">洛谷</a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">来一口‘s blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">主页</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">目录</a><a class="site-page" href="/slides">幻灯片</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">hash表</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-08-21</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="Hash-Map"><a href="#Hash-Map" class="headerlink" title="Hash Map"></a>Hash Map</h2><p><strong>HashMap是一个键值对的集合，通过输入键可以很容易得获得值，常用于数据的压缩存储等</strong></p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><p>在实际使用的过程中，这个过程常为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> index=Hash(<span class="string">&quot;apple&quot;</span>);<span class="comment">//通过hash函数对应到一个index</span></span><br><span class="line">Hashmap[index];<span class="comment">//通过index访问数组中的元素</span></span><br></pre></td></tr></table></figure>
+<h3 id="hashmap冲突"><a href="#hashmap冲突" class="headerlink" title="hashmap冲突"></a>hashmap冲突</h3><p>通过上述代码可以知道，Hashmap通常为一个数组，但是数组的容量是有限的，如果数据量较大，那么很快Hashmap就会满，这样就不能保证一个键对应一个值的规定了。</p>
+<p>此时可以通过将Hashmap存储的变量改为一个链表，每次有值出现在同一个键对应的index时，将其插入到index对应的链表（<strong>注意此处使用的是头插法</strong>）</p>
+<p><img src="/.com//v2-89b55c75205cfb87f8bbd21f27d846dc_720w.jpg" alt="v2-89b55c75205cfb87f8bbd21f27d846dc_720w"></p>
+<p>上图即Entry6和Entry1是同一键对应的值</p>
+<p>二在查找的过程中，在得到index之后只需要遍历对应的链表，直到找到对应的值即可</p>
+<p><img src="/.com//v2-6ff928d2047b013e869056ad3bf6ad66_720w.jpg.png" alt="v2-6ff928d2047b013e869056ad3bf6ad66_720w.jpg"></p>
+<p>注意：<strong>之前使用头插法的原因是一般hashmap也有局部性原则，最近插入的节点有更高的访问概率，因此采用头插法能够降低查找时的时间</strong></p>
+<h3 id="注意事项（以Java中的Hashmap为例）"><a href="#注意事项（以Java中的Hashmap为例）" class="headerlink" title="注意事项（以Java中的Hashmap为例）"></a>注意事项（以Java中的Hashmap为例）</h3><ol>
+<li>Hashmap的默认长度一般为16，如果需要扩展或者手动设置时也必须是2的整数次幂</li>
+</ol>
+<p>因为Hashmap一般采用取模的方式使值能均匀分布，但是直接取模的效率对于计算机来说比较慢，<strong>因此常采用位运算的方式</strong></p>
+<p>即从原本的  $index=HashCode(Key)\mod Lendgth$</p>
+<p>更改为 $index=HashCode(Key) \and (Length-1)$</p>
+<p>这样能将index结果限制在Hashcode的后几位，提高了效率且效果完全等同于取模</p>
+<p>而使用非二的整数幂的长度会导致分布的不均匀，升至有的情况不会出现</p>
+<p>（*因为2的整数次幂-1二进制一定全是1，方便进行与运算）</p>
+<ol>
+<li>这种Hashmap在高并发的情况下，可能会出现<strong>死锁</strong>。由于Hashmap中的链表入股哦太长，那么hash的效率会降低到$O(n)$级别，因此需要限制链表的最大长度。如果链表达到最大长度则需要扩大Hashmap，同时将链表中的一部分节点转移到另一个链表上。**但是由于链表的转移需要从链表尾开始的，因此时逆序的，因此可能出现并发的同时有A-&gt;B和B-&gt;A，这样就会导致死锁</li>
+</ol>
+<h3 id="hash函数的构造方法"><a href="#hash函数的构造方法" class="headerlink" title="hash函数的构造方法"></a>hash函数的构造方法</h3><h4 id="直接定制法"><a href="#直接定制法" class="headerlink" title="直接定制法"></a>直接定制法</h4><p>哈希函数为关键字的线性函数如 H（key）=a*key+b<br>这种构造方法比较简便，均匀，但是有很大限制，仅限于地址大小=关键字集合的情况<br>使用举例：<br>假设需要统计中国人口的年龄分布，以10为最小单元。今年是2018年，那么10岁以内的分布在2008-2018，20岁以内的分布在1998-2008……假设2018代表2018-2008直接的数据，那么关键字应该是2018，2008，1998……<br>那么可以构造哈希函数H（key）=（2018-key）/10=201-key/10<br>那么hash表建立如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>index</th>
+<th>key</th>
+<th>年龄</th>
+<th>人数（假设数据）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>2018</td>
+<td>0-10</td>
+<td>200W</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2008</td>
+<td>10-20</td>
+<td>250W</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1998</td>
+<td>20-30</td>
+<td>253W</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1988</td>
+<td>30-40</td>
+<td>300W</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="数字分析法"><a href="#数字分析法" class="headerlink" title="数字分析法"></a>数字分析法</h4><p>为例能够使Hash能够更加均匀，可以通过观察数据的数值，找出其中分布比较均匀的几位作为index</p>
+<p>但是此种方式有一个缺点，即必须事先知道数据的总体情况，这在实际情况中是很难的</p>
+<h4 id="平方取中法"><a href="#平方取中法" class="headerlink" title="平方取中法"></a>平方取中法</h4><p>如果数据的数位差异较小，这是可以采用平方取中法扩大差异</p>
+<p>如$key=1234$,$1234^2=1522756$ 因此取227作为index</p>
+<p>如$key=4321$,$4321^2=18671041$ 因此取671作为index</p>
+<p>这种方式适合之前不知道数据分布情况的时候使用，但是求平方可能导致数位太长不方便计算，<strong>因此平方取中法仅适用于位数较短的数</strong></p>
+<h4 id="折叠法"><a href="#折叠法" class="headerlink" title="折叠法"></a>折叠法</h4><p>就像上面的注意事项中所写，通过某些方式只取数中的低几位用作index</p>
+<p>如$61524$可以仅存后三位，即index为$524$</p>
+<h3 id="字符串哈希"><a href="#字符串哈希" class="headerlink" title="字符串哈希"></a>字符串哈希</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3370">传送门</a></p>
+<p>最简单实现字符串哈希的方式是进制哈希</p>
+<p>字符串哈希就是将字符串中的每一个字符视为一个n进制数中的一位，而字符串就是这一整个n进制数。考虑到ascii码中的字符数量，因此一般将这个进制设定为131。而如果全部都是按照这个方法进行的话，如果字符串比较长，那么这个对应的数会非常大。因此一般采用取模的方法，这样虽然增大了冲突的可能性，但是却更加方便</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">long</span> base=<span class="number">131</span>;</span><br><span class="line"><span class="keyword">long</span> mod=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">long</span> a[<span class="number">10000</span>];</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">hashMap</span><span class="params">(<span class="built_in">string</span> str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> result=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;str.length();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        result=(result*base+(<span class="keyword">long</span>)str[i])%mod;</span><br><span class="line">        <span class="comment">//转换为base进制的数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="keyword">int</span> n,m;</span><br><span class="line">    <span class="keyword">int</span> cnt=<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;m=n;</span><br><span class="line">    <span class="keyword">while</span>(n--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;s;</span><br><span class="line">        a[n]=hashMap(s);<span class="comment">//通过hash函数获取值</span></span><br><span class="line">    &#125;</span><br><span class="line">    sort(a+<span class="number">1</span>,a+m+<span class="number">1</span>);<span class="comment">//进行排序</span></span><br><span class="line">    <span class="comment">//注意先进行排序可以使得出去相同值变得更方便</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i]!=a[i+<span class="number">1</span>])cnt++;<span class="comment">//除掉相同的数值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;cnt&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这样存在冲突的可能行较大，有两种优化的方式：</p>
+<ol>
+<li><p>无错哈希</p>
+<p><strong>当检测到哈希值发生冲突时，此时可以将对应的哈希值不断加一个大质数直到不发生冲突为止</strong></p>
+<p>如1发生冲突则加上$19260817$,如果还是发生冲突则继续重复，直到不发生冲突为止</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)<span class="comment">//m个串</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;str;<span class="comment">//下一行的check为bool型 </span></span><br><span class="line"><span class="keyword">while</span>(check[hash(str)])hash[i]+=<span class="number">19260817</span>;</span><br><span class="line">hash[i]+= hash(str) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/.com//o_bwb.png" alt="o_bwb"></p>
+<p>这种方式有点像之前的通过链表进行对hash的延展，或者有点像桶，基本逻辑是一样的，都是通过一个哈希值链接到另外的哈希值上</p>
+</li>
+<li><p>多重哈希</p>
+<p>可以通过多种哈希值共同进行判断，只有所有哈希值都相同才是两个字符串的相同。<strong>这样即使一个哈希发生了冲突，也会有其他的哈希正常运行，只有所有的哈希都出问题了才会真正发生冲突，但是这种情况很难发生</strong></p>
+<p><img src="/.com//o_owo.png" alt="o_owo"></p>
+</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">来一口</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/08/21/hash%E8%A1%A8/">http://yoursite.com/2020/08/21/hash%E8%A1%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/hash%E8%A1%A8/">hash表</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/08/22/js%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"><i class="fa fa-chevron-left">  </i><span>js面向对象</span></a></div><div class="next-post pull-right"><a href="/2020/08/20/css1/"><span>涟漪特效按钮</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2020 By 来一口</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.8.2"></script><script src="/js/fancybox.js?version=1.8.2"></script><script src="/js/sidebar.js?version=1.8.2"></script><script src="/js/copy.js?version=1.8.2"></script><script src="/js/fireworks.js?version=1.8.2"></script><script src="/js/transition.js?version=1.8.2"></script><script src="/js/scroll.js?version=1.8.2"></script><script src="/js/head.js?version=1.8.2"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({{ JSON.stringify(config) }});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="{{ src }}">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end --></body></html>
