@@ -297,9 +297,9 @@
     
     <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
     
-    <category term="Bom" scheme="http://yoursite.com/tags/Bom/"/>
-    
     <category term="html" scheme="http://yoursite.com/tags/html/"/>
+    
+    <category term="Bom" scheme="http://yoursite.com/tags/Bom/"/>
     
   </entry>
   
