@@ -104,7 +104,7 @@
 <p>使用类似并查集的方法求堆顶元素<code>return rt[x]=find(rt[x])</code><strong>在搜索的过程中进行状态压缩，直接将查找路径上的元素的祖先都设定为最后的那个祖先，这样在之后进行查找时，就可以是$O(1)$的时间复杂度</strong></p>
 <h3 id="斜堆"><a href="#斜堆" class="headerlink" title="斜堆"></a>斜堆</h3><p><strong>斜堆也是一种自适应的堆结构，与左偏树类似，能够进行效率较高的合并操作，可以说左偏树是斜堆的一种变体</strong></p>
 <p>关系如下：</p>
-<p><img src="/.com//1354534164_1485.png" alt="1354534164_1485"></p>
+<p><img src="/2020/08/20/%E5%A0%86/1354534164_1485.png" alt="1354534164_1485"></p>
 <p>二叉堆是条件较苛刻的一种堆结构，其是一个完全二叉树，具有高度平衡性，进行搜索时平均效率较高，但是进行合并的效率很低</p>
 <p>左式堆（<em>即左偏树</em>）是一个不平衡的堆结构，在降低搜索效率的同时提高了合并的效率，同时保证了一定的平衡性</p>
 <p>斜堆也是一个不平衡的堆结构，与左偏树很类似，只是没有距离的概念，每次直接与右节点进行合并，合并后与左子树交换。这种结构没有进行平衡性的判断，经常出现极度不平衡的情况（<em>由于左右交换，这种情况较为缓和</em>）。故虽然左偏树比斜堆的代码多一点，但是一般还是使用左偏树即可</p>
@@ -152,17 +152,17 @@
 <h4 id="配对堆的实现"><a href="#配对堆的实现" class="headerlink" title="配对堆的实现"></a>配对堆的实现</h4><p>配对堆一般使用链式前向星的方式进行存图</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span><span class="comment">//加边，u起点，v终点，w边权</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[cnt].to = v; <span class="comment">//终点</span></span><br><span class="line">    edge[cnt].w = w; <span class="comment">//权值</span></span><br><span class="line">    edge[cnt].next = head[u];<span class="comment">//以u为起点上一条边的编号，也就是与这个边起点相同的上一条边的编号</span></span><br><span class="line">    head[u] = cnt++;<span class="comment">//更新以u为起点上一条边的编号</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>插入元素只需要进行添加边的操作</p>
-<h4 id="配对堆的操作"><a href="#配对堆的操作" class="headerlink" title="配对堆的操作"></a>配对堆的操作</h4><h5 id="配对堆的合并操作"><a href="#配对堆的合并操作" class="headerlink" title="配对堆的合并操作"></a>配对堆的合并操作</h5><p><img src="/.com//1101338-20171015104910152-303644413.png" alt="1101338-20171015104910152-303644413"></p>
+<h4 id="配对堆的操作"><a href="#配对堆的操作" class="headerlink" title="配对堆的操作"></a>配对堆的操作</h4><h5 id="配对堆的合并操作"><a href="#配对堆的合并操作" class="headerlink" title="配对堆的合并操作"></a>配对堆的合并操作</h5><p><img src="/2020/08/20/%E5%A0%86/1101338-20171015104910152-303644413.png" alt="1101338-20171015104910152-303644413"></p>
 <p>即直接比较A与B的大小，将较小的作为根节点，直接添加一条A-&gt;B的边即可，时间复杂度为$O(1)$</p>
 <p>代码</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span><span class="comment">//本质上就是添加一条边即可</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(value[u]&gt;value[v])&#123;addEdge(v,u);root[u]=v;&#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;addEdge(u,v);root[v]=u;&#125;</span><br><span class="line">  <span class="comment">//通过root数组可以方便的从任意一个数找到对应的堆顶</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="配对堆的插入操作"><a href="#配对堆的插入操作" class="headerlink" title="配对堆的插入操作"></a>配对堆的插入操作</h5><p><img src="/.com//1101338-20171015104911605-1730761400.png" alt="1101338-20171015104911605-1730761400"></p>
+<h5 id="配对堆的插入操作"><a href="#配对堆的插入操作" class="headerlink" title="配对堆的插入操作"></a>配对堆的插入操作</h5><p><img src="/2020/08/20/%E5%A0%86/1101338-20171015104911605-1730761400.png" alt="1101338-20171015104911605-1730761400"></p>
 <p>即可以将数B视为只有一个元素的堆，将这个堆与A合并即可</p>
 <p>可以直接调用</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">merge(root,x);</span><br></pre></td></tr></table></figure>
 <h5 id="配对堆取堆顶元素"><a href="#配对堆取堆顶元素" class="headerlink" title="配对堆取堆顶元素"></a>配对堆取堆顶元素</h5><p>直接使用类似并查集的方法就能够求解得对应堆的堆顶元素</p>
 <h5 id="配对堆弹出堆顶操作"><a href="#配对堆弹出堆顶操作" class="headerlink" title="配对堆弹出堆顶操作"></a>配对堆弹出堆顶操作</h5><p>这是配对堆最麻烦的操作，由于之前的操作都过于简单，因此需要一个步骤来收拾烂摊子</p>
-<p><img src="/.com//1101338-20171015104915512-743797387.png" alt="1101338-20171015104915512-743797387"></p>
+<p><img src="/2020/08/20/%E5%A0%86/1101338-20171015104915512-743797387.png" alt="1101338-20171015104915512-743797387"></p>
 <p><strong>因为将根节点删去后，由于是多叉树，因此会产生非常多的子树，但是我们的合并操作只能对两个子树进行，因此需要对所有的子树进行两两配对进行合并，再将合并之后的子树再进行两两合并最后合成一个完整的堆</strong></p>
 <p>那为什么不能直接用一个节点全部连接起来呢？<strong>因为这样会导致一个节点有过多的子节点，这样会导致堆的的极度不平衡，影响效率，同时不利于之后的弹出操作，而使用以上方式则能够将树尽量往二叉的方向靠，尽量减少之后调用弹出的工作</strong></p>
 <p>配对堆因此得名</p>

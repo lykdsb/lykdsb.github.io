@@ -94,7 +94,7 @@
 <h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3><p>每个函数都有一个<code>prototype</code>属性，这个属性可以通过以下方式使用</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Person.prototype.name=<span class="string">&quot;A&quot;</span>;</span><br><span class="line">Person.prototype.age=<span class="number">12</span>;</span><br><span class="line">Person.prototype.sayHi=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;alert(<span class="string">&quot;Hi&quot;</span>);&#125;</span><br><span class="line"><span class="keyword">var</span> person1=<span class="keyword">new</span> Person();<span class="comment">//使用原型模式进行构造</span></span><br></pre></td></tr></table></figure>
 <p><strong>原型链</strong></p>
-<p><img src="/.com//15932532-cb246befed007789.png" alt="原型链"></p>
+<p><img src="/2020/08/22/js%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/15932532-cb246befed007789.png" alt="原型链"></p>
 <p>在上述原型链中，b、c为Foo的实例，_<em>proto__</em>属性指向其prototype</p>
 <p>Foo为Foo的构造函数，Function.prototype为函数的原型，Object.prototype为所有对象的原型</p>
 <p>注意以下情况</p>
@@ -113,7 +113,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age,job</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> o=<span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  o.name=name;</span><br><span class="line">  o.age=age;</span><br><span class="line">  o.job=job;</span><br><span class="line">  o.getName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> o.name;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用这种方式的构造函数，由于没有数值属性（<em>因为通过o进行声明</em>），所以只能通过getName方法访问name属性。就限制了对于属性的直接访问</p>
 <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>js的继承一般使用过原型链实现的</p>
-<p><img src="/.com//787416-20160322110905589-2039017350.png" alt="继承原型链"></p>
+<p><img src="/2020/08/22/js%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/787416-20160322110905589-2039017350.png" alt="继承原型链"></p>
 <p>可以粗浅的理解为继承就是在原型上添加属性</p>
 <p>因此表示一个类继承另一个类只需要使用</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SubType.prototype=<span class="keyword">new</span> SuperType();</span><br><span class="line"><span class="comment">//SubType继承SuperType</span></span><br></pre></td></tr></table></figure>

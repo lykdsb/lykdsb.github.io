@@ -17,9 +17,9 @@
 <p>但是这种查找方式可以进行优化：</p>
 <p>因为并查集是一个树形结构，所以在搜索的过程中需要经过很多中间节点，这些节点在搜索的过程中是可以去掉的</p>
 <p>原本为这样：</p>
-<p><img src="/.com//65197.png" alt="65197"></p>
+<p><img src="/2020/08/20/%E5%B9%B6%E6%9F%A5%E9%9B%86/65197.png" alt="65197"></p>
 <p>在搜索过程中可以将较下层的节点的rt[x]直接设定为根节点</p>
-<p><img src="/.com//65195.png" alt="65195"></p>
+<p><img src="/2020/08/20/%E5%B9%B6%E6%9F%A5%E9%9B%86/65195.png" alt="65195"></p>
 <p>这样搜索时只需要网上搜索一层即可，大大优化了搜索效率，代码添加也很容易</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x==rt[x]?x:rt[x]=find(rt[x]);</span><br><span class="line">    <span class="comment">//此处添加了rt[x]=，直接设定根节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="并查集的合并"><a href="#并查集的合并" class="headerlink" title="并查集的合并"></a>并查集的合并</h4><p>并查集的合并也很简单，只需要随机挑选一个并查集<sup><a href="#fn_5" id="reffn_5">5</a></sup>，将另一个并查集的根节点的rt[x]设定为此并查集的rt[x]</p>

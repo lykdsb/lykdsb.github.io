@@ -18,21 +18,21 @@
 <p><strong>正则表达式是区分大小写的</strong></p>
 <h2 id="匹配任意符号"><a href="#匹配任意符号" class="headerlink" title="匹配任意符号"></a>匹配任意符号</h2><p>使用’.’符号能够匹配任何一个<strong>单个的字符</strong>（<em>包括’.’本身</em>）</p>
 <p>如使用<code>c.t</code>可以匹配到<code>cat</code>,<code>cot</code>等，但是不能匹配到<code>caot</code>等中间有多个字符的文本</p>
-<p><img src="/.com//截屏2020-08-22 下午10.48.56.png" alt="匹配单个字符"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-22 下午10.48.56.png" alt="匹配单个字符"></p>
 <p>‘.’也可以连续使用，视为匹配n长度的任意串，注意匹配的时候不会匹配重叠的部分，如果一个部分已经被匹配过了那么就不会再次被匹配</p>
-<p><img src="/.com//截屏2020-08-22 下午10.51.19.png" alt=".的叠加"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-22 下午10.51.19.png" alt=".的叠加"></p>
 <p>匹配特殊的字符：</p>
 <p><strong>如果需要匹配的是’.’本身的话，那么需要添加转义字符’\‘,要不然会匹配到任意一个字符</strong></p>
-<p><img src="/.com//截屏2020-08-22 下午10.56.34.png" alt="匹配特殊字符"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-22 下午10.56.34.png" alt="匹配特殊字符"></p>
 <p>同样的道理，如果需要匹配的是’\‘本身，则需要再前面再加一个’\‘对其自身进行转义</p>
 <h1 id="匹配一组字符"><a href="#匹配一组字符" class="headerlink" title="匹配一组字符"></a>匹配一组字符</h1><h2 id="匹配多个字符中的一个"><a href="#匹配多个字符中的一个" class="headerlink" title="匹配多个字符中的一个"></a>匹配多个字符中的一个</h2><p>由于<code>.a</code>能匹配任意第二个字符为<code>a</code>的子串，但是如果需要匹配<code>na</code>和<code>sa</code>就无法使用这种方式。</p>
 <p>此时可以采用<code>[]</code>进行表示匹配一个集合中的一个字符</p>
-<p><img src="/.com//截屏2020-08-23 上午8.53.19.png" alt="匹配字符"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-23 上午8.53.19.png" alt="匹配字符"></p>
 <p>一般这种方式常使用于在固定范围内的选择或者不需要区分大小写的比较</p>
 <p><code>[Rr]egex</code>表示匹配regex的时候不区分大小写</p>
 <h2 id="字符集合区间"><a href="#字符集合区间" class="headerlink" title="字符集合区间"></a>字符集合区间</h2><p>匹配的时候，经常需要再某一位匹配一个数字，正常来说这里通常使用<code>[0123456789]</code>进行匹配，但是这种方式有的时候太长了，不太方便。因此针对这种情况可以使用字符集合区间</p>
 <p><code>[0-9]</code>,<code>[a-z]</code>用于表示匹配区间中的字符的一个</p>
-<p><img src="/.com//截屏2020-08-23 上午8.59.55.png" alt="集合区间"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-23 上午8.59.55.png" alt="集合区间"></p>
 <p>而不同的字符区间是可以连用的</p>
 <p><code>[0-9a-zA-Z]</code></p>
 <p>如匹配一个RGB值</p>
@@ -40,7 +40,7 @@
 <h2 id="取非匹配"><a href="#取非匹配" class="headerlink" title="取非匹配"></a>取非匹配</h2><p>取非匹配就是除了指定的字符以外，所有的字符都可以进行匹配</p>
 <p><code>[^a]</code>匹配任意不是a的字符</p>
 <p><code>[^0-9]</code>匹配任意不是数字的字符</p>
-<p><img src="/.com//截屏2020-08-23 上午9.06.14.png" alt="取非匹配"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-23 上午9.06.14.png" alt="取非匹配"></p>
 <h1 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h1><p><strong>元字符是正则表达式中有特殊含义的字符，由于其具有特殊的含义，因此无法匹配他们本身，需要使用其他方法进行匹配</strong></p>
 <p>对于大部分的可见元字符，只需要再前面加上<code>\</code>即可进行匹配</p>
 <p>但是还有很多特殊的元字符匹配</p>
@@ -116,24 +116,24 @@
 <p>如<code>a+</code>匹配若干个重复的<code>a</code>(<em>至少一个</em>)</p>
 <p>而<code>[0-9]+</code>则匹配若干个数字(至少一个)</p>
 <p>如匹配一段文本中的所有的邮箱</p>
-<p><img src="/.com//截屏2020-08-23 上午9.27.04.png" alt="匹配邮箱"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-23 上午9.27.04.png" alt="匹配邮箱"></p>
 <h2 id="匹配0个或多个字符"><a href="#匹配0个或多个字符" class="headerlink" title="匹配0个或多个字符"></a>匹配0个或多个字符</h2><p>如果有的时候需要匹配的字符串可以包含0个该字符，可以使用*来表示</p>
 <p><code>a*</code>表示有若干个重复的a（至少0个）</p>
-<p><img src="/.com//截屏2020-08-24 上午8.57.32.png" alt="截屏2020-08-24 上午8.57.32"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-24 上午8.57.32.png" alt="截屏2020-08-24 上午8.57.32"></p>
 <h2 id="匹配0个或1个字符"><a href="#匹配0个或1个字符" class="headerlink" title="匹配0个或1个字符"></a>匹配0个或1个字符</h2><p>使用<code>?</code>能够匹配0个或1个字符，也就是要么这个字符不出现，要么就必须是这个字符</p>
-<p><img src="/.com//截屏2020-08-24 上午9.03.24.png" alt="截屏2020-08-24 上午9.03.24"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-24 上午9.03.24.png" alt="截屏2020-08-24 上午9.03.24"></p>
 <p>这样可以匹配http/https这种情况</p>
 <h2 id="匹配重复的次数"><a href="#匹配重复的次数" class="headerlink" title="匹配重复的次数"></a>匹配重复的次数</h2><p>由于<code>+</code>和<code>*</code>都没有上限，也没有可修改的下限，但是我们实际生活中经常能看到需要设定重复次数的匹配</p>
 <ol>
 <li><p>匹配固定的一个值</p>
 <p>使用<code>&#123;n&#125;</code>即可表示重复n次，只有重复n次才能够匹配</p>
-<p><img src="/.com//截屏2020-08-24 上午9.33.02.png" alt="截屏2020-08-24 上午9.33.02"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-24 上午9.33.02.png" alt="截屏2020-08-24 上午9.33.02"></p>
 </li>
 <li><p>匹配一个区间</p>
 <p>使用<code>&#123;m,n&#125;</code>可以表示重复至少m次，至多n次的情况</p>
 <p>同时也可以使用<code>&#123;m,&#125;</code>表示至少重复m次而没有上限</p>
 <p><strong>一定不能忘了逗号，要不然就变为精确匹配m次了</strong></p>
-<p><img src="/.com//截屏2020-08-24 上午9.37.13.png" alt="截屏2020-08-24 上午9.37.13"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-24 上午9.37.13.png" alt="截屏2020-08-24 上午9.37.13"></p>
 </li>
 </ol>
 <h2 id="防止过度匹配"><a href="#防止过度匹配" class="headerlink" title="防止过度匹配"></a>防止过度匹配</h2><p><strong>由于<code>*</code>和<code>+</code>都是贪婪型的匹配，也就是匹配的时候不会匹配到第一个就停下，而是一直匹配到最后一个</strong></p>
@@ -141,7 +141,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">B</span>&gt;</span>AK<span class="tag">&lt;/<span class="name">B</span>&gt;</span> and <span class="tag">&lt;<span class="name">B</span>&gt;</span>HI<span class="tag">&lt;/<span class="name">B</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>如果使用<code>&lt;[Bb]&gt;.*&lt;/[Bb]&gt;</code>进行匹配，匹配结果会是<code>&lt;B&gt;AK&lt;/B&gt; and &lt;B&gt;HI&lt;/B&gt;</code>而不是分别的两个标签，因为<code>+</code>和<code>*</code>会尽量匹配多的字符</p>
 <p>因此可以将这两个元字符改为懒惰型的匹配即<code>*?</code>和<code>+?</code>，这样在匹配到第一个时就会停下而不是继续匹配</p>
-<p><img src="/.com//截屏2020-08-24 上午9.58.51.png" alt="截屏2020-08-24 上午9.58.51"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-24 上午9.58.51.png" alt="截屏2020-08-24 上午9.58.51"></p>
 <h1 id="位置匹配"><a href="#位置匹配" class="headerlink" title="位置匹配"></a>位置匹配</h1><h2 id="边界"><a href="#边界" class="headerlink" title="边界"></a>边界</h2><p>有的时候匹配还需要考虑前后文的情况来设定边界</p>
 <p>如以下情况</p>
 <p><code>The cat scattered his food all over the room</code></p>
@@ -152,7 +152,7 @@
 <h2 id="单词边界"><a href="#单词边界" class="headerlink" title="单词边界"></a>单词边界</h2><p>使用限定符<code>\b</code>可以指定单词边界，<code>\b</code>用来匹配一个单词的开头或者结尾</p>
 <p><strong><code>\b</code>实际上匹配的是一个能够构成单词的字符（<em>字母，数字，下划线</em>）和一个不能构成单词的字符（<em>如空格</em>）之间的位置</strong></p>
 <p>在前后都加上<code>\b</code>可以匹配一个完整的单词</p>
-<p><img src="/.com//截屏2020-08-27 上午8.33.28.png" alt="截屏2020-08-27 上午8.33.28"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-27 上午8.33.28.png" alt="截屏2020-08-27 上午8.33.28"></p>
 <h2 id="字符串边界"><a href="#字符串边界" class="headerlink" title="字符串边界"></a>字符串边界</h2><p>字符串边界可以进行字符串的位置匹配</p>
 <ol>
 <li><code>^</code>表示匹配一个字符串的开头</li>
@@ -160,7 +160,7 @@
 </ol>
 <p>有时需要确保一个子串出现在字符串的首部，或者有时需要在字符串的尾部</p>
 <p>这个时候可以使用字符串边界</p>
-<p><img src="/.com//截屏2020-08-27 上午8.45.31.png" alt="截屏2020-08-27 上午8.45.31"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-27 上午8.45.31.png" alt="截屏2020-08-27 上午8.45.31"></p>
 <p><strong>有时匹配的字符串需要容忍最前面的空白字符，<em>如声明一个html文本，前面是可以有空格的</em>，此时一般会加上一个<code>\s*</code>即可</strong></p>
 <h1 id="子表达式"><a href="#子表达式" class="headerlink" title="子表达式"></a>子表达式</h1><h2 id="单个子表达式"><a href="#单个子表达式" class="headerlink" title="单个子表达式"></a>单个子表达式</h2><p>如果需要匹配一个字符串的多次重复，不能使用以下方式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is abcabc Great</span><br></pre></td></tr></table></figure>
@@ -169,13 +169,13 @@
 <p>这样并不能匹配到<code>abcabc</code> ，<strong>因为重复匹配只支持最前面的一个字符，即是匹配重复两个以上的c</strong></p>
 <p>此时需要使用子表达式<code>()</code></p>
 <p>如果上面的例子使用<code>(abc)&#123;2,&#125;</code>即可</p>
-<p><img src="/.com//截屏2020-08-29 上午10.27.55.png" alt="截屏2020-08-29 上午10.27.55"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-29 上午10.27.55.png" alt="截屏2020-08-29 上午10.27.55"></p>
 <p><strong>使用<code>()</code>框起来的东西可以视为一个字符（<em>子表达式</em>）然后使用之前的对于单个字符的匹配 </strong></p>
 <p><strong>注意一下情况</strong></p>
 <p>如果要匹配年份（20-21世纪）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1923-08-23</span><br><span class="line">2015-05-15</span><br></pre></td></tr></table></figure>
 <p>使用<code>19|20\d&#123;2&#125;</code>,本意是匹配19或者20开头的四位数字，但是实际上匹配到的</p>
-<p><img src="/.com//截屏2020-08-29 上午10.40.32.png" alt="截屏2020-08-29 上午10.40.32"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-29 上午10.40.32.png" alt="截屏2020-08-29 上午10.40.32"></p>
 <p>因为<code>|</code>将前后视为一个整体进行操作，如果需要达到目标，应该使用<code>(19|20)\d&#123;2&#125;</code></p>
 <p><strong>因此，如果不确定元字符的优先级，可以给整体都加上子表达式的符号</strong></p>
 <h2 id="子表达式的嵌套"><a href="#子表达式的嵌套" class="headerlink" title="子表达式的嵌套"></a>子表达式的嵌套</h2><p><strong>子表达式允许多重嵌套，这种嵌套式没有次数限制的</strong></p>
@@ -188,18 +188,18 @@
 <p>很容易得到正则表达式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h[1-6]&gt;.*?&lt;&#x2F;h[1-6]&gt;</span><br></pre></td></tr></table></figure>
 <p>(<strong>注意此处需要使用懒惰型匹配</strong>)</p>
-<p><img src="/.com//截屏2020-08-30 上午10.20.14.png" alt="截屏2020-08-30 上午10.20.14"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-30 上午10.20.14.png" alt="截屏2020-08-30 上午10.20.14"></p>
 <p>但是可以发现这样并不能保证前后标签的一致性<code>&lt;h2&gt;fdada&lt;/h3&gt;</code>也会被匹配到</p>
 <p>如果要保证前后的一致性，则需要使用回溯引用</p>
 <p><code>&lt;h([1-6])&gt;.*?&lt;/h\1&gt;</code>就是一个回溯匹配</p>
-<p><img src="/.com//截屏2020-08-30 上午10.22.38.png" alt="截屏2020-08-30 上午10.22.38"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-30 上午10.22.38.png" alt="截屏2020-08-30 上午10.22.38"></p>
 <p>其中<code>\1</code>表示的意思就是与该正则表达式的第一个子表达式相同，同样的可以使用<code>\2</code>,<code>\3</code>等回溯引用分别指代第二个子表达式和第三个子表达式。</p>
 <p>回溯引用保证引用和原子表达式的一致性</p>
 <p><strong>注意，在很多地方可以使用<code>\0</code>表示整个正则表达式</strong></p>
 <h2 id="替换模式"><a href="#替换模式" class="headerlink" title="替换模式"></a>替换模式</h2><p>除了进行搜索模式的匹配，还能够使用替换模式进行替换，替换模式只需要写搜索模式匹配出来的文本更换成什么样即可</p>
 <p><strong>替换模式可以与搜索模式使用相同的回溯引用，因此常与回溯引用一起使用</strong></p>
 <p>替换模式使用回溯引用是按照<code>$n</code>的形式，表示第n个子表达式</p>
-<p><img src="/.com//截屏2020-08-30 上午10.35.10.png" alt="截屏2020-08-30 上午10.33.22"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-30 上午10.35.10.png" alt="截屏2020-08-30 上午10.33.22"></p>
 <h1 id="前后查找"><a href="#前后查找" class="headerlink" title="前后查找"></a>前后查找</h1><p>有时候我们并不需要一整个查找的部分</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>fdasfda<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h3</span>&gt;</span>dsafdafd<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h4</span>&gt;</span>hjdhthtd<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>fdada<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>如这个正则表达式，我们匹配出来的是含有标签信息的，但是我们实际上只需要标签之间的信息，并不需要标签本身</p>
@@ -210,7 +210,7 @@
 <p>可以使用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.+(?&#x3D;:)</span><br></pre></td></tr></table></figure>
 <p>也就是匹配后面是<code>:</code>的若干个字符</p>
-<p><img src="/.com//截屏2020-08-30 上午10.44.25.png" alt="截屏2020-08-30 上午10.44.25"></p>
+<p><img src="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/截屏2020-08-30 上午10.44.25.png" alt="截屏2020-08-30 上午10.44.25"></p>
 <p>实际上向前查找就是查找对应的字符串，然后<code>?=</code>后面的不返回</p>
 <h2 id="向后查找"><a href="#向后查找" class="headerlink" title="向后查找"></a>向后查找</h2><p>向后查找与向前查找除了方向相反几乎一样</p>
 <p>使用<code>?&lt;=</code>即可，在<code>=</code>后面添加子表达式的部分</p>
