@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/09/23/P1063/</loc>
+    
+    <lastmod>2020-09-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/09/09/P3842/</loc>
+    
+    <lastmod>2020-09-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/09/05/P1095/</loc>
+    
+    <lastmod>2020-09-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/09/23/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/</loc>
     
     <lastmod>2020-09-23</lastmod>
@@ -51,21 +72,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2020/09/09/P3842/</loc>
-    
-    <lastmod>2020-09-10</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2020/09/05/java%E5%90%AF%E7%94%A8assert/</loc>
-    
-    <lastmod>2020-09-06</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/09/05/P1095/</loc>
     
     <lastmod>2020-09-06</lastmod>
     
@@ -270,6 +277,13 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/tags/Bom/</loc>
+    <lastmod>2020-09-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/html/</loc>
     <lastmod>2020-09-23</lastmod>
     <changefreq>daily</changefreq>
@@ -306,13 +320,6 @@
   
   <url>
     <loc>http://yoursite.com/tags/%E7%BA%BF%E6%80%A7dp/</loc>
-    <lastmod>2020-09-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/Bom/</loc>
     <lastmod>2020-09-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -382,13 +389,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/jquery/</loc>
-    <lastmod>2020-09-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/tags/javaSE/</loc>
     <lastmod>2020-09-23</lastmod>
     <changefreq>daily</changefreq>
@@ -410,6 +410,13 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/tags/jquery/</loc>
+    <lastmod>2020-09-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
     <lastmod>2020-09-23</lastmod>
     <changefreq>daily</changefreq>
@@ -417,14 +424,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</loc>
+    <loc>http://yoursite.com/tags/slides/</loc>
     <lastmod>2020-09-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/slides/</loc>
+    <loc>http://yoursite.com/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</loc>
     <lastmod>2020-09-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -552,14 +559,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/</loc>
+    <loc>http://yoursite.com/categories/JavaSE/</loc>
     <lastmod>2020-09-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/JavaSE/</loc>
+    <loc>http://yoursite.com/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2020-09-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
