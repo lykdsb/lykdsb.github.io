@@ -40,6 +40,32 @@
   </entry>
   
   <entry>
+    <title>HTTP</title>
+    <link href="http://yoursite.com/2020/09/24/HTTP/"/>
+    <id>http://yoursite.com/2020/09/24/HTTP/</id>
+    <published>2020-09-24T01:46:39.000Z</published>
+    <updated>2020-09-24T02:25:05.881Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><h2 id="什么是HTTP"><a href="#什么是HTTP" class="headerlink" title="什么是HTTP"></a>什么是HTTP</h2><p><strong>HTTP是一个简单的响应请求协议，通常运行在TCP之上</strong></p><ul><li>文本： html，字符串</li><li>超文本：图片，音乐，视频</li><li>一般使用80端口</li></ul><h2 id="两个时代"><a href="#两个时代" class="headerlink" title="两个时代"></a>两个时代</h2><ul><li>http1.0<ul><li>HTTP1.0:客户端可以和web服务器连接后，只能获得一个web资源，断开连接</li></ul></li><li>http2.0<ul><li>HTTP1.1:客户端可以和web服务器连接后，可以获得多个web资源</li></ul></li></ul><h2 id="HTTP请求和响应"><a href="#HTTP请求和响应" class="headerlink" title="HTTP请求和响应"></a>HTTP请求和响应</h2><h3 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h3><p>客户端—发请求（request）—服务器</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Request URL: https:<span class="comment">//www.baidu.com/  请求地址</span></span><br><span class="line">Request Method: GET  get/post方法</span><br><span class="line">Status Code: <span class="number">200</span> OK  状态码</span><br><span class="line">Remote Address: <span class="number">180.101</span>.<span class="number">49.12</span>:<span class="number">443</span> 远程地址加端口</span><br><span class="line">Referrer Policy: no-referrer-when-downgrade</span><br></pre></td></tr></table></figure><h4 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h4><p>请求方式：</p><ul><li><p>Get</p><p><em>一次请求能够携带的参数比较少，大小有限制，会在浏览器中的url中显示，不安全，<strong>但是高效</strong></em></p></li><li><p>Post</p><p><em>请求能够携带的参数没有限制，大小没有限制，不会在浏览器中显示数据内容，安全，但是低效</em></p></li></ul><h4 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Accept:告诉浏览器支持的数据类型</span><br><span class="line">Accept-Encoding:文本的编码格式 </span><br><span class="line">Accept-Language:语言环境</span><br><span class="line">Cache-Control:缓存控制</span><br><span class="line">Connection:告诉浏览器请求完之后是断开还是保持连接</span><br><span class="line">Host:主机</span><br></pre></td></tr></table></figure><h3 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h3><p>服务器—响应—客户端</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control: <span class="keyword">private</span>  缓存控制</span><br><span class="line">Connection: keep-alive  连接：保持连接</span><br><span class="line">Content-Encoding: gzip  编码类型</span><br><span class="line">Content-Type: text/html;charset=utf-<span class="number">8</span> 文本类型</span><br></pre></td></tr></table></figure><h4 id="响应体"><a href="#响应体" class="headerlink" title="响应体"></a>响应体</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Accept:告诉浏览器支持的数据类型</span><br><span class="line">Accept-Encoding:文本的编码格式 </span><br><span class="line">Accept-Language:语言环境</span><br><span class="line">Cache-Control:缓存控制</span><br><span class="line">Connection:告诉浏览器请求完之后是断开还是保持连接</span><br><span class="line">Host:主机</span><br><span class="line">Refresh: 告诉客户端多久刷新一次</span><br><span class="line">Location:让网页重新定位</span><br></pre></td></tr></table></figure><h4 id="响应状态码"><a href="#响应状态码" class="headerlink" title="响应状态码"></a>响应状态码</h4><ul><li>2xx 响应成功 一般为200</li><li>3xx 请求重定向。一般为304<ul><li>重定向到其他url中</li></ul></li><li>4xx 没有找到对应资源 一般为404</li><li>5xx 服务器代码错误 一般为500 （502为网关错误）</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;HTTP&quot;&gt;&lt;a href=&quot;#HTTP&quot; class=&quot;headerlink&quot; title=&quot;HTTP&quot;&gt;&lt;/a&gt;HTTP&lt;/h1&gt;&lt;h2 id=&quot;什么是HTTP&quot;&gt;&lt;a href=&quot;#什么是HTTP&quot; class=&quot;headerlink&quot; title=&quot;什么是</summary>
+      
+    
+    
+    
+    <category term="web前端" scheme="http://yoursite.com/categories/web%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="HTTP" scheme="http://yoursite.com/tags/HTTP/"/>
+    
+    <category term="web" scheme="http://yoursite.com/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
     <title>P1063能量项链</title>
     <link href="http://yoursite.com/2020/09/23/P1063/"/>
     <id>http://yoursite.com/2020/09/23/P1063/</id>
@@ -548,42 +574,6 @@
     <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
     
     <category term="函数表达式" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>红黑树</title>
-    <link href="http://yoursite.com/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/"/>
-    <id>http://yoursite.com/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/</id>
-    <published>2020-08-23T10:53:37.000Z</published>
-    <updated>2020-08-24T07:35:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="红黑树的定义与性质"><a href="#红黑树的定义与性质" class="headerlink" title="红黑树的定义与性质"></a>红黑树的定义与性质</h2><p>红黑树是一个<strong>自平衡二叉搜索树</strong></p><ol><li>红黑树是一个平衡二叉搜索树（<em>中序遍历单调不减</em>）</li><li>节点是红色或者黑色</li><li>根节点是黑色</li><li>叶子节点是黑色（<em>即搜索失败的节点</em>）</li><li>红色节点的两个子节点都是黑色</li><li>从根节点到每个叶子的所有路径都包含相同数目的黑色节点（这个数值叫做黑高度）</li></ol><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-4996bbfb4017a3b2.png" alt="红黑树"></p><p>上面的Nil为红黑树的叶子节点（即搜索失败）</p><p>性质6推论：<strong>如果一个节点有黑子节点，那么该节点一定有两个子节点</strong></p><p>红黑树不是完美平衡的，如上图左子树比右子树更深，但是对于黑节点来说，左右是相同高度的，因此红黑树是<strong>黑色完美平衡</strong></p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-abedf3ecc733ccd5.png" alt="叶子节点的叫法"></p><h2 id="红黑树的操作"><a href="#红黑树的操作" class="headerlink" title="红黑树的操作"></a>红黑树的操作</h2><div class="table-container"><table><thead><tr><th style="text-align:center">操作</th><th style="text-align:center">作用</th></tr></thead><tbody><tr><td style="text-align:center">左旋</td><td style="text-align:center">以某个结点作为支点(旋转结点)，其右子结点变为旋转结点的父结点，右子结点的左子结点变为旋转结点的右子结点，左子结点保持不变。</td></tr><tr><td style="text-align:center">右旋</td><td style="text-align:center">以某个结点作为支点(旋转结点)，其左子结点变为旋转结点的父结点，左子结点的右子结点变为旋转结点的左子结点，右子结点保持不变。</td></tr><tr><td style="text-align:center">变色</td><td style="text-align:center">结点的颜色由红变黑或由黑变红。</td></tr></tbody></table></div><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-a95db442f1b47f8a.png" alt="左旋"></p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-0676a8e2a12e2a0b.png" alt="右旋"></p><p><strong>旋转操作只影响旋转节点和被转的子树的结构</strong>，所以旋转是局部的</p><p>红黑树的子平衡就是通过旋转和变色共同作用实现的</p><h2 id="红黑树的查找"><a href="#红黑树的查找" class="headerlink" title="红黑树的查找"></a>红黑树的查找</h2><p>红黑树的查找与正常的搜索树相同，都是<strong>小了往左，大了往右</strong></p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-07b47eb3722981e6.png" alt="查找流程图"></p><p>时间复杂度为$O(\log_2 n)$</p><h2 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h2><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-9ac3d6b69ef7ead3.png" alt="插入节点名称"></p><p>首先第一步自然是找到需要插入的位置，方法与之前的搜索一致。</p><p>但是在找到插入位置之后应该将节点设置为什么颜色，是否应该旋转等需要根据具体情况判断</p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-fa2b78271263d2c8.png" alt="插入情景"></p><p>从情景三开始说：</p><h3 id="插入节点父节点为黑色"><a href="#插入节点父节点为黑色" class="headerlink" title="插入节点父节点为黑色"></a>插入节点父节点为黑色</h3><p>如果被插入的节点的父节点为黑色，则<strong>插入的节点一定为红色</strong></p><p>假设插入的是黑色节点，那么再加上外节点，这棵子树上的黑色距离一定会比其他的子树长（因为原来是平衡的，现在只有该棵子树高度变大）。所以<strong>不可能插入黑节点</strong></p><p>如果插入的是红节点，那么由于只需要保证黑色节点的平衡，在红节点补上外节点后完全不影响平衡，因此<strong>如果父节点是黑色节点，那么直接插入红色节点即可</strong></p><p><strong>通过此处可以知道，在插入时可以先假设都插入红色节点，如果不符合条件再变色和旋转，因为红色节点更不破坏平衡</strong></p><h3 id="插入节点父节点为红色，且叔节点为红色"><a href="#插入节点父节点为红色，且叔节点为红色" class="headerlink" title="插入节点父节点为红色，且叔节点为红色"></a>插入节点父节点为红色，且叔节点为红色</h3><p>根据性质5可知，红色节点的父节点一定是黑节点（<em>因为红节点不可能有红色子节点</em>）</p><p><strong>因此被插入的节点的祖父节点一定为黑色</strong></p><p>此时插入红色节点会导致结构变成 黑-&gt;红-&gt;红，不符合要求</p><p>因此进行变色（<em>以左节点为例，右节点相同</em>）</p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-9f2c746bf0769f49.png" alt="变色"></p><p>将其变为红-&gt;黑-&gt;红</p><p>但是这样还是可能有问题，如果PP的父节点时红色时，又产生了两层的红色。因此需要将PP当作新的插入节点继续进行相同的调整（情况与本节相同）,直到最后满足所有条件</p><p><strong>若PP是根节点，由于根节点要为黑色，那么PP又要变为黑色，最终结构为黑-&gt;黑-&gt;红</strong></p><h3 id="插入节点父节点为红色，叔节点不存在或为黑色"><a href="#插入节点父节点为红色，叔节点不存在或为黑色" class="headerlink" title="插入节点父节点为红色，叔节点不存在或为黑色"></a>插入节点父节点为红色，叔节点不存在或为黑色</h3><p>这种情况父节点有左右两种情况，两种情况大致相同，只是方向不同，以父节点是祖父节点的左节点为例</p><p>若父节点为红色，那么叔节点不可能是正常的黑色，要不然叔节点所在子树的高度大于父节点所在子树。<strong>因此叔节点必然是叶子节点</strong></p><ol><li><p>插入父节点的左边</p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-ab4097b750826870.png" alt="插入父节点左边"></p></li><li><p>插入父节点的右边</p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-fbfc4f299941cb8b.png" alt="插入父节点右边"></p></li></ol><p>可以先转换为上一种情况再使用上一种情况的方法实现</p><h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><p>红黑树的删除同样也是分为两个步骤：</p><ol><li>查找目标节点</li><li>删除后自平衡</li></ol><p>红黑树删除的情况</p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-edaf96e55f08c198.png" alt="红黑树删除"></p><p>重要思路：<strong>删除结点被替代后，在不考虑结点的键值的情况下，对于树来说，可以认为删除的是替代结点！</strong></p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-f45799daa674d0ad.png" alt="红黑树的替代节点"></p><p>名称约定</p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-db3468a5977ad998.png" alt="名称约定"></p><p><strong>替代节点即将要被换到删除节点位置的节点，一般为大于被删除节点的最小节点，即右子树最左边的节点</strong></p><h3 id="替换节点为红色"><a href="#替换节点为红色" class="headerlink" title="替换节点为红色"></a>替换节点为红色</h3><p>红色节点的改变并不会影响树的平衡，因此如果被替换的为红色节点，则可以直接替换。注意<strong>需要将替换后的节点的颜色设定为与被删除之前相同</strong></p><h3 id="替换节点是黑色"><a href="#替换节点是黑色" class="headerlink" title="替换节点是黑色"></a>替换节点是黑色</h3><p><strong>如果替换，至少该节点所在的子树会发生黑节点较少而不平衡，因此一定要进行平衡操作</strong></p><p>这里是父节点的左子节点和右子节点相同的操作，只是旋转方向不同，以左子节点为例</p><ol><li><p>替换节点的兄弟节点是红色</p><p>若替换节点的兄弟节点是红色，那么兄弟节点的父节点和子节点都是黑色</p><p>先进行以下操作</p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-1e4c3388491b588f.png" alt="操作"></p><p>之后还要进行操作，先暂时记住此状态</p></li><li><p>替换节点的兄弟节点是黑色</p><ol><li><p>兄弟节点的右子节点为红色</p><p>由于要删除左子树的一个黑色节点（替换节点），会导致左子树的黑高度少一，因此只需要将该红色节点借过来补充一个黑节点即可<img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-7eea721cbb855876.png" alt="操作"></p><p>之后将R替换到被删除节点那么树就黑平衡了</p></li><li><p>兄弟节点的右子节点为黑色，左子节点为红色</p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-dc29605ce9889973.png" alt="操作"></p><p>这样可以将任意的这种情况转换为上面那种情况👆</p></li><li><p>兄弟节点的子节点都为黑色</p><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-75293515d8d87024.png" alt="操作"></p><p>此时将P作为替换节点继续进行替换操作</p></li></ol></li></ol><p>右子节点与左子节点相同</p><p>就此完成红黑树的删除操作</p><p>大体就是：</p><ol><li><p>能直接换的直接换</p></li><li><p>不能直接换的向兄弟借</p></li><li>兄弟不能借的向父母借</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;红黑树的定义与性质&quot;&gt;&lt;a href=&quot;#红黑树的定义与性质&quot; class=&quot;headerlink&quot; title=&quot;红黑树的定义与性质&quot;&gt;&lt;/a&gt;红黑树的定义与性质&lt;/h2&gt;&lt;p&gt;红黑树是一个&lt;strong&gt;自平衡二叉搜索树&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;</summary>
-      
-    
-    
-    
-    <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-    <category term="数据结构" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    <category term="树" scheme="http://yoursite.com/tags/%E6%A0%91/"/>
-    
-    <category term="平衡树" scheme="http://yoursite.com/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/"/>
-    
-    <category term="搜索树" scheme="http://yoursite.com/tags/%E6%90%9C%E7%B4%A2%E6%A0%91/"/>
-    
-    <category term="红黑树" scheme="http://yoursite.com/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/"/>
-    
-    <category term="C++" scheme="http://yoursite.com/tags/C/"/>
     
   </entry>
   
