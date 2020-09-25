@@ -40,6 +40,36 @@
   </entry>
   
   <entry>
+    <title>align的差别</title>
+    <link href="http://yoursite.com/2020/09/25/align%E7%9A%84%E5%B7%AE%E5%88%AB/"/>
+    <id>http://yoursite.com/2020/09/25/align%E7%9A%84%E5%B7%AE%E5%88%AB/</id>
+    <published>2020-09-25T07:18:27.000Z</published>
+    <updated>2020-09-25T07:30:25.055Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天在研究<code>css</code>的时候，忽然有点弄不清楚<code>align-content</code>属性和<code>align-items</code>这两个属性的差别</p><p>在查阅了几篇博客之后我开始有点弄明白了</p><p>首先我看到了<em>Stackoverflow</em>中的老哥给出的解释</p><ul><li>align-items</li></ul><blockquote><p>The align-items property <strong>applies to all flex containers</strong>, and sets the<br>default alignment of the flex items along the cross axis of each flex<br>line.</p><p>align-items has the same functionality as align-content but the difference is that it works to center every single-line container instead of centering the whole container.</p></blockquote><ul><li>align-content</li></ul><blockquote><p>The align-content property <strong>only applies to multi-line flex containers</strong>, and aligns the flex lines within the flex container when there is extra space in the cross-axis.</p></blockquote><p>可以发现这两个属性的应用的时机是不一样的，一个是作用于所有的情况，一个是只作用于多行元素的情况</p><p>另附图</p><p>这个是<code>align-items</code></p><p><img src="/2020/09/25/align%E7%9A%84%E5%B7%AE%E5%88%AB/截屏2020-09-25 15.27.39.png" alt="截屏2020-09-25 15.27.39"></p><p>这个是<code>align-content</code></p><p><img src="/2020/09/25/align%E7%9A%84%E5%B7%AE%E5%88%AB/截屏2020-09-25 15.29.12.png" alt="截屏2020-09-25 15.29.12"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;今天在研究&lt;code&gt;css&lt;/code&gt;的时候，忽然有点弄不清楚&lt;code&gt;align-content&lt;/code&gt;属性和&lt;code&gt;align-items&lt;/code&gt;这两个属性的差别&lt;/p&gt;
+&lt;p&gt;在查阅了几篇博客之后我开始有点弄明白了&lt;/p&gt;
+&lt;p&gt;首先我看到了&lt;e</summary>
+      
+    
+    
+    
+    <category term="web前端" scheme="http://yoursite.com/categories/web%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="html" scheme="http://yoursite.com/tags/html/"/>
+    
+    <category term="web前端" scheme="http://yoursite.com/tags/web%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
     <title>HTTP</title>
     <link href="http://yoursite.com/2020/09/24/HTTP/"/>
     <id>http://yoursite.com/2020/09/24/HTTP/</id>
@@ -545,35 +575,6 @@
     <category term="Bom" scheme="http://yoursite.com/tags/Bom/"/>
     
     <category term="html" scheme="http://yoursite.com/tags/html/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>js函数表达式</title>
-    <link href="http://yoursite.com/2020/08/24/js%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    <id>http://yoursite.com/2020/08/24/js%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/</id>
-    <published>2020-08-24T02:10:21.000Z</published>
-    <updated>2020-08-24T03:23:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="函数的定义方法"><a href="#函数的定义方法" class="headerlink" title="函数的定义方法"></a>函数的定义方法</h2><p>js中函数有两种定义方法</p><ol><li><p>函数声明</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">arg0,arg1,...</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//Statement</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>函数声明有一个重要特性<strong>函数声明提升</strong></p><p>即在执行代码前会优先读取函数声明，这样可以把函数声明放在调用语句后面</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sayHi();</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>)</span>&#123;alert(<span class="string">&quot;Hi&quot;</span>);&#125;</span><br></pre></td></tr></table></figure></li><li><p>函数表达式</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f=<span class="function"><span class="keyword">function</span>(<span class="params">arg0,arg1,...</span>)//创建一个匿名函数并赋值给<span class="title">f</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">//Statement</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>函数表达式不支持函数声明提升</strong></p><p>通过函数表达式可以看出，函数支持赋值给变量，同样也能作为函数的返回值</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createFunc</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;alert(<span class="string">&quot;Hi&quot;</span>);&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>递归时函数通过<strong>名字</strong>调用自身构成的，但是如果名字发生变化，那么递归也会发生问题</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fact</span>(<span class="params">num</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(num&lt;=<span class="number">1</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">return</span> num*fact(num<span class="number">-1</span>);<span class="comment">//换名后此处不可调用</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> f=fact;</span><br><span class="line">fact=<span class="literal">null</span>;</span><br><span class="line">alert(f(<span class="number">5</span>));<span class="comment">//报错</span></span><br><span class="line"><span class="comment">//因为这里将f指向了fact的函数指针，然后fact被删之后，要在f里面调用fact是不行的</span></span><br></pre></td></tr></table></figure><p>此时还是需要使用之前说过的方法</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fact</span>(<span class="params">num</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(num&lt;=<span class="number">1</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">return</span> num*<span class="built_in">arguments</span>.callee(num<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这样就能在换名之后继续工作</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;函数的定义方法&quot;&gt;&lt;a href=&quot;#函数的定义方法&quot; class=&quot;headerlink&quot; title=&quot;函数的定义方法&quot;&gt;&lt;/a&gt;函数的定义方法&lt;/h2&gt;&lt;p&gt;js中函数有两种定义方法&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;函数声明&lt;/p&gt;
-&lt;figure clas</summary>
-      
-    
-    
-    
-    <category term="web前端" scheme="http://yoursite.com/categories/web%E5%89%8D%E7%AB%AF/"/>
-    
-    
-    <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
-    
-    <category term="函数表达式" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     
   </entry>
   
