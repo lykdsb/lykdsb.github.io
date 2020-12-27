@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/9999/12/31/slide1/</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/12/27/API/</loc>
     
     <lastmod>2020-12-27</lastmod>
@@ -152,13 +159,6 @@
     <loc>http://yoursite.com/2020/08/24/Bom/</loc>
     
     <lastmod>2020-08-27</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/9999/12/31/slide1/</loc>
-    
-    <lastmod>2020-08-24</lastmod>
     
   </url>
   
@@ -333,20 +333,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/web%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2020-12-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/Dom/</loc>
-    <lastmod>2020-12-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/tags/HTTP/</loc>
     <lastmod>2020-12-27</lastmod>
     <changefreq>daily</changefreq>
@@ -382,6 +368,20 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/tags/web%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/Dom/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/css/</loc>
     <lastmod>2020-12-27</lastmod>
     <changefreq>daily</changefreq>
@@ -397,13 +397,6 @@
   
   <url>
     <loc>http://yoursite.com/tags/css-js%E7%89%B9%E6%95%88/</loc>
-    <lastmod>2020-12-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/hash%E8%A1%A8/</loc>
     <lastmod>2020-12-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -466,6 +459,13 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/tags/hash%E8%A1%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
     <lastmod>2020-12-27</lastmod>
     <changefreq>daily</changefreq>
@@ -480,21 +480,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/dp/</loc>
-    <lastmod>2020-12-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</loc>
-    <lastmod>2020-12-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/slides/</loc>
     <lastmod>2020-12-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -508,21 +494,21 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/tags/slides/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/dp/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/%E5%A0%86/</loc>
-    <lastmod>2020-12-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/</loc>
-    <lastmod>2020-12-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/%E6%B3%A8%E8%A7%A3/</loc>
     <lastmod>2020-12-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -544,20 +530,6 @@
   
   <url>
     <loc>http://yoursite.com/tags/C/</loc>
-    <lastmod>2020-12-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2020-12-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/%E9%98%9F%E5%88%97/</loc>
     <lastmod>2020-12-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -586,6 +558,34 @@
   
   <url>
     <loc>http://yoursite.com/tags/python/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/%E6%B3%A8%E8%A7%A3/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/%E9%98%9F%E5%88%97/</loc>
     <lastmod>2020-12-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

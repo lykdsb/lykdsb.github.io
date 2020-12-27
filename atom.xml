@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-08-24T07:52:53.000Z</updated>
+  <updated>2020-12-27T11:29:57.435Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,15 +21,16 @@
     <link href="http://yoursite.com/9999/12/31/slide1/"/>
     <id>http://yoursite.com/9999/12/31/slide1/</id>
     <published>9999-12-31T11:57:52.000Z</published>
-    <updated>2020-08-24T07:52:53.000Z</updated>
+    <updated>2020-12-27T11:29:57.435Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="操作指南"><a href="#操作指南" class="headerlink" title="操作指南"></a>操作指南</h3><!-- .slide: data-background="#49B1F5" --><p>本博客是使用hexo框架，并使用melody主题的来一口的技术博客</p><p>==</p><h3 id="Tip1"><a href="#Tip1" class="headerlink" title="Tip1"></a>Tip1</h3><!-- .slide: data-transition="concave" data-background="#C7916B" --><p>点击主页可返回主页查看所有文章概览</p><p>===</p><h3 id="Tip2"><a href="#Tip2" class="headerlink" title="Tip2"></a>Tip2</h3><!-- .slide: data-transition="fade" data-background="#00C4B6" --><p>点击归档可以查看所有文章被提交的时间</p><p>==</p><h3 id="Tip3"><a href="#Tip3" class="headerlink" title="Tip3"></a>Tip3</h3><!-- .slide: data-transition="zoom" data-background="#0162c8" --><p>点击标签可以查看所有文章具有的标签，标签出现频率高的会有特别显示</p><p>===</p><h3 id="Tip4"><a href="#Tip4" class="headerlink" title="Tip4"></a>Tip4</h3><!-- .slide: data-transition="shrink" data-background="#ff72c0" --><p>点击目录可以查看文章目录，按照目录检索文章</p><p>==</p><h3 id="Tip5"><a href="#Tip5" class="headerlink" title="Tip5"></a>Tip5</h3><!-- .slide: data-transition="fade-in-then-semi-out" data-background="#55e7fc" --><p>点击幻灯片可以查看使用幻灯片形式的文章</p><p>===</p><h3 id="Tip6"><a href="#Tip6" class="headerlink" title="Tip6"></a>Tip6</h3><!-- .slide: data-transition="grow" data-background="#65934A" --><p>代码会有高亮标示</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str=<span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line">alert(str);</span><br></pre></td></tr></table></figure><p>==</p><h3 id="Tip7"><a href="#Tip7" class="headerlink" title="Tip7"></a>Tip7</h3><!-- .slide: data-transition="fade-in-then-out" data-background="#03a9f4" --><p>表格同样也有特殊显示</p><div class="table-container"><table><thead><tr><th>单词</th><th>词义</th><th>词性</th></tr></thead><tbody><tr><td>bag</td><td>包</td><td>noun</td></tr><tr><td>run</td><td>跑</td><td>verb</td></tr><tr><td>good</td><td>好</td><td>adj</td></tr></tbody></table></div><p>===</p><h3 id="Tip8"><a href="#Tip8" class="headerlink" title="Tip8"></a>Tip8</h3><!-- .slide: data-transition="convex" data-background="#83AF9B" --><p>点击右下的小箭头可以返回顶部</p><p>==</p><h3 id="Tip9"><a href="#Tip9" class="headerlink" title="Tip9"></a>Tip9</h3><!-- .slide: data-transition="zoom" data-background="#F4D000" --><p>点击左下小箭头可以打开个人信息页</p>]]></content>
+    <content type="html"><![CDATA[<p>==</p><h3 id="操作指南"><a href="#操作指南" class="headerlink" title="操作指南"></a>操作指南</h3><!-- .slide: data-background="#49B1F5" --><p>本博客是使用hexo框架，并使用melody主题的来一口的技术博客</p><p>==</p><h3 id="Tip1"><a href="#Tip1" class="headerlink" title="Tip1"></a>Tip1</h3><!-- .slide: data-transition="concave" data-background="#C7916B" --><p>点击主页可返回主页查看所有文章概览</p><p>===</p><h3 id="Tip2"><a href="#Tip2" class="headerlink" title="Tip2"></a>Tip2</h3><!-- .slide: data-transition="fade" data-background="#00C4B6" --><p>点击归档可以查看所有文章被提交的时间</p><p>==</p><h3 id="Tip3"><a href="#Tip3" class="headerlink" title="Tip3"></a>Tip3</h3><!-- .slide: data-transition="zoom" data-background="#0162c8" --><p>点击标签可以查看所有文章具有的标签，标签出现频率高的会有特别显示</p><p>===</p><h3 id="Tip4"><a href="#Tip4" class="headerlink" title="Tip4"></a>Tip4</h3><!-- .slide: data-transition="shrink" data-background="#ff72c0" --><p>点击目录可以查看文章目录，按照目录检索文章</p><p>==</p><h3 id="Tip5"><a href="#Tip5" class="headerlink" title="Tip5"></a>Tip5</h3><!-- .slide: data-transition="fade-in-then-semi-out" data-background="#55e7fc" --><p>点击幻灯片可以查看使用幻灯片形式的文章</p><p>===</p><h3 id="Tip6"><a href="#Tip6" class="headerlink" title="Tip6"></a>Tip6</h3><!-- .slide: data-transition="grow" data-background="#65934A" --><p>代码会有高亮标示</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str=<span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line">alert(str);</span><br></pre></td></tr></table></figure><p>==</p><h3 id="Tip7"><a href="#Tip7" class="headerlink" title="Tip7"></a>Tip7</h3><!-- .slide: data-transition="fade-in-then-out" data-background="#03a9f4" --><p>表格同样也有特殊显示</p><div class="table-container"><table><thead><tr><th>单词</th><th>词义</th><th>词性</th></tr></thead><tbody><tr><td>bag</td><td>包</td><td>noun</td></tr><tr><td>run</td><td>跑</td><td>verb</td></tr><tr><td>good</td><td>好</td><td>adj</td></tr></tbody></table></div><p>===</p><h3 id="Tip8"><a href="#Tip8" class="headerlink" title="Tip8"></a>Tip8</h3><!-- .slide: data-transition="convex" data-background="#83AF9B" --><p>点击右下的小箭头可以返回顶部</p><p>==</p><h3 id="Tip9"><a href="#Tip9" class="headerlink" title="Tip9"></a>Tip9</h3><!-- .slide: data-transition="zoom" data-background="#F4D000" --><p>点击左下小箭头可以打开个人信息页</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;h3 id=&quot;操作指南&quot;&gt;&lt;a href=&quot;#操作指南&quot; class=&quot;headerlink&quot; title=&quot;操作指南&quot;&gt;&lt;/a&gt;操作指南&lt;/h3&gt;&lt;!-- .slide: data-background=&quot;#49B1F5&quot; --&gt;
-&lt;p&gt;本博客是使用hexo框架，并使用mel</summary>
+    <summary type="html">&lt;p&gt;==&lt;/p&gt;
+&lt;h3 id=&quot;操作指南&quot;&gt;&lt;a href=&quot;#操作指南&quot; class=&quot;headerlink&quot; title=&quot;操作指南&quot;&gt;&lt;/a&gt;操作指南&lt;/h3&gt;&lt;!-- .slide: data-background=&quot;#49B1F5&quot; --&gt;
+&lt;p&gt;本博客是使用hex</summary>
       
     
     
