@@ -41,6 +41,35 @@
   </entry>
   
   <entry>
+    <title>解决中文问题</title>
+    <link href="http://yoursite.com/2021/01/02/%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2021/01/02/%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E9%97%AE%E9%A2%98/</id>
+    <published>2021-01-02T02:59:00.000Z</published>
+    <updated>2021-01-02T03:23:11.428Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>今天在调整软工项目的时候，忽然发现我的微信小程序并不支持中文，很难受</p><h2 id="修改数据库字符设置"><a href="#修改数据库字符设置" class="headerlink" title="修改数据库字符设置"></a>修改数据库字符设置</h2><p>我一开始以为只是我的数据库的问题，然后我使用了一下指令，将Mysql数据库的全局变量全部设定为了UTF-8</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">names</span> utf<span class="number">-8</span>;</span><br><span class="line"><span class="keyword">SET</span> <span class="built_in">character</span>-<span class="keyword">set</span>-<span class="keyword">client</span> utf<span class="number">-8</span>;</span><br><span class="line"><span class="keyword">SET</span> <span class="built_in">character</span>-<span class="keyword">set</span>-<span class="keyword">database</span> utf<span class="number">-8</span>;</span><br></pre></td></tr></table></figure><p>结果我欣喜地发现，我的数据库可以进行中文的数据的输入了，然而我尝试从小程序处通过http请求进行中文内容的输入，但是结果发现在发送请求之后，数据库中本来中文的地方全部变成了问号。不行，还是要继续修改啊</p><h2 id="修改微信小程序请求头"><a href="#修改微信小程序请求头" class="headerlink" title="修改微信小程序请求头"></a>修改微信小程序请求头</h2><p>之后继续查资料，发现还可能是微信小程序发送http请求的时候需要在请求头的地方添加字符的编码形式</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">header:</span><br><span class="line">&#123;</span><br><span class="line">  &#x27;content-type&#x27;:&#x27;application/x-www-form;charset=utf-8&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>但是这样修改之后我发现还是不能进行正常的中文发送请求，还应该继续修改</p><h2 id="修改Springboot配置url"><a href="#修改Springboot配置url" class="headerlink" title="修改Springboot配置url"></a>修改Springboot配置url</h2><p>最后我查到还是要修改Springboot的url配置，前后端以及数据库的全部字符集设置为utf-8才能准确进行中文的解析</p><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:mysql://81.68.78.139:3316/epidemic-info-system?useUnicode=true&amp;characterEncoding=utf8</span></span><br></pre></td></tr></table></figure><p>注意如果需要支持中文一定要添加？后面的一长串东西</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果需要支持中文需要将前端，数据库，后端这里的每一个环节设定为统一的字符集</p><ol><li>将数据库的字符集进行统一设定</li><li>设置前端的请求头，表示请求体以这种字符集的方式进行发送</li><li>设置后端的数据库连接url</li></ol><p>完成以上四步应该就能正常使用中文</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;今天在调整软工项目的时候，忽然发现我的微信小程序并不支持中文，很难受&lt;/p&gt;
+&lt;h2 id=&quot;修改数据库字符设置&quot;&gt;&lt;a href=&quot;#修改</summary>
+      
+    
+    
+    
+    <category term="技术问题" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
+    
+    
+    <category term="Springboot" scheme="http://yoursite.com/tags/Springboot/"/>
+    
+    <category term="Mysql" scheme="http://yoursite.com/tags/Mysql/"/>
+    
+    <category term="技术问题" scheme="http://yoursite.com/tags/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
     <title>API</title>
     <link href="http://yoursite.com/2020/12/27/API/"/>
     <id>http://yoursite.com/2020/12/27/API/</id>
@@ -92,9 +121,9 @@
     
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
-    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     <category term="dp" scheme="http://yoursite.com/tags/dp/"/>
     
@@ -229,9 +258,9 @@
     
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
-    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
@@ -369,9 +398,9 @@
     
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
-    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
@@ -425,9 +454,9 @@
     
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
-    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     <category term="线性dp" scheme="http://yoursite.com/tags/%E7%BA%BF%E6%80%A7dp/"/>
     
@@ -509,9 +538,9 @@
     
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
-    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     <category term="背包问题" scheme="http://yoursite.com/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"/>
     
@@ -544,37 +573,6 @@
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
     <category term="平衡树" scheme="http://yoursite.com/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Dom</title>
-    <link href="http://yoursite.com/2020/08/27/Dom/"/>
-    <id>http://yoursite.com/2020/08/27/Dom/</id>
-    <published>2020-08-27T08:23:34.000Z</published>
-    <updated>2020-08-28T02:17:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="节点层次"><a href="#节点层次" class="headerlink" title="节点层次"></a>节点层次</h1><p><strong>HTML是一个由多层次结构组成的结构，整体是一个以特定节点为根节点的树形结构</strong></p><p><img src="/2020/08/27/Dom/1163900-20180425175859175-1055893519.png" alt="树形结构"></p><h1 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h1><p>Dom中一共有12种节点，分别使用了十二个数值常量来表示，而具体的每一个节点都有属性<code>nodeType</code>用来返回对应的节点数值常量（<em>可以查阅资料看具体的类型</em>）</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(someNode.nodeType==Node.ELEMENT_NODE)<span class="comment">//如果是元素节点则返回真</span></span><br><span class="line">&#123;</span><br><span class="line">  alert(<span class="string">&quot;True&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>每个节点还有两个属性：</p><ol><li>nodeName 元素的标签名</li><li>nodeValue 元素在标签之间的内容</li></ol><h2 id="访问节点"><a href="#访问节点" class="headerlink" title="访问节点"></a>访问节点</h2><p>每个节点都有一个属性<code>childNodes</code>,其中保存的是一个<code>NodeList</code>对象。<strong><code>NodeList</code>对象可以使用下表进行访问，但是不是一个<code>Array</code>对象</strong>，因此，如果需要使用数组进行存储则需要进行转换。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> firstChild=someNode.childNodes[<span class="number">0</span>];<span class="comment">//获得第一个子节点</span></span><br><span class="line"><span class="keyword">var</span> secondChild=someNode.childNodes.item(<span class="number">1</span>);<span class="comment">//也可使用item进行访问</span></span><br></pre></td></tr></table></figure><p>可以通过以下方式转换为数组</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=<span class="built_in">Array</span>.prototype.slice.call(someNode.childNodes,<span class="number">0</span>);</span><br></pre></td></tr></table></figure><p>而由于父节点或者前一个兄弟节点只有一个，因此，访问这些节点的时候可以直接访问</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> node1=someNode.parentNode;<span class="comment">//父节点</span></span><br><span class="line"><span class="keyword">var</span> node2=someNode.nextSibling;<span class="comment">//前一个兄弟节点</span></span><br><span class="line"><span class="keyword">var</span> node3=someNode.previousSibiling;<span class="comment">//后一个兄弟节点</span></span><br></pre></td></tr></table></figure><h2 id="操作节点"><a href="#操作节点" class="headerlink" title="操作节点"></a>操作节点</h2><ol><li><p>添加节点</p><p>使用<code>appendChild</code>方法可以添加一个子节点</p><p><strong>添加位置是在末尾</strong></p></li><li><p>插入节点</p><p>使用<code>insertChild</code>可以插入节点</p><p>此函数接受两个参数，第一个为插入的节点，第二个为参照节点（<em>兄弟节点</em>）</p><p>最后会插入到参照节点的前一个位置</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">someNode.insertNode(newNode,<span class="literal">null</span>);<span class="comment">//插入成为最后一个节点</span></span><br><span class="line">someNode.insertNode(newNode,someNode.firstChild);<span class="comment">//插入成为第一个节点</span></span><br></pre></td></tr></table></figure></li><li><p>替换节点</p><p>使用<code>replaceChild</code>可以替换一个节点</p></li><li><p>移除节点</p><p>使用<code>removeChild</code>可以移除掉一个节点</p></li><li><p>复制节点</p><p>使用<code>cloneChild</code>可以复制一个节点并将复制返回，此函数接受一个参数</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> node1=someNode.cloneChild(<span class="literal">true</span>);<span class="comment">//深复制，复制包括子节点的整个属性结构</span></span><br><span class="line"><span class="keyword">var</span> node2=someNode.cloneChild(<span class="literal">false</span>);<span class="comment">//浅复制，只复制该节点</span></span><br></pre></td></tr></table></figure></li></ol><p><strong>注意不管是替换还是移除，最后该节点都没有被删除，而只是在文档中没有自己的位置了</strong></p><h2 id="document"><a href="#document" class="headerlink" title="document"></a>document</h2><p>document是整个html页面的一个实例，可以作为全局变量来访问</p><h3 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h3><p>最常用的查找元素的方法有三种</p><ol><li><p>getElementById(id)</p><p>此函数中进行匹配的时候<strong>区分大小写</strong></p><p>注意，如果页面中有多个元素id相同，则只会返回第一个被检索到的元素，因此<strong>尽量不要使用相同的id</strong></p></li><li><p>getElementsByTagName(tag)</p><p>可以通过标签名获得一个元素的集合</p><p>如</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr= <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;div&quot;</span>);<span class="comment">//获得所有div标签的元素</span></span><br><span class="line">arr[<span class="number">0</span>];<span class="comment">//第一个该标签的元素</span></span><br><span class="line">arr.item(<span class="number">1</span>)；<span class="comment">//第二个该标签的元素</span></span><br></pre></td></tr></table></figure><p><strong>使用“*”作为参数可以获得全部元素</strong></p></li><li><p>getElementsByName(name)</p><p>可以通过name访问特定标签</p><p><strong>name可以相同，因此返回的也是一个类似NodeList的值</strong></p></li></ol><h3 id="特殊集合"><a href="#特殊集合" class="headerlink" title="特殊集合"></a>特殊集合</h3><p>有以下几个特殊的集合可以直接进行访问</p><div class="table-container"><table><thead><tr><th style="text-align:center">特殊集合</th><th style="text-align:center">内容</th></tr></thead><tbody><tr><td style="text-align:center">document.anchors</td><td style="text-align:center">所有带有name属性的<code>&lt;a&gt;</code>元素</td></tr><tr><td style="text-align:center">document.forms</td><td style="text-align:center">所有的<code>form</code>元素</td></tr><tr><td style="text-align:center">document.images</td><td style="text-align:center">所有的<code>img</code>元素</td></tr><tr><td style="text-align:center">document.links</td><td style="text-align:center">所有带<code>href</code>的<code>&lt;a&gt;</code>元素</td></tr></tbody></table></div><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol><li><p>tagName和nodeName可以访问元素的标签名称，这两个属性的值是相同的，**注意这两个值都是大写的，因此如果需要进行比较，建议使用<code>toLowerCase</code></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a.tagName.toLowerCase()==<span class="string">&quot;div&quot;</span>)&#123;alert(<span class="string">&quot;true&quot;</span>);&#125;</span><br></pre></td></tr></table></figure></li><li><p>可以直接通过访问属性获得对应元素的属性值，但是这种方式不能获得自定义元素的值</p><p>如果需要访问自定义属性的值应该使用<code>getAttribute</code>。同样如果需要进行修改或者删除应该使用<code>setAttribute</code>,<code>removeAttribute</code></p></li><li><p>可以通过<code>attributes</code>获得一个<code>map</code>，输入对应属性使用<code>nodeValue</code>就能获得值，<code>nodeName</code>可以获得<code>key</code></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;map.length;i++)</span><br><span class="line">&#123;</span><br><span class="line">   name=map[i].nodeName;</span><br><span class="line">   value=map[i].nodeValue;</span><br><span class="line">   str+=name+<span class="string">&quot; &quot;</span>+value+<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>可以通过<code>specified</code>访问对应属性是否已经被指定值了</p></li><li><p>使用<code>createElement</code>可以创造元素，但是需要通过<code>appendChild</code>添加到节点中才有显示</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div2=<span class="built_in">document</span>.createElement(<span class="string">&quot;div&quot;</span>);</span><br><span class="line">div2.innerHTML=<span class="string">&quot;By LiuYikang&quot;</span>;</span><br><span class="line">a.appendChild(div2);</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;节点层次&quot;&gt;&lt;a href=&quot;#节点层次&quot; class=&quot;headerlink&quot; title=&quot;节点层次&quot;&gt;&lt;/a&gt;节点层次&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;HTML是一个由多层次结构组成的结构，整体是一个以特定节点为根节点的树形结构&lt;/strong&gt;&lt;/p&gt;
-&lt;p</summary>
-      
-    
-    
-    
-    <category term="web前端" scheme="http://yoursite.com/categories/web%E5%89%8D%E7%AB%AF/"/>
-    
-    
-    <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
-    
-    <category term="html" scheme="http://yoursite.com/tags/html/"/>
-    
-    <category term="web前端" scheme="http://yoursite.com/tags/web%E5%89%8D%E7%AB%AF/"/>
-    
-    <category term="Dom" scheme="http://yoursite.com/tags/Dom/"/>
     
   </entry>
   
