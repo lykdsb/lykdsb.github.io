@@ -46,9 +46,9 @@
     <link href="http://yoursite.com/2021/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     <id>http://yoursite.com/2021/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</id>
     <published>2021-01-06T02:14:07.000Z</published>
-    <updated>2021-01-06T03:15:34.314Z</updated>
+    <updated>2021-01-06T06:03:30.966Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>计算机网络是什么？</p><p><strong>计算机网络是由通信线路相互连接而组成的网络系统</strong></p><p>计算机网络是由管理、应用、硬件共同构成的</p><h2 id="数据通信"><a href="#数据通信" class="headerlink" title="数据通信"></a>数据通信</h2><p>数据通信是三个学科思想和方法的结合</p><ul><li>物理学</li><li>电气工程</li><li>数学</li></ul><h3 id="数据通信的动机和范围"><a href="#数据通信的动机和范围" class="headerlink" title="数据通信的动机和范围"></a>数据通信的动机和范围</h3><p>数据通信具有三个主要动机</p><ul><li><p>信息源可以是任意类型</p><p>主要考虑到多媒体技术的发展，信息可以是多种形式的</p></li><li><p>传输系统采用物理系统</p><p>主要是用自然现象进行信息的传递</p></li><li><p>多个信息源共享底层的传输介质</p><p>共享是根本</p></li></ul><h3 id="数据通信的简单观点"><a href="#数据通信的简单观点" class="headerlink" title="数据通信的简单观点"></a>数据通信的简单观点</h3><ul><li>二进制数据</li><li>无差错</li><li>高性能</li></ul><h2 id="传输介质"><a href="#传输介质" class="headerlink" title="传输介质"></a>传输介质</h2><h3 id="传输介质的种类"><a href="#传输介质的种类" class="headerlink" title="传输介质的种类"></a>传输介质的种类</h3><h4 id="按照路径类型进行分类"><a href="#按照路径类型进行分类" class="headerlink" title="按照路径类型进行分类"></a>按照路径类型进行分类</h4><p>可以分成导向以及非导向传输</p><p>导向传输即<strong>通信可以沿着确切的路径传输信号</strong>，非导向传输则相反</p><p>导向传输：</p><ul><li>安全性</li><li>高性能</li></ul><p>非导向传输：</p><ul><li>便携</li><li>减少线路架设的成本</li></ul><h4 id="按照能量形式进行分类"><a href="#按照能量形式进行分类" class="headerlink" title="按照能量形式进行分类"></a>按照能量形式进行分类</h4><p><img src="/2021/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/IMG_4787C7FFF3FD-1.jpeg" alt="按照能量形式分类" style="zoom:25%;"></p><h3 id="背景辐射和电器噪声"><a href="#背景辐射和电器噪声" class="headerlink" title="背景辐射和电器噪声"></a>背景辐射和电器噪声</h3><p>计算机网络不能使用正常的电网，因为一下几个原因</p><ul><li>随机电磁辐射弥漫于环境之中</li><li>电磁辐射碰到金属的时候会产生微弱的信号，这种信号会干扰通信</li><li>介质之间放置足够的金属可以起到屏蔽作用</li></ul><h3 id="导向介质"><a href="#导向介质" class="headerlink" title="导向介质"></a>导向介质</h3><h4 id="铜线"><a href="#铜线" class="headerlink" title="铜线"></a>铜线</h4><ul><li>便宜</li><li>容易安装</li><li>高性能</li></ul><p>但是存在电气干扰</p><h4 id="双绞线"><a href="#双绞线" class="headerlink" title="双绞线"></a>双绞线</h4><p>双绞线可以分为</p><ol><li>屏蔽双绞线</li><li>非屏蔽双绞线</li></ol><h4 id="同轴电缆"><a href="#同轴电缆" class="headerlink" title="同轴电缆"></a>同轴电缆</h4><p>外层有一个金属网的屏蔽层，可以从任何方向阻挡电磁辐射</p><p>但是这种方式有一种缺陷：柔韧性非常差</p><h4 id="光纤"><a href="#光纤" class="headerlink" title="光纤"></a>光纤</h4><p>一般使用玻璃或者透明塑料</p><ul><li>无干扰</li><li>传播距离远</li><li>编码更多信息</li><li>单个</li></ul><p>但是光纤也有很多缺点</p><ul><li>很难安装</li><li>容易破损</li><li>很难修复</li></ul><p>光纤具有很多种类</p><ul><li>多模突变：最便宜，边界密度突变，频繁反射，色散高</li><li>多模渐变：边界密度渐变，减少反射，降低色散</li><li>单模：最贵的，色散最少</li></ul><h4 id="红外"><a href="#红外" class="headerlink" title="红外"></a>红外</h4><p>优点</p><ul><li>很便宜</li><li>容易安装</li></ul><p>缺点</p><ul><li>范围非常小</li><li>容易被阻断（即便是水蒸气）</li></ul><h4 id="点对点激光通信"><a href="#点对点激光通信" class="headerlink" title="点对点激光通信"></a>点对点激光通信</h4><ul><li>长距离</li><li>容易被阻挡</li><li>不能穿过植被</li></ul><h4 id="电磁波"><a href="#电磁波" class="headerlink" title="电磁波"></a>电磁波</h4><p>长距离传输且能够穿过障碍物，便宜，便携</p><p>但是很不安全且限制于频率</p><div class="table-container"><table><thead><tr><th>分类</th><th>频率范围</th><th>传播方式</th></tr></thead><tbody><tr><td>低频段</td><td>&lt;2MHz</td><td>沿地球表面传播，会被地形阻挡</td></tr><tr><td>中频段</td><td>2~30MHz</td><td>可以被大气层或者电离层反射</td></tr><tr><td>高频段</td><td>&gt;30MHz</td><td>按直线传播并且会被障碍物阻断</td></tr></tbody></table></div><h4 id="卫星"><a href="#卫星" class="headerlink" title="卫星"></a>卫星</h4><p>使用电磁波进行通信，传输长距离，非常昂贵</p><div class="table-container"><table><thead><tr><th>轨道类型</th><th>描述</th></tr></thead><tbody><tr><td>低地球轨道</td><td>低时延，但是位置不断移动</td></tr><tr><td>中地球轨道</td><td>轨道为椭圆形，一般提供南北两极之间的通信</td></tr><tr><td>地球静止轨道</td><td>固定在相对地球的某一位置，但是距离远，时延比较长</td></tr></tbody></table></div><p>近地轨道的高度一般为35785km</p><p>最少使用三颗近地轨道卫星可以覆盖整个地球</p><h3 id="对于传输介质的度量"><a href="#对于传输介质的度量" class="headerlink" title="对于传输介质的度量"></a>对于传输介质的度量</h3><ul><li>传播时延：信号<strong>往返</strong>一次所需要的时间</li><li>信道容量：介质可以支持的<strong>最大数据速率</strong></li><li>带宽：硬件能够改变信号📶的最大程度（Hz）</li><li>数据速率：每秒传输的最大字节数</li></ul><h3 id="奈奎斯特定理"><a href="#奈奎斯特定理" class="headerlink" title="奈奎斯特定理"></a>奈奎斯特定理</h3><script type="math/tex; mode=display">D=2Blog_2K</script><p>D是最大数据速率，B是带宽，K是使用的信号电平的数量</p><p>奈奎斯特定理是在<strong>没有信号干扰的情况下</strong>描述最大数据速率和带宽之间的关系</p><h3 id="噪声对于通信的影响"><a href="#噪声对于通信的影响" class="headerlink" title="噪声对于通信的影响"></a>噪声对于通信的影响</h3><p><strong>奈奎斯特定理是一个不能达到的理论上的最大值</strong></p><p>因为实际上会受到噪声的背景辐射的干扰</p><p>香农定理</p><script type="math/tex; mode=display">C=Blog_2(1+S/N)</script><p>C为对于信道容量的有效限制，B为带宽，S/N是信噪比</p><p>信噪比使用分贝(dB)进行度量</p><script type="math/tex; mode=display">dB=10log[\frac {P_2}{P_1} ]</script>]]></content>
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>计算机网络是什么？</p><p><strong>计算机网络是由通信线路相互连接而组成的网络系统</strong></p><p>计算机网络是由管理、应用、硬件共同构成的</p><h2 id="数据通信"><a href="#数据通信" class="headerlink" title="数据通信"></a>数据通信</h2><p>数据通信是三个学科思想和方法的结合</p><ul><li>物理学</li><li>电气工程</li><li>数学</li></ul><h3 id="数据通信的动机和范围"><a href="#数据通信的动机和范围" class="headerlink" title="数据通信的动机和范围"></a>数据通信的动机和范围</h3><p>数据通信具有三个主要动机</p><ul><li><p>信息源可以是任意类型</p><p>主要考虑到多媒体技术的发展，信息可以是多种形式的</p></li><li><p>传输系统采用物理系统</p><p>主要是用自然现象进行信息的传递</p></li><li><p>多个信息源共享底层的传输介质</p><p>共享是根本</p></li></ul><h3 id="数据通信的简单观点"><a href="#数据通信的简单观点" class="headerlink" title="数据通信的简单观点"></a>数据通信的简单观点</h3><ul><li>二进制数据</li><li>无差错</li><li>高性能</li></ul><h2 id="传输介质"><a href="#传输介质" class="headerlink" title="传输介质"></a>传输介质</h2><h3 id="传输介质的种类"><a href="#传输介质的种类" class="headerlink" title="传输介质的种类"></a>传输介质的种类</h3><h4 id="按照路径类型进行分类"><a href="#按照路径类型进行分类" class="headerlink" title="按照路径类型进行分类"></a>按照路径类型进行分类</h4><p>可以分成导向以及非导向传输</p><p>导向传输即<strong>通信可以沿着确切的路径传输信号</strong>，非导向传输则相反</p><p>导向传输：</p><ul><li>安全性</li><li>高性能</li></ul><p>非导向传输：</p><ul><li>便携</li><li>减少线路架设的成本</li></ul><h4 id="按照能量形式进行分类"><a href="#按照能量形式进行分类" class="headerlink" title="按照能量形式进行分类"></a>按照能量形式进行分类</h4><p><img src="/2021/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/IMG_4787C7FFF3FD-1.jpeg" alt="按照能量形式分类" style="zoom:25%;"></p><h3 id="背景辐射和电器噪声"><a href="#背景辐射和电器噪声" class="headerlink" title="背景辐射和电器噪声"></a>背景辐射和电器噪声</h3><p>计算机网络不能使用正常的电网，因为一下几个原因</p><ul><li>随机电磁辐射弥漫于环境之中</li><li>电磁辐射碰到金属的时候会产生微弱的信号，这种信号会干扰通信</li><li>介质之间放置足够的金属可以起到屏蔽作用</li></ul><h3 id="导向介质"><a href="#导向介质" class="headerlink" title="导向介质"></a>导向介质</h3><h4 id="铜线"><a href="#铜线" class="headerlink" title="铜线"></a>铜线</h4><ul><li>便宜</li><li>容易安装</li><li>高性能</li></ul><p>但是存在电气干扰</p><h4 id="双绞线"><a href="#双绞线" class="headerlink" title="双绞线"></a>双绞线</h4><p>双绞线可以分为</p><ol><li>屏蔽双绞线</li><li>非屏蔽双绞线</li></ol><h4 id="同轴电缆"><a href="#同轴电缆" class="headerlink" title="同轴电缆"></a>同轴电缆</h4><p>外层有一个金属网的屏蔽层，可以从任何方向阻挡电磁辐射</p><p>但是这种方式有一种缺陷：柔韧性非常差</p><h4 id="光纤"><a href="#光纤" class="headerlink" title="光纤"></a>光纤</h4><p>一般使用玻璃或者透明塑料</p><ul><li>无干扰</li><li>传播距离远</li><li>编码更多信息</li><li>单个</li></ul><p>但是光纤也有很多缺点</p><ul><li>很难安装</li><li>容易破损</li><li>很难修复</li></ul><p>光纤具有很多种类</p><ul><li>多模突变：最便宜，边界密度突变，频繁反射，色散高</li><li>多模渐变：边界密度渐变，减少反射，降低色散</li><li>单模：最贵的，色散最少</li></ul><h4 id="红外"><a href="#红外" class="headerlink" title="红外"></a>红外</h4><p>优点</p><ul><li>很便宜</li><li>容易安装</li></ul><p>缺点</p><ul><li>范围非常小</li><li>容易被阻断（即便是水蒸气）</li></ul><h4 id="点对点激光通信"><a href="#点对点激光通信" class="headerlink" title="点对点激光通信"></a>点对点激光通信</h4><ul><li>长距离</li><li>容易被阻挡</li><li>不能穿过植被</li></ul><h4 id="电磁波"><a href="#电磁波" class="headerlink" title="电磁波"></a>电磁波</h4><p>长距离传输且能够穿过障碍物，便宜，便携</p><p>但是很不安全且限制于频率</p><div class="table-container"><table><thead><tr><th>分类</th><th>频率范围</th><th>传播方式</th></tr></thead><tbody><tr><td>低频段</td><td>&lt;2MHz</td><td>沿地球表面传播，会被地形阻挡</td></tr><tr><td>中频段</td><td>2~30MHz</td><td>可以被大气层或者电离层反射</td></tr><tr><td>高频段</td><td>&gt;30MHz</td><td>按直线传播并且会被障碍物阻断</td></tr></tbody></table></div><h4 id="卫星"><a href="#卫星" class="headerlink" title="卫星"></a>卫星</h4><p>使用电磁波进行通信，传输长距离，非常昂贵</p><div class="table-container"><table><thead><tr><th>轨道类型</th><th>描述</th></tr></thead><tbody><tr><td>低地球轨道</td><td>低时延，但是位置不断移动</td></tr><tr><td>中地球轨道</td><td>轨道为椭圆形，一般提供南北两极之间的通信</td></tr><tr><td>地球静止轨道</td><td>固定在相对地球的某一位置，但是距离远，时延比较长</td></tr></tbody></table></div><p>近地轨道的高度一般为35785km</p><p>最少使用三颗近地轨道卫星可以覆盖整个地球</p><h3 id="对于传输介质的度量"><a href="#对于传输介质的度量" class="headerlink" title="对于传输介质的度量"></a>对于传输介质的度量</h3><ul><li>传播时延：信号<strong>往返</strong>一次所需要的时间</li><li>信道容量：介质可以支持的<strong>最大数据速率</strong></li><li>带宽：硬件能够改变信号📶的最大程度（Hz）</li><li>数据速率：每秒传输的最大字节数</li></ul><h3 id="奈奎斯特定理"><a href="#奈奎斯特定理" class="headerlink" title="奈奎斯特定理"></a>奈奎斯特定理</h3><script type="math/tex; mode=display">D=2Blog_2K</script><p>D是最大数据速率，B是带宽，K是使用的信号电平的数量</p><p>奈奎斯特定理是在<strong>没有信号干扰的情况下</strong>描述最大数据速率和带宽之间的关系</p><h3 id="噪声对于通信的影响"><a href="#噪声对于通信的影响" class="headerlink" title="噪声对于通信的影响"></a>噪声对于通信的影响</h3><p><strong>奈奎斯特定理是一个不能达到的理论上的最大值</strong></p><p>因为实际上会受到噪声的背景辐射的干扰</p><p>香农定理</p><script type="math/tex; mode=display">C=Blog_2(1+S/N)</script><p>C为对于信道容量的有效限制，B为带宽，S/N是信噪比</p><p>信噪比使用分贝(dB)进行度量</p><script type="math/tex; mode=display">dB=10log[\frac {P_2}{P_1} ]</script><h3 id="信道容量的意义"><a href="#信道容量的意义" class="headerlink" title="信道容量的意义"></a>信道容量的意义</h3><ul><li>奈奎斯特定理鼓励工程人员探索比特信号的编码方法，因为巧妙的编码方式可以在单位时间传输更多的数据</li><li>香农定理告诉工程人员：<strong>不存在任何巧妙的方法能够图谱物理定律的每秒最大可传输比特率的根本限制</strong></li></ul><h2 id="调制与调制解调器"><a href="#调制与调制解调器" class="headerlink" title="调制与调制解调器"></a>调制与调制解调器</h2><h3 id="传输模式的分类"><a href="#传输模式的分类" class="headerlink" title="传输模式的分类"></a>传输模式的分类</h3><p>传输模式主要有两个基本类型</p><p><img src="/2021/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/截屏2021-01-06 13.45.47.png" alt="传输模式的类型" style="zoom: 25%;"></p><h3 id="并行传输"><a href="#并行传输" class="headerlink" title="并行传输"></a>并行传输</h3><p>并行传输是：<strong>在分离的媒体中同时传输具有多个数据位的传输机制</strong></p><p>并行传输一般具有多根独立导线的有线介质，其中<strong>每一根导线之间之间必须同步</strong></p><p>并行传输有两个最主要的优点：</p><ul><li>高吞吐量：可以并行同时发送N比特</li><li>与底层硬件相匹配：在计算机内部使用的也是并行电路，两者逻辑相符</li></ul><h3 id="串行传输"><a href="#串行传输" class="headerlink" title="串行传输"></a>串行传输</h3><p>串行传输一次只发送一个比特</p><p><strong>绝大多数系统都适用串行传输</strong></p><p>使用串行传输的原因：</p><ol><li>串行传输的成本低，需要很少的导线</li><li>并行传输需要每一根导线要完全一样长，要求过于严格</li><li>高速传输的时候并行传输的导线之间会产生电磁噪声，干扰其他信号</li></ol><p>但是使用串行传输需要将硬件的并行数据转换为串行数据（<strong>一般使用同步异步收发器</strong>）</p><h3 id="传输顺序"><a href="#传输顺序" class="headerlink" title="传输顺序"></a>传输顺序</h3><ul><li>大端：MSB即先传输最高位</li><li>小端：LSB即先传输最低位</li></ul><p>选择其中任意一种方式都可以，但是发送与接收必须使用同一种方式</p><h3 id="串行传输的定时"><a href="#串行传输的定时" class="headerlink" title="串行传输的定时"></a>串行传输的定时</h3><p>串行传输主要有三种定时方式</p><ol><li>异步传输：可以从任意时间开始，时间间隔也是任意的</li><li>同步传输：数据项连续不断传输，数据项之间没有间隔</li><li>等时传输：数据项在规定的时间区间上进行传输，数据项之间的间隔是固定的</li></ol><h3 id="异步传输"><a href="#异步传输" class="headerlink" title="异步传输"></a>异步传输</h3>]]></content>
     
     
       
@@ -150,9 +150,9 @@
     
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
-    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     <category term="dp" scheme="http://yoursite.com/tags/dp/"/>
     
@@ -287,9 +287,9 @@
     
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
-    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
@@ -427,9 +427,9 @@
     
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
-    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
@@ -483,9 +483,9 @@
     
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
-    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     <category term="线性dp" scheme="http://yoursite.com/tags/%E7%BA%BF%E6%80%A7dp/"/>
     
@@ -567,9 +567,9 @@
     
     <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
     
-    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     <category term="背包问题" scheme="http://yoursite.com/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"/>
     
