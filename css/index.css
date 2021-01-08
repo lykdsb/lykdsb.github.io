@@ -1863,27 +1863,26 @@ a.fancybox:focus {
     width: 90%;
   }
 }
-#local-search .local-search-box {
+#algolia-search .ais-search-box {
   margin: 0 auto;
   max-width: 100%;
   width: 100%;
 }
-#local-search .local-search-box input {
+#algolia-search .ais-search-box input {
   padding: 0.25rem 0.7rem;
-  width: 100%;
   outline: none;
   border: 2px solid #49b1f5;
   border-radius: 2rem;
   font-size: 14px;
 }
-#local-search .local-search__hit-item {
+#algolia-search .ais-hits--item.algolia-hit-item {
   position: relative;
   padding-left: 1.5rem;
 }
-#local-search .local-search__hit-item:hover:before {
+#algolia-search .ais-hits--item.algolia-hit-item:hover:before {
   border-color: #ff7242;
 }
-#local-search .local-search__hit-item:before {
+#algolia-search .ais-hits--item.algolia-hit-item:before {
   position: absolute;
   top: 0.4rem;
   left: 0;
@@ -1900,20 +1899,40 @@ a.fancybox:focus {
   -ms-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-#local-search .local-search__hit-item a {
+#algolia-search .ais-hits--item.algolia-hit-item a {
   display: block;
   color: #4c4948;
   text-decoration: none;
   font-size: 14px;
   cursor: pointer;
 }
-#local-search .local-search__hit-item a:hover {
+#algolia-search .ais-hits--item.algolia-hit-item a:hover {
   color: #49b1f5;
 }
-#local-search .local-search-stats__hr {
-  display: none;
+#algolia-search .ais-pagination.pagination {
+  margin: 0.8rem 0 0 0;
+  padding: 0;
+  text-align: center;
 }
-#local-search .search-result-list {
-  overflow-y: auto;
-  max-height: 10.5rem;
+#algolia-search .ais-pagination.pagination .ais-pagination--item {
+  margin: 0 0.2rem;
+  padding: 0;
+}
+#algolia-search .ais-pagination.pagination .ais-pagination--item a {
+  display: inline-block;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  text-align: center;
+  line-height: 1.2rem;
+}
+#algolia-search .ais-pagination.pagination .ais-pagination--item.current a {
+  background: #00c4b6;
+  color: #fff;
+  text-decoration: none;
+  cursor: default;
+}
+#algolia-search .algolia-logo {
+  padding-top: 2px;
+  width: 4rem;
+  height: 1.5rem;
 }
