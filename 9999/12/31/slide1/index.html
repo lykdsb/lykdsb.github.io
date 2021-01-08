@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="操作指南"><meta name="keywords" content="slides"><meta name="author" content="来一口,undefined"><meta name="copyright" content="来一口"><title>操作指南 | 来一口‘s blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reset.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/theme/night.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/highlight/monokai.css"><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="来一口‘s blog" type="application/atom+xml">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="操作指南"><meta name="keywords" content="slides"><meta name="author" content="来一口,undefined"><meta name="copyright" content="来一口"><title>操作指南 | 来一口‘s blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/css/reveal.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/css/theme/night.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/lib/css/zenburn.min.css"><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="来一口‘s blog" type="application/atom+xml">
 <!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><div class="reveal"><div class="slides"><section data-markdown data-separator="===" data-separator-vertical="==" data-charset="utf-8"><script type="text/template">
 
 
@@ -90,7 +90,7 @@ alert(str);
 
 点击左下小箭头可以打开个人信息页
 
-</script></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/zoom/zoom.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/search/search.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/notes/notes.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/math/math.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/markdown/markdown.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/highlight/highlight.js"></script><script>Reveal.initialize({
+</script></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/lib/js/head.min.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/js/reveal.min.js"></script><script>Reveal.initialize({
   mouseWheel: false,
   transition: 'slide',
   transitionSpeed: 'default',
@@ -98,28 +98,24 @@ alert(str);
   parallaxBackgroundSize: '',
   parallaxBackgroundHorizontal: '',
   parallaxBackgroundVertical: '',
-  autoSlide: false,
-  loop: false,
-  controlsLayout: 'bottom-right', // Determines where controls appear, "edges" or "bottom-right"
-  controlsBackArrows: 'faded',
-  progress: true,
-  showNotes: false,
-  autoPlayMedia: false,
-  backgroundTransition: 'fade',
   markdown: {
     smartypants: true
   },
-  plugins: [
-  RevealMarkdown,
-  // Markdown
-  RevealHighlight,
-  // Search
-  RevealSearch,
-  // Speaker notes
-  RevealNotes,
-  // Zoom in and out with Alt+click
-  RevealZoom,
-  // MathJax
-  RevealMath
+  dependencies: [
+    { src: '/js/third-party/reveal/marked.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: '/js/third-party/reveal/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    // Syntax highlight for <code> elements
+    { src: '/js/third-party/reveal/highlight.min.js', async: true, callback: function() {
+      // issue #218
+      setTimeout(function () {
+        hljs.initHighlighting();
+      }, 0)
+    } },
+    // Zoom in and out with Alt+click
+    { src: '/js/third-party/reveal/zoom.min.js', async: true },
+    // Speaker notes
+    { src: '/js/third-party/reveal/notes.min.js', async: true },
+    // MathJax
+    { src: '/js/third-party/reveal/math.min.js', async: true }
   ]
 });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

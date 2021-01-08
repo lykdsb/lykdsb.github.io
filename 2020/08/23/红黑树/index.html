@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="红黑树"><meta name="keywords" content="数据结构,树,平衡树,搜索树,红黑树,C++"><meta name="author" content="来一口"><meta name="copyright" content="来一口"><title>红黑树 | 来一口‘s blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.8.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.8.2"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script><!-- hexo-inject:begin --><!-- hexo-inject:end -->var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '5.1.1'
+} </script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="来一口‘s blog" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E6%80%A7%E8%B4%A8"><span class="toc-number">1.</span> <span class="toc-text">红黑树的定义与性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">红黑树的操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="toc-number">3.</span> <span class="toc-text">红黑树的查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5"><span class="toc-number">4.</span> <span class="toc-text">红黑树的插入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9%E7%88%B6%E8%8A%82%E7%82%B9%E4%B8%BA%E9%BB%91%E8%89%B2"><span class="toc-number">4.1.</span> <span class="toc-text">插入节点父节点为黑色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9%E7%88%B6%E8%8A%82%E7%82%B9%E4%B8%BA%E7%BA%A2%E8%89%B2%EF%BC%8C%E4%B8%94%E5%8F%94%E8%8A%82%E7%82%B9%E4%B8%BA%E7%BA%A2%E8%89%B2"><span class="toc-number">4.2.</span> <span class="toc-text">插入节点父节点为红色，且叔节点为红色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9%E7%88%B6%E8%8A%82%E7%82%B9%E4%B8%BA%E7%BA%A2%E8%89%B2%EF%BC%8C%E5%8F%94%E8%8A%82%E7%82%B9%E4%B8%8D%E5%AD%98%E5%9C%A8%E6%88%96%E4%B8%BA%E9%BB%91%E8%89%B2"><span class="toc-number">4.3.</span> <span class="toc-text">插入节点父节点为红色，叔节点不存在或为黑色</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E5%88%A0%E9%99%A4"><span class="toc-number">5.</span> <span class="toc-text">红黑树的删除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E8%8A%82%E7%82%B9%E4%B8%BA%E7%BA%A2%E8%89%B2"><span class="toc-number">5.1.</span> <span class="toc-text">替换节点为红色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E8%8A%82%E7%82%B9%E6%98%AF%E9%BB%91%E8%89%B2"><span class="toc-number">5.2.</span> <span class="toc-text">替换节点是黑色</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2376191261,361962468&amp;fm=26&amp;gp=0.jpg"></div><div class="author-info__name text-center">来一口</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">36</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">51</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">10</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友链</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://www.luogu.com.cn">洛谷</a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">来一口‘s blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">主页</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">目录</a><a class="site-page" href="/slides">幻灯片</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">红黑树</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-08-24</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="红黑树的定义与性质"><a href="#红黑树的定义与性质" class="headerlink" title="红黑树的定义与性质"></a>红黑树的定义与性质</h2><p>红黑树是一个<strong>自平衡二叉搜索树</strong></p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><ol>
+<li>红黑树是一个平衡二叉搜索树（<em>中序遍历单调不减</em>）</li>
+<li>节点是红色或者黑色</li>
+<li>根节点是黑色</li>
+<li>叶子节点是黑色（<em>即搜索失败的节点</em>）</li>
+<li>红色节点的两个子节点都是黑色</li>
+<li>从根节点到每个叶子的所有路径都包含相同数目的黑色节点（这个数值叫做黑高度）</li>
+</ol>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-4996bbfb4017a3b2.png" alt="红黑树"></p>
+<p>上面的Nil为红黑树的叶子节点（即搜索失败）</p>
+<p>性质6推论：<strong>如果一个节点有黑子节点，那么该节点一定有两个子节点</strong></p>
+<p>红黑树不是完美平衡的，如上图左子树比右子树更深，但是对于黑节点来说，左右是相同高度的，因此红黑树是<strong>黑色完美平衡</strong></p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-abedf3ecc733ccd5.png" alt="叶子节点的叫法"></p>
+<h2 id="红黑树的操作"><a href="#红黑树的操作" class="headerlink" title="红黑树的操作"></a>红黑树的操作</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">左旋</td>
+<td style="text-align:center">以某个结点作为支点(旋转结点)，其右子结点变为旋转结点的父结点，右子结点的左子结点变为旋转结点的右子结点，左子结点保持不变。</td>
+</tr>
+<tr>
+<td style="text-align:center">右旋</td>
+<td style="text-align:center">以某个结点作为支点(旋转结点)，其左子结点变为旋转结点的父结点，左子结点的右子结点变为旋转结点的左子结点，右子结点保持不变。</td>
+</tr>
+<tr>
+<td style="text-align:center">变色</td>
+<td style="text-align:center">结点的颜色由红变黑或由黑变红。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-a95db442f1b47f8a.png" alt="左旋"></p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-0676a8e2a12e2a0b.png" alt="右旋"></p>
+<p><strong>旋转操作只影响旋转节点和被转的子树的结构</strong>，所以旋转是局部的</p>
+<p>红黑树的子平衡就是通过旋转和变色共同作用实现的</p>
+<h2 id="红黑树的查找"><a href="#红黑树的查找" class="headerlink" title="红黑树的查找"></a>红黑树的查找</h2><p>红黑树的查找与正常的搜索树相同，都是<strong>小了往左，大了往右</strong></p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-07b47eb3722981e6.png" alt="查找流程图"></p>
+<p>时间复杂度为$O(\log_2 n)$</p>
+<h2 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h2><p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-9ac3d6b69ef7ead3.png" alt="插入节点名称"></p>
+<p>首先第一步自然是找到需要插入的位置，方法与之前的搜索一致。</p>
+<p>但是在找到插入位置之后应该将节点设置为什么颜色，是否应该旋转等需要根据具体情况判断</p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-fa2b78271263d2c8.png" alt="插入情景"></p>
+<p>从情景三开始说：</p>
+<h3 id="插入节点父节点为黑色"><a href="#插入节点父节点为黑色" class="headerlink" title="插入节点父节点为黑色"></a>插入节点父节点为黑色</h3><p>如果被插入的节点的父节点为黑色，则<strong>插入的节点一定为红色</strong></p>
+<p>假设插入的是黑色节点，那么再加上外节点，这棵子树上的黑色距离一定会比其他的子树长（因为原来是平衡的，现在只有该棵子树高度变大）。所以<strong>不可能插入黑节点</strong></p>
+<p>如果插入的是红节点，那么由于只需要保证黑色节点的平衡，在红节点补上外节点后完全不影响平衡，因此<strong>如果父节点是黑色节点，那么直接插入红色节点即可</strong></p>
+<p><strong>通过此处可以知道，在插入时可以先假设都插入红色节点，如果不符合条件再变色和旋转，因为红色节点更不破坏平衡</strong></p>
+<h3 id="插入节点父节点为红色，且叔节点为红色"><a href="#插入节点父节点为红色，且叔节点为红色" class="headerlink" title="插入节点父节点为红色，且叔节点为红色"></a>插入节点父节点为红色，且叔节点为红色</h3><p>根据性质5可知，红色节点的父节点一定是黑节点（<em>因为红节点不可能有红色子节点</em>）</p>
+<p><strong>因此被插入的节点的祖父节点一定为黑色</strong></p>
+<p>此时插入红色节点会导致结构变成 黑-&gt;红-&gt;红，不符合要求</p>
+<p>因此进行变色（<em>以左节点为例，右节点相同</em>）</p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-9f2c746bf0769f49.png" alt="变色"></p>
+<p>将其变为红-&gt;黑-&gt;红</p>
+<p>但是这样还是可能有问题，如果PP的父节点时红色时，又产生了两层的红色。因此需要将PP当作新的插入节点继续进行相同的调整（情况与本节相同）,直到最后满足所有条件</p>
+<p><strong>若PP是根节点，由于根节点要为黑色，那么PP又要变为黑色，最终结构为黑-&gt;黑-&gt;红</strong></p>
+<h3 id="插入节点父节点为红色，叔节点不存在或为黑色"><a href="#插入节点父节点为红色，叔节点不存在或为黑色" class="headerlink" title="插入节点父节点为红色，叔节点不存在或为黑色"></a>插入节点父节点为红色，叔节点不存在或为黑色</h3><p>这种情况父节点有左右两种情况，两种情况大致相同，只是方向不同，以父节点是祖父节点的左节点为例</p>
+<p>若父节点为红色，那么叔节点不可能是正常的黑色，要不然叔节点所在子树的高度大于父节点所在子树。<strong>因此叔节点必然是叶子节点</strong></p>
+<ol>
+<li><p>插入父节点的左边</p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-ab4097b750826870.png" alt="插入父节点左边"></p>
+</li>
+<li><p>插入父节点的右边</p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-fbfc4f299941cb8b.png" alt="插入父节点右边"></p>
+</li>
+</ol>
+<p>可以先转换为上一种情况再使用上一种情况的方法实现</p>
+<h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><p>红黑树的删除同样也是分为两个步骤：</p>
+<ol>
+<li>查找目标节点</li>
+<li>删除后自平衡</li>
+</ol>
+<p>红黑树删除的情况</p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-edaf96e55f08c198.png" alt="红黑树删除"></p>
+<p>重要思路：<strong>删除结点被替代后，在不考虑结点的键值的情况下，对于树来说，可以认为删除的是替代结点！</strong></p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-f45799daa674d0ad.png" alt="红黑树的替代节点"></p>
+<p>名称约定</p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-db3468a5977ad998.png" alt="名称约定"></p>
+<p><strong>替代节点即将要被换到删除节点位置的节点，一般为大于被删除节点的最小节点，即右子树最左边的节点</strong></p>
+<h3 id="替换节点为红色"><a href="#替换节点为红色" class="headerlink" title="替换节点为红色"></a>替换节点为红色</h3><p>红色节点的改变并不会影响树的平衡，因此如果被替换的为红色节点，则可以直接替换。注意<strong>需要将替换后的节点的颜色设定为与被删除之前相同</strong></p>
+<h3 id="替换节点是黑色"><a href="#替换节点是黑色" class="headerlink" title="替换节点是黑色"></a>替换节点是黑色</h3><p><strong>如果替换，至少该节点所在的子树会发生黑节点较少而不平衡，因此一定要进行平衡操作</strong></p>
+<p>这里是父节点的左子节点和右子节点相同的操作，只是旋转方向不同，以左子节点为例</p>
+<ol>
+<li><p>替换节点的兄弟节点是红色</p>
+<p>若替换节点的兄弟节点是红色，那么兄弟节点的父节点和子节点都是黑色</p>
+<p>先进行以下操作</p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-1e4c3388491b588f.png" alt="操作"></p>
+<p>之后还要进行操作，先暂时记住此状态</p>
+</li>
+<li><p>替换节点的兄弟节点是黑色</p>
+<ol>
+<li><p>兄弟节点的右子节点为红色</p>
+<p>由于要删除左子树的一个黑色节点（替换节点），会导致左子树的黑高度少一，因此只需要将该红色节点借过来补充一个黑节点即可<img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-7eea721cbb855876.png" alt="操作"></p>
+<p>之后将R替换到被删除节点那么树就黑平衡了</p>
+</li>
+<li><p>兄弟节点的右子节点为黑色，左子节点为红色</p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-dc29605ce9889973.png" alt="操作"></p>
+<p>这样可以将任意的这种情况转换为上面那种情况👆</p>
+</li>
+<li><p>兄弟节点的子节点都为黑色</p>
+<p><img src="/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-75293515d8d87024.png" alt="操作"></p>
+<p>此时将P作为替换节点继续进行替换操作</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>右子节点与左子节点相同</p>
+<p>就此完成红黑树的删除操作</p>
+<p>大体就是：</p>
+<ol>
+<li><p>能直接换的直接换</p>
+</li>
+<li><p>不能直接换的向兄弟借</p>
+</li>
+<li>兄弟不能借的向父母借</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">来一口</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/">http://yoursite.com/2020/08/23/%E7%BA%A2%E9%BB%91%E6%A0%91/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/%E6%A0%91/">树</a><a class="post-meta__tags" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/">平衡树</a><a class="post-meta__tags" href="/tags/%E6%90%9C%E7%B4%A2%E6%A0%91/">搜索树</a><a class="post-meta__tags" href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/">红黑树</a><a class="post-meta__tags" href="/tags/C/">C++</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/08/24/js%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><i class="fa fa-chevron-left">  </i><span>js函数表达式</span></a></div><div class="next-post pull-right"><a href="/2020/08/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><span>正则表达式</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By 来一口</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.8.2"></script><script src="/js/fancybox.js?version=1.8.2"></script><script src="/js/sidebar.js?version=1.8.2"></script><script src="/js/copy.js?version=1.8.2"></script><script src="/js/fireworks.js?version=1.8.2"></script><script src="/js/transition.js?version=1.8.2"></script><script src="/js/scroll.js?version=1.8.2"></script><script src="/js/head.js?version=1.8.2"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>Powered by</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

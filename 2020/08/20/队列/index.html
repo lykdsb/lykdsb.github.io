@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="队列"><meta name="keywords" content="队列"><meta name="author" content="来一口"><meta name="copyright" content="来一口"><title>队列 | 来一口‘s blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.8.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.8.2"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script><!-- hexo-inject:begin --><!-- hexo-inject:end -->var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '5.1.1'
+} </script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="来一口‘s blog" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%9F%E5%88%97"><span class="toc-number">1.</span> <span class="toc-text">队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97"><span class="toc-number">1.1.</span> <span class="toc-text">单调队列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.1.1.</span> <span class="toc-text">单调队列的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E7%9A%84%E7%BB%B4%E6%8C%81%EF%BC%88%E4%BB%A5%E9%80%92%E5%A2%9E%E9%98%9F%E5%88%97%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">单调队列的维持（以递增队列为例）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">1.1.3.</span> <span class="toc-text">单调队列的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97"><span class="toc-number">1.2.</span> <span class="toc-text">优先队列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">优先队列的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">优先队列的实现与使用</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2376191261,361962468&amp;fm=26&amp;gp=0.jpg"></div><div class="author-info__name text-center">来一口</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">36</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">51</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">10</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友链</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://www.luogu.com.cn">洛谷</a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">来一口‘s blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">主页</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">目录</a><a class="site-page" href="/slides">幻灯片</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">队列</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-08-20</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p><strong>队列一般指一种FIFO的数据结构，具有多种变形，在算法中有着非常广泛的应用</strong></p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><p>队列中的元素先入先出，一般通过数组或者链表进行实现，在实际使用时敞使用stl中的queue</p>
+<p><em>在stl中队列这样使用</em></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">使用</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">queue<int>q</int></td>
+<td style="text-align:center">声明队列</td>
+</tr>
+<tr>
+<td style="text-align:center">q.push(x)</td>
+<td style="text-align:center">将一个变量放入队列尾</td>
+</tr>
+<tr>
+<td style="text-align:center">q .pop()</td>
+<td style="text-align:center">将队列中第一个变量排出队列</td>
+</tr>
+<tr>
+<td style="text-align:center">q.empty()</td>
+<td style="text-align:center">返回队列是否为空</td>
+</tr>
+<tr>
+<td style="text-align:center">q.front()</td>
+<td style="text-align:center">返回队列首元素</td>
+</tr>
+<tr>
+<td style="text-align:center">q.size()</td>
+<td style="text-align:center">返回队列大小</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h3><p><strong>单调队列是内部元素单调的一种特殊的队列</strong></p>
+<h4 id="单调队列的特点"><a href="#单调队列的特点" class="headerlink" title="单调队列的特点"></a>单调队列的特点</h4><ol>
+<li>单调队列中的元素从小到大（或从大到小）排列，即符合单调性质</li>
+<li>单调队列中的元素保持原序，即队列中的元素对应原列表<sup><a href="#fn_1" id="reffn_1">1</a></sup>中的序号是单调递增的</li>
+</ol>
+<p>满足以上条件的即为单调队列</p>
+<h4 id="单调队列的维持（以递增队列为例）"><a href="#单调队列的维持（以递增队列为例）" class="headerlink" title="单调队列的维持（以递增队列为例）"></a>单调队列的维持（以递增队列为例）</h4><p>单调队列在使用过程中是不断变化的，因此需要方法来维持单调队列的性质</p>
+<p>若单调队列是通过从数组中读取获得的话，维持单调队列只需要一步：</p>
+<p>即<strong>在加入新的元素后，从后往前遍历队列，直到找到第一个比这个元素小的元素，将其放在此位置，并将之后的所有元素移除</strong></p>
+<p><em>因为被删的元素已经不可能是该范围中的最值了，最起码有新加入的元素更小</em></p>
+<p>如假设窗口的最大长度为3,求滑动窗口对应的最值（也就是求区间为3中的最值）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">-1</span> <span class="number">-3</span> <span class="number">5</span> <span class="number">3</span> <span class="number">6</span> <span class="number">7</span></span><br></pre></td></tr></table></figure>
+<p>设q={}为单调队列中的元素，p{}为对应的序号</p>
+<ol>
+<li>将1加入队列，q={1},p={1}</li>
+<li>将3加入队列，q={1,3},p={1,2}</li>
+<li>将-1加入队列，可以发现-1之前的元素都比它大，因此不可能是区间最值了，故q={-1},p={3}</li>
+<li>将-3加入队列，q={-3},p={4}</li>
+<li>将5加入队列，q={-3,5},p={4,5}</li>
+<li>将3加入队列,由于$3&lt;5$故5不再可能是区间最值了，因此将5删去，q={-3,3},p={4,6}</li>
+<li>将6加入队列，由于-3和6之间超过了3的区间窗口，因此将-3删去，q={3,6},p={6,7}</li>
+<li>将7加入队列，q={3,6,7},p={6,7,8}</li>
+</ol>
+<p>从第三步开始计数，分别取队首元素</p>
+<p>得到答案为</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">-1</span> <span class="number">-3</span> <span class="number">-3</span> <span class="number">-3</span> <span class="number">3</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>代码实现：(使用双端队列实现)<sup><a href="#fn_2" id="reffn_2">2</a></sup></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">min</span><span class="params">(<span class="keyword">int</span> m,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;q;<span class="comment">//单调队列</span></span><br><span class="line">    <span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;p;<span class="comment">//记录序号</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty()&amp;&amp;q.back()&gt;=arr[i])<span class="comment">//将不可能为最值的部分全部去掉，维持单调队列性质</span></span><br><span class="line">        &#123;</span><br><span class="line">            q.pop_back();p.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">        p.push_back(i);<span class="comment">//将对应序号加入</span></span><br><span class="line">        q.push_back(arr[i]);<span class="comment">//将新的数加入队列</span></span><br><span class="line">        <span class="keyword">if</span>(p.back()-p.front()&gt;=k)<span class="comment">//若最后的数和最前的数差了太远则将前面的数删去</span></span><br><span class="line">        &#123;</span><br><span class="line">            p.pop_front();q.pop_front();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i&gt;=k<span class="number">-1</span>)<span class="built_in">cout</span>&lt;&lt;q.front()&lt;&lt;<span class="string">&quot; &quot;</span>;<span class="comment">//如果遍历的数已经等于窗口长度，则可以开始输出答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="单调队列的应用"><a href="#单调队列的应用" class="headerlink" title="单调队列的应用"></a>单调队列的应用</h4><p><a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P1886">传送门</a></p>
+<p>解答：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//详情可看上面注释</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 1000</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> arr[MAX];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> m,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;q;</span><br><span class="line">    <span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;p;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty()&amp;&amp;q.back()&lt;=arr[i])</span><br><span class="line">        &#123;</span><br><span class="line">            q.pop_back();p.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">        p.push_back(i);</span><br><span class="line">        q.push_back(arr[i]);</span><br><span class="line">        <span class="keyword">if</span>(p.back()-p.front()&gt;=k)</span><br><span class="line">        &#123;</span><br><span class="line">            p.pop_front();q.pop_front();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i&gt;=k<span class="number">-1</span>)<span class="built_in">cout</span>&lt;&lt;q.front()&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">min</span><span class="params">(<span class="keyword">int</span> m,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;q;</span><br><span class="line">    <span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;p;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty()&amp;&amp;q.back()&gt;=arr[i])</span><br><span class="line">        &#123;</span><br><span class="line">            q.pop_back();p.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">        p.push_back(i);</span><br><span class="line">        q.push_back(arr[i]);</span><br><span class="line">        <span class="keyword">if</span>(p.back()-p.front()&gt;=k)</span><br><span class="line">        &#123;</span><br><span class="line">            p.pop_front();q.pop_front();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i&gt;=k<span class="number">-1</span>)<span class="built_in">cout</span>&lt;&lt;q.front()&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m,k;<span class="built_in">cin</span>&gt;&gt;m&gt;&gt;k;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;arr[i];</span><br><span class="line">    min(m,k);</span><br><span class="line">    max(m,k);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h3><p><strong>优先队列是一种特殊的队列，与队列不同，不是FIFO的形式，而是每次出队的都是优先级最高的数</strong></p>
+<h4 id="优先队列的特点"><a href="#优先队列的特点" class="headerlink" title="优先队列的特点"></a>优先队列的特点</h4><ol>
+<li>只能从队尾进行插入</li>
+<li>在插入之后调整顺序，保证优先级最高的的数在队首</li>
+<li>出队的时候先出队首（即优先级最高的数）</li>
+</ol>
+<h4 id="优先队列的实现与使用"><a href="#优先队列的实现与使用" class="headerlink" title="优先队列的实现与使用"></a>优先队列的实现与使用</h4><p>通常使用堆进行优先队列的保持，即只需要保证堆顶是优先级最高的数，这种方法可以保证调整优先队列的时间复杂度为$O(\log n)$级， 而不是$O(n)$级</p>
+<p>但是在实际情况中，常使用STL中写好的优先队列</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">priority_queue</span>&lt;Type, Container, Functional&gt;</span><br></pre></td></tr></table></figure>
+<p><em>其中的Container是声明容器类型的，一般使用vector</em></p>
+<p>第二个参数表示优先队列的性质（大/小/自定义），greater表示小顶堆（即升序），less表示大顶堆（即降序），默认是less</p>
+<p>声明优先队列：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">priority_queue</span> &lt;<span class="keyword">int</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;,greater&lt;<span class="keyword">int</span>&gt; &gt; q;</span><br></pre></td></tr></table></figure>
+<p>同样，优先队列还可以用在自定义类型变量上，此时如果需要使用，需要在该类型上重写</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span>     <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> tmp1&amp; a) <span class="keyword">const</span></span><br><span class="line"><span class="number">11</span>     &#123;</span><br><span class="line"><span class="number">12</span>         <span class="keyword">return</span> x &lt; a.x; </span><br><span class="line"><span class="number">13</span>     &#125;</span><br></pre></td></tr></table></figure>
+<p>表明两个变量之间的比较规则</p>
+<p>成员函数</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">q.top()</td>
+<td style="text-align:center">返回队首元素</td>
+</tr>
+<tr>
+<td style="text-align:center">q.empty()</td>
+<td style="text-align:center">判断是否为空</td>
+</tr>
+<tr>
+<td style="text-align:center">q.size()</td>
+<td style="text-align:center">返回元素个数</td>
+</tr>
+<tr>
+<td style="text-align:center">q.push()</td>
+<td style="text-align:center">放至队尾</td>
+</tr>
+<tr>
+<td style="text-align:center">q.pop()</td>
+<td style="text-align:center">弹出首元素</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>特别注意，优先队列的首元素是top，而不是正常队列的front</strong></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">来一口</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/08/20/%E9%98%9F%E5%88%97/">http://yoursite.com/2020/08/20/%E9%98%9F%E5%88%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%98%9F%E5%88%97/">队列</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/08/20/%E6%B3%A8%E8%A7%A3/"><i class="fa fa-chevron-left">  </i><span>注解</span></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By 来一口</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.8.2"></script><script src="/js/fancybox.js?version=1.8.2"></script><script src="/js/sidebar.js?version=1.8.2"></script><script src="/js/copy.js?version=1.8.2"></script><script src="/js/fireworks.js?version=1.8.2"></script><script src="/js/transition.js?version=1.8.2"></script><script src="/js/scroll.js?version=1.8.2"></script><script src="/js/head.js?version=1.8.2"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>Powered by</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

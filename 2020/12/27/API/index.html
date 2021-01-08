@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="API"><meta name="keywords" content="API style,Springboot"><meta name="author" content="来一口"><meta name="copyright" content="来一口"><title>API | 来一口‘s blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.8.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.8.2"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script><!-- hexo-inject:begin --><!-- hexo-inject:end -->var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '5.1.1'
+} </script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="来一口‘s blog" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPC%E9%A3%8E%E6%A0%BC"><span class="toc-number">2.</span> <span class="toc-text">RPC风格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rest%E9%A3%8E%E6%A0%BC"><span class="toc-number">3.</span> <span class="toc-text">Rest风格</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">3.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="toc-number">3.2.</span> <span class="toc-text">实例代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">3.3.</span> <span class="toc-text">存在的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B9%81%E7%90%90%EF%BC%8C%E6%84%8F%E4%B9%89%E4%B8%8D%E5%A4%A7"><span class="toc-number">3.3.1.</span> <span class="toc-text">操作繁琐，意义不大</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E5%88%86%E5%BC%BA%E8%B0%83%E5%8D%95%E4%B8%80%E8%B5%84%E6%BA%90"><span class="toc-number">3.3.2.</span> <span class="toc-text">过分强调单一资源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E9%97%AE%E9%A2%98"><span class="toc-number">3.3.3.</span> <span class="toc-text">返回值问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E9%AB%98%E7%9A%84%E6%88%90%E6%9C%AC"><span class="toc-number">3.3.4.</span> <span class="toc-text">更高的成本</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GraphQL%E9%A3%8E%E6%A0%BC"><span class="toc-number">4.</span> <span class="toc-text">GraphQL风格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2376191261,361962468&amp;fm=26&amp;gp=0.jpg"></div><div class="author-info__name text-center">来一口</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">36</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">51</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">10</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友链</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://www.luogu.com.cn">洛谷</a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">来一口‘s blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">主页</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">目录</a><a class="site-page" href="/slides">幻灯片</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">API</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-12-27</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/design/">design</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在实际上的接口设计中，有很多中接口的设计风格，其中最主要的有以下三种</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><ol>
+<li>RPC</li>
+<li>RestFul</li>
+<li>GraphQL</li>
+</ol>
+<p>在实际使用的过程中应该选择一种比较合适的方式进行接口API的设计</p>
+<h2 id="RPC风格"><a href="#RPC风格" class="headerlink" title="RPC风格"></a>RPC风格</h2><p>RPC风格是本地调用远程的方式，<strong>同时也是最常用的方式</strong></p>
+<ul>
+<li>RPC的组织形式是类和方法</li>
+<li>API的名称大多数情况下是动词</li>
+<li>一般在这种情况下url会有比较复杂的形势，因此需要一份比较详细的接口文档 </li>
+<li>HTTP方法一般只使用<code>GET/POST</code></li>
+</ul>
+<p>在实际生产中有50%以上的使用这种风格的接口</p>
+<h2 id="Rest风格"><a href="#Rest风格" class="headerlink" title="Rest风格"></a>Rest风格</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>是一种架构风格，有四种成熟度</p>
+<ol>
+<li>定义一个url，所有操作是对此url的POST操作</li>
+<li>为各个资源创建单独的url</li>
+<li>使用HTTP方法定义对于资源执行的操作的类型</li>
+<li>使用超媒体</li>
+</ol>
+<p><strong>其中3是真正的REST风格</strong></p>
+<p>REST的所有API都是围绕资源的操作进行的，与RPC不同一般使用不同的HTTP请求类型来区分对于同一资源的不同操作</p>
+<p>而RPC则是实用不同的名称进行不同操作的区分</p>
+<ul>
+<li>GET：获取资源列表 如<code>user/1</code>即获取id为1的用户信息列表</li>
+<li>POST：创建资源，为集合添加新的资源</li>
+<li>PUT：全部修改资源，用于一整个资源的更新</li>
+<li>PATCH：部分修改资源：请求体是修改部分的内容</li>
+<li>DELETE：移除资源，与GET相类似，如<code>user/1</code>就是移除id为1的用户</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>APIName</th>
+<th>非RESTFUL</th>
+<th>RESTFUL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>获取用户</td>
+<td>/user/getUser</td>
+<td>/users/1 GET</td>
+</tr>
+<tr>
+<td>删除用户</td>
+<td>/user/deleteUser</td>
+<td>/users DELETE</td>
+</tr>
+<tr>
+<td>新增用户</td>
+<td>/user/addUser</td>
+<td>/users POST</td>
+</tr>
+<tr>
+<td>更新用户</td>
+<td>/user/updateUser</td>
+<td>/users PUT</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@DeleteMapping(&quot;/users&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseStatus(HttpStatus.NO_CONTENT)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">deleteUser</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> String id)</span></span>&#123;</span><br><span class="line">        List&lt;UserDO&gt; list= getData();</span><br><span class="line">        UserDO userDO=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">for</span> (UserDO user:list</span><br><span class="line">                ) &#123;</span><br><span class="line">            <span class="keyword">if</span>(id.equals(user.getUserId().toString()))&#123;</span><br><span class="line">                <span class="comment">//删除用户</span></span><br><span class="line">                userDO=user;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>  userDO;<span class="comment">//返回被删除的对象</span></span><br><span class="line">    &#125; </span><br></pre></td></tr></table></figure>
+<h3 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h3><h4 id="操作繁琐，意义不大"><a href="#操作繁琐，意义不大" class="headerlink" title="操作繁琐，意义不大"></a>操作繁琐，意义不大</h4><p>使用 HTTP 的 GET\POST\PUT\DELETE 来区分操作资源，HTTP Method 本身就对外部不友好，是隐藏的方法，把动词加入到 url 中，反而清晰可见，简单易懂，为什么一定要用 url 来表示资源而不能加动词呢。</p>
+<p>GET\POST\PUT\DELETE 的兼容性有待认证，首先是兼容老的系统，大部分 HTTP 应用是基于 GET/POST 来实现的。</p>
+<h4 id="过分强调单一资源"><a href="#过分强调单一资源" class="headerlink" title="过分强调单一资源"></a>过分强调单一资源</h4><p>这可能是人的理解问题，就看我们对资源的定义，太多的场景，如果使用 Restful API 规则行事，势必要把一个 API 拆分多个 API，框架多个 API 之间的状态又成了问题。</p>
+<p>这种方式对于处理多资源共同交互的时候会非常麻烦</p>
+<h4 id="返回值问题"><a href="#返回值问题" class="headerlink" title="返回值问题"></a>返回值问题</h4><p>使用 HTTP Status 状态码是没有问题的，但使用不常见的状态码表示操作层面的含义，对开发不是很友好。<br>对返回集中定义 status、message 例如下面的 json 返回是很常见的返回，简单易懂。并没有什么不妥，但在 RESTful Api 拥护者眼里就是错误的格式，错误的返回。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;status&quot;</span>:<span class="number">1</span>,</span><br><span class="line">    <span class="attr">&quot;message&quot;</span>:<span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;data&quot;</span>:[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="更高的成本"><a href="#更高的成本" class="headerlink" title="更高的成本"></a>更高的成本</h4><p>统一为 RESTful API 风格，强化要求做的完美，比如带来更多的时间成本、人力成本。沟通成本。</p>
+<h2 id="GraphQL风格"><a href="#GraphQL风格" class="headerlink" title="GraphQL风格"></a>GraphQL风格</h2><p>这种风格的API由于实用的比较少，<strong>而且主要是用在图数据库中</strong>因此不在这里详细介绍</p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/264629587">参考知乎</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在下列情况考虑RPC风格的API或说是RPC：</p>
+<ul>
+<li>偏向内部的API</li>
+<li>没有太多的时间考虑API的设计或没有架构师</li>
+<li>提供的API很难进行资源、对象抽象</li>
+<li>对性能有高要求</li>
+</ul>
+<p>在下列情况考虑REST风格：</p>
+<ul>
+<li>偏向外部API</li>
+<li>提供的API天生围绕资源、对象、管理展开</li>
+<li>不能耦合客户端实现</li>
+<li>资源的CRUD是可以对齐的（功能完整的）</li>
+</ul>
+<p>在下列情况考虑GraphQL：</p>
+<ul>
+<li>客户端对于数据的需求多变</li>
+<li>数据具有图的特点</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">来一口</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/12/27/API/">http://yoursite.com/2020/12/27/API/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/API-style/">API style</a><a class="post-meta__tags" href="/tags/Springboot/">Springboot</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/01/02/%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E9%97%AE%E9%A2%98/"><i class="fa fa-chevron-left">  </i><span>解决中文问题</span></a></div><div class="next-post pull-right"><a href="/2020/09/26/p2704%E7%82%AE%E5%85%B5%E9%98%B5%E5%9C%B0/"><span>p2704炮兵阵地</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By 来一口</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.8.2"></script><script src="/js/fancybox.js?version=1.8.2"></script><script src="/js/sidebar.js?version=1.8.2"></script><script src="/js/copy.js?version=1.8.2"></script><script src="/js/fireworks.js?version=1.8.2"></script><script src="/js/transition.js?version=1.8.2"></script><script src="/js/scroll.js?version=1.8.2"></script><script src="/js/head.js?version=1.8.2"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>Powered by</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

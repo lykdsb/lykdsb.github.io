@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="大码大全笔记"><meta name="keywords" content="技术总结"><meta name="author" content="来一口"><meta name="copyright" content="来一口"><title>大码大全笔记 | 来一口‘s blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.8.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.8.2"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script><!-- hexo-inject:begin --><!-- hexo-inject:end -->var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '5.1.1'
+} </script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="来一口‘s blog" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ADT"><span class="toc-number">1.</span> <span class="toc-text">ADT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%89%AF%E5%A5%BD%E7%9A%84%E7%B1%BB%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.1.</span> <span class="toc-text">良好的类接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%89%AF%E5%A5%BD%E7%9A%84%E5%B0%81%E8%A3%85"><span class="toc-number">1.2.</span> <span class="toc-text">良好的封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.</span> <span class="toc-text">类的设计与实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E5%90%AB%E5%85%B3%E7%B3%BB%EF%BC%88has-a%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">包含关系（has a）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%EF%BC%88is-a%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">继承关系（is a）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.3.</span> <span class="toc-text">成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.4.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E5%BD%93%E9%81%BF%E5%85%8D%E7%9A%84%E7%B1%BB"><span class="toc-number">1.3.5.</span> <span class="toc-text">应当避免的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%AF%B9%E8%A1%A8"><span class="toc-number">1.3.6.</span> <span class="toc-text">核对表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E5%AD%90%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">高质量的子程序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%90%8D%E5%AD%97"><span class="toc-number">2.1.</span> <span class="toc-text">子程序的名字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="toc-number">2.2.</span> <span class="toc-text">子程序的长度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text">子程序的参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">防御式编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%AD%E8%A8%80"><span class="toc-number">3.1.</span> <span class="toc-text">断言</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2376191261,361962468&amp;fm=26&amp;gp=0.jpg"></div><div class="author-info__name text-center">来一口</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">36</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">51</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">10</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友链</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://www.luogu.com.cn">洛谷</a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">来一口‘s blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">主页</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">目录</a><a class="site-page" href="/slides">幻灯片</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">大码大全笔记</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-09-06</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h1><ol>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><li><p>在对一个属性进行修改的时候，最好使用方法进行修改，而不是直接使用<code>Attribute=xxx</code>这种形式，这样可以隐藏实现细节且更具有可读性<code>setAttributeXXX()</code></p>
+</li>
+<li><p>尽量将底层数据结构封装为ADT，如堆栈，列表等，在实际使用的时候，不要讲存储了员工的列表而是直接认为是一些员工，采用更高的抽象级别。</p>
+</li>
+<li>将文件这样的常见对象都封装成ADT，将主要的文件操作都封装起来放在ADT中充当方法，可节省大量的重复劳动</li>
+<li>如果一个类中的某些操作之间没有明确的关联，最好是将其分散到不同的类中，不要混杂起来</li>
+</ol>
+<h2 id="良好的类接口"><a href="#良好的类接口" class="headerlink" title="良好的类接口"></a>良好的类接口</h2><ol>
+<li><p>类的接口应当有统一的抽象层次</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmployeeCensus</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">public</span>: </span><br><span class="line">  <span class="comment">//两部分接口抽象层次不一样</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//对于雇员的抽象</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">addEmployee</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">removeEmployee</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//对于列表的抽象</span></span><br><span class="line">  <span class="function">Employee <span class="title">nextItem</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function">Employee <span class="title">firstItem</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function">Employee <span class="title">lastItem</span><span class="params">()</span></span>;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比较好的抽象方法</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmployeeCensus</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">public</span>: </span><br><span class="line">  <span class="comment">//统一抽象在雇员层次</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">addEmployee</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">removeEmployee</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">  <span class="function">Employee <span class="title">nextEmployee</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function">Employee <span class="title">firstEmployee</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function">Employee <span class="title">lastEmployee</span><span class="params">()</span></span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span>:</span><br><span class="line">  <span class="comment">//将列表有关的细节放在private中隐藏起来</span></span><br><span class="line">  ListContainer EmployeeList;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>如果不使用好的抽象方法，程序会越来越难以理解</strong></p>
+</li>
+<li><p>注意程序应该提供成对的操作，比如有灯的开，就有灯的关闭，在写类的时候，一定要检查操作的对应操作是否存在</p>
+</li>
+</ol>
+<h2 id="良好的封装"><a href="#良好的封装" class="headerlink" title="良好的封装"></a>良好的封装</h2><ol>
+<li><p>尽可能地限制类和成员的可访问性</p>
+</li>
+<li><p>不要公开暴露出成员数据，尽可能使用访问器来控制访问</p>
+</li>
+<li><p>不要对于类的使用者作任何假设，如在程序中注释</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不要将其初始化为0，否则程序会崩溃</span></span><br></pre></td></tr></table></figure>
+<p>不应该对接口被如何使用作任何假设，而应该在实现的过程中考虑到这些情况出现时的处理</p>
+</li>
+<li><p>在cpp中尽量避免使用<strong>友元类</strong></p>
+</li>
+<li><p>阅读代码的次数会比写代码的次数多得多，因此应该时刻保证代码的可读性</p>
+</li>
+<li><p>留意不同类之间的耦合关系，不同类之间的耦合程度应该越低越好</p>
+</li>
+</ol>
+<h2 id="类的设计与实现"><a href="#类的设计与实现" class="headerlink" title="类的设计与实现"></a>类的设计与实现</h2><h3 id="包含关系（has-a）"><a href="#包含关系（has-a）" class="headerlink" title="包含关系（has a）"></a>包含关系（has a）</h3><p>包含关系一般使用类的成员进行建立这种关系</p>
+<p>如一个雇员有一个姓名，一个电话，这是就可以将姓名，电话作为雇员的成员</p>
+<p><strong>注意，如果一个类具有超出[5，9]的范围的数据成员时应当警惕是否能够拆分为多个类，<em>如果是简单数据类型的成员按上限考虑，如果是复杂对象的话按下先考虑</em></strong></p>
+<h3 id="继承关系（is-a）"><a href="#继承关系（is-a）" class="headerlink" title="继承关系（is a）"></a>继承关系（is a）</h3><p>继承是指一个类是另一个类的特化，目的是<strong>定义一个包含多个类共有元素的基类以写出更精简的代码</strong></p>
+<ol>
+<li><p>Liskov替换原则</p>
+<p>除非一个派生类真的是一个更特殊的基类，否则不应该从基类继承，换句话说<strong>一个基类中定义的方法，必须在所有派生类中的含义是相同的，至少是近似的</strong></p>
+<p>因此这两个类并不能从Account类中继承，因为InterstRate在两个子类中意义有明显差异</p>
+<blockquote>
+<p>假设一个类CheckingAccount中有InterestRate()是返回银行付给消费者的利息</p>
+<p>   而 LoanAccount中的InterestRate()是消费者向银行支付的利息，</p>
+<p>那么假设调用者是银行，就需要时刻记着这两个的符号是相反的，因此显然这样会造成语义混乱</p>
+</blockquote>
+</li>
+</ol>
+<p>​       因此这两个类并不能从Account类中继承，因为InterstRate在两个子类中意义有明显差异，要么不        应继承，要么应该使用不同的基类</p>
+<ol>
+<li><p>确保只继承需要继承的部分</p>
+</li>
+<li><p>不要覆盖一个不可覆盖的成员函数</p>
+<p>假设有一个函数在基类中是private的，那么可以在子类中创建一个同名的类，这样并没有覆盖只是刚好同名，但是看上去会是多态的，因此应该避免这种情况</p>
+</li>
+<li><p>只有一个派生类的基类是值得怀疑的（根本没有意义，不能精简代码反而还复杂化）</p>
+</li>
+<li><p>避免让继承体系过深，即不要太多层继承，这样很容易增加失误的概率，中间一个地方出错也很难找到错误处</p>
+</li>
+<li><p>尽量使用多态，避免类型检查</p>
+<p>有的时候会使用的这种代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(shap.TYPE)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">case</span> CIRCLE:</span><br><span class="line">   <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> RECTANGLE:</span><br><span class="line">   <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时可以直接使用多态，用一条语句就够了</p>
+</li>
+</ol>
+<h3 id="成员函数"><a href="#成员函数" class="headerlink" title="成员函数"></a>成员函数</h3><ol>
+<li><p>让类中的子程序尽可能地少，子程序越多越容易发生问题</p>
+</li>
+<li><p>减少成员函数之间的间接调用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">account.contactPerson().phoneNumber();</span><br></pre></td></tr></table></figure>
+<p>类似于以上的调用应该尽量避免</p>
+</li>
+</ol>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><ol>
+<li><p>尽可能在所有的构造函数中初始化所有成员</p>
+</li>
+<li><p>可以使用私有构造函数来强调单一实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ID</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="comment">//隐藏构造函数</span></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">ID</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//使用此方法返回唯一实例</span></span><br><span class="line">  <span class="comment">//使用时仅需ID.getInstance();</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ID <span class="title">getInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> id_instance</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//使用私有构造函数构造一个实例</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ID id_instance=<span class="keyword">new</span> ID();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="应当避免的类"><a href="#应当避免的类" class="headerlink" title="应当避免的类"></a>应当避免的类</h3><ol>
+<li><p>避免创建万能类（解耦）</p>
+</li>
+<li><p>消除无关紧要的类</p>
+<p>如果一个类只包含数据而不包含行为，那么这种类没有存在的必要，此时应当将其降级，拆分为具体的数据或者成为多个类的属性</p>
+</li>
+<li><p>避免使用动词命名的类，一个由行为定义的类是没有意义的。类应当是一个客观实体</p>
+</li>
+</ol>
+<h3 id="核对表"><a href="#核对表" class="headerlink" title="核对表"></a>核对表</h3><p>抽象</p>
+<ol>
+<li>是否有一个中心目的</li>
+<li>类的名称是否恰当</li>
+<li>类是否展现一致的抽象</li>
+<li>类的接口是否足够明了</li>
+<li>类的接口是否足够抽象，可以将其视为黑盒</li>
+<li>类提供的服务是否完整，不用使用私有数据</li>
+<li>是否去除无关信息</li>
+<li>是否可以分解为组件类</li>
+</ol>
+<p>封装</p>
+<ol>
+<li>是否将可访问性降至最低</li>
+<li>是否会暴露数据成员</li>
+<li>是否对其他类隐藏实现细节</li>
+<li>是否避免对于使用者作假设</li>
+<li>是松散耦合的吗</li>
+</ol>
+<p>继承</p>
+<ol>
+<li>派生类是否遵循Liskov替换法则</li>
+<li>类的文档中应记录继承关系</li>
+<li>派生类是否覆盖不可覆盖的方法</li>
+<li>是否将公用的接口放到较高的继承层次</li>
+<li>继承层次是否较浅</li>
+<li>基类的所有数据成员是否定义为private而不是protected</li>
+</ol>
+<p>实现</p>
+<ol>
+<li>是否有七个或更少的数据成员</li>
+<li>是否进行初始化</li>
+</ol>
+<h1 id="高质量的子程序"><a href="#高质量的子程序" class="headerlink" title="高质量的子程序"></a>高质量的子程序</h1><blockquote>
+<p>子程序是位实现一个特定目的而编写的程序，如函数或者方法</p>
+</blockquote>
+<p>即便是一个很短的语句，将其使用函数编写能够增大程序的可读性</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">point=deviceUnits*(POINTS_PER_INCH/DeviceUnitsPerInck());<span class="comment">//将设备单位转换为磅数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可以改成以下</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">deviceUnitsToPoints</span><span class="params">(iny deviceUnits)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> point=deviceUnits*(POINTS_PER_INCH/DeviceUnitsPerInck());</span><br><span class="line">  <span class="keyword">return</span> point;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//程序的可读性是非常重要的</span></span><br><span class="line">point=deviceUnitsToPoints(deviceUnits);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>内聚性指的是子程序中各操作之间的联系紧密程度，内聚性越高越好</p>
+</blockquote>
+<p>如<code>sin()</code>这个求正弦函数的方法就是极端内聚的，而<code>sinAndCos()</code>同时处理正弦和余弦这种操作就是不那么内聚的。</p>
+<p>最好要做到一个子程序有很高的功能上的内聚性</p>
+<h2 id="子程序的名字"><a href="#子程序的名字" class="headerlink" title="子程序的名字"></a>子程序的名字</h2><ol>
+<li><p>应当描述所做的事情</p>
+</li>
+<li><p>避免使用模糊的动词如<code>handleService</code>这种在大部分时候都是指代不明的</p>
+</li>
+<li><p>最好不要通过数字来区分不同的子程序</p>
+</li>
+<li><p>长度应当在9-15个字母之间</p>
+</li>
+<li><p>给过程起名的时候最好使用的语气强烈的动词加上名词</p>
+</li>
+<li><p>为常用操作确定统一的命名方式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">employee.id.get();</span><br><span class="line">dependent.getId();</span><br><span class="line">student.id();</span><br></pre></td></tr></table></figure>
+<p>以上各种方式应当选择一种，以便之后不容易忘记，否则类多了之后会发生混淆</p>
+</li>
+</ol>
+<h2 id="子程序的长度"><a href="#子程序的长度" class="headerlink" title="子程序的长度"></a>子程序的长度</h2><p>子程序最好不要超过200行代码，如果超过了500行代码就应该考虑将其拆分为多个子程序了</p>
+<h2 id="子程序的参数"><a href="#子程序的参数" class="headerlink" title="子程序的参数"></a>子程序的参数</h2><p>特别注意不要将参数作为工作变量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sample</span><span class="params">(<span class="keyword">int</span> inputValue)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  inputValue=inputValue*<span class="number">10</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//返回的明显已经不是输入的值，这里意思不清</span></span><br><span class="line">  <span class="keyword">return</span> inputValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在程序较短的时候还好，如果程序较长的话很容易弄混</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sample</span><span class="params">(<span class="keyword">int</span> inputValue)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> result=inputValue*<span class="number">10</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//使用这种方式比较容易理解</span></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="防御式编程"><a href="#防御式编程" class="headerlink" title="防御式编程"></a>防御式编程</h1><p>防御式编程即保证即便在其他程序员作出错误的操作的时候，仍然能够正确地处理，并返回错误信息而不是直接报错乃至程序崩溃</p>
+<h2 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h2><p>断言常用于表示程序在执行时发生的意料之外的情况</p>
+<blockquote>
+<p>如假定传入500个数据，那么就可以使用断言，如果传入数据超过了500个就会发生报错</p>
+</blockquote>
+<p>以下为java的断言写法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> a&gt;b:<span class="string">&quot;Something Wrong&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>如果断言失败就会输出后面的错误信息</p>
+<p>断言一般用于以下情况</p>
+<ol>
+<li>输入参数的取值范围</li>
+<li>输入输出流的开关状态</li>
+<li>文件的访问性</li>
+<li>是否更改不应更改的变量</li>
+<li>指针非空</li>
+</ol>
+<p><strong>断言一般只用于开发和测试阶段，是不会展现给用户的</strong></p>
+<p>使用断言应当遵循以下的建议：</p>
+<ol>
+<li>用错误/异常处理预期会发生的事，使用断言来处理绝对不会发生的事</li>
+<li>不应把需要执行的代码放到断言中</li>
+<li>用断言来验证前后条件（如输入的城市应当是已经有的）</li>
+<li>可以断言和错误处理同时使用</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">来一口</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/08/31/%E5%A4%A7%E7%A0%81%E5%A4%A7%E5%85%A8%E7%AC%94%E8%AE%B0/">http://yoursite.com/2020/08/31/%E5%A4%A7%E7%A0%81%E5%A4%A7%E5%85%A8%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/09/02/jquery/"><i class="fa fa-chevron-left">  </i><span>jquery</span></a></div><div class="next-post pull-right"><a href="/2020/08/29/%E8%83%8C%E5%8C%85%E4%B9%9D%E8%AE%B2%E7%AC%94%E8%AE%B0/"><span>背包问题</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By 来一口</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.8.2"></script><script src="/js/fancybox.js?version=1.8.2"></script><script src="/js/sidebar.js?version=1.8.2"></script><script src="/js/copy.js?version=1.8.2"></script><script src="/js/fireworks.js?version=1.8.2"></script><script src="/js/transition.js?version=1.8.2"></script><script src="/js/scroll.js?version=1.8.2"></script><script src="/js/head.js?version=1.8.2"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>Powered by</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

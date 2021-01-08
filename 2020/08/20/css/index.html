@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="css基础"><meta name="keywords" content="html,css"><meta name="author" content="来一口"><meta name="copyright" content="来一口"><title>css基础 | 来一口‘s blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.8.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.8.2"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script><!-- hexo-inject:begin --><!-- hexo-inject:end -->var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '5.1.1'
+} </script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="来一口‘s blog" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML%E7%9A%84%E7%BB%93%E6%9E%84%E5%8E%9F%E5%88%99"><span class="toc-number">1.</span> <span class="toc-text">HTML的结构原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-div-gt-%E6%A0%87%E7%AD%BE"><span class="toc-number">1.1.</span> <span class="toc-text">&lt;div&gt;标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-span-gt-%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.</span> <span class="toc-text">&lt;span&gt;标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ID%E4%B8%8E%E7%B1%BB%E5%90%8D"><span class="toc-number">1.3.</span> <span class="toc-text">ID与类名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">高级选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E7%BB%93%E6%9E%84%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">可视化结构模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%86%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">框模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A1%86%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="toc-number">4.1.1.</span> <span class="toc-text">框模型结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E7%99%BD%E8%BE%B9%E5%8F%A0%E5%8A%A0"><span class="toc-number">4.1.2.</span> <span class="toc-text">空白边叠加</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D"><span class="toc-number">4.2.</span> <span class="toc-text">定位</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E5%9B%BE%E5%83%8F"><span class="toc-number">5.</span> <span class="toc-text">背景图像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">5.1.</span> <span class="toc-text">基础知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86"><span class="toc-number">5.2.</span> <span class="toc-text">圆角边框</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%F0%9F%94%97"><span class="toc-number">6.</span> <span class="toc-text">链接🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="toc-number">6.1.</span> <span class="toc-text">基本知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E9%93%BE%E6%8E%A5"><span class="toc-number">6.2.</span> <span class="toc-text">外部链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E9%92%AE%E5%BD%A2%E9%93%BE%E6%8E%A5"><span class="toc-number">6.3.</span> <span class="toc-text">按钮形链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA"><span class="toc-number">6.4.</span> <span class="toc-text">提示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-number">7.</span> <span class="toc-text">列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%88%97%E8%A1%A8%E6%A0%B7%E5%BC%8F"><span class="toc-number">7.1.</span> <span class="toc-text">基本列表样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%82%E7%9B%B4%E5%AF%BC%E8%88%AA%E6%9D%A1"><span class="toc-number">7.2.</span> <span class="toc-text">垂直导航条</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B0%B4%E5%B9%B3%E5%AF%BC%E8%88%AA%E6%9D%A1"><span class="toc-number">7.3.</span> <span class="toc-text">水平导航条</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%88%97%E8%A1%A8"><span class="toc-number">7.4.</span> <span class="toc-text">定义列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E5%8D%95%E5%8F%8A%E8%A1%A8%E6%A0%BC"><span class="toc-number">8.</span> <span class="toc-text">表单及表格</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC"><span class="toc-number">8.1.</span> <span class="toc-text">表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E5%8D%95"><span class="toc-number">8.2.</span> <span class="toc-text">表单</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B1%80"><span class="toc-number">9.</span> <span class="toc-text">布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%B1%85%E4%B8%AD"><span class="toc-number">9.1.</span> <span class="toc-text">设计居中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B5%AE%E5%8A%A8%E7%9A%84%E5%B8%83%E5%B1%80"><span class="toc-number">9.2.</span> <span class="toc-text">基于浮动的布局</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2376191261,361962468&amp;fm=26&amp;gp=0.jpg"></div><div class="author-info__name text-center">来一口</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">36</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">51</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">10</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友链</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://www.luogu.com.cn">洛谷</a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">来一口‘s blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">主页</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">目录</a><a class="site-page" href="/slides">幻灯片</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">css基础</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-08-22</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="HTML的结构原则"><a href="#HTML的结构原则" class="headerlink" title="HTML的结构原则"></a>HTML的结构原则</h2><h3 id="lt-div-gt-标签"><a href="#lt-div-gt-标签" class="headerlink" title="&lt;div&gt;标签"></a><code>&lt;div&gt;</code>标签</h3><p>div代表英文division，<strong>即通过这个标签将页面分为若干个部分</strong>，通过id对应这个部分应该有怎样的逻辑含义</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><p><strong>使用<code>&lt;div&gt;</code>应当仅在没有现有元素能够划分区域的情况下使用，如对于列表则无需使用<code>&lt;div&gt;</code>进行包裹</strong></p>
+<p>如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;main&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>About<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Contact<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此处的<code>&lt;div&gt;</code>完全可以被删除，因为已经有列表标签将其包括。</p>
+<p><strong>在没有必要的情况下应当尽量减少<code>&lt;div&gt;</code>的使用</strong></p>
+<h3 id="lt-span-gt-标签"><a href="#lt-span-gt-标签" class="headerlink" title="&lt;span&gt;标签"></a><code>&lt;span&gt;</code>标签</h3><p><code>&lt;div&gt;</code>标签是堆块元素进行分割，而<code>&lt;span&gt;</code>是对行元素进行分割（<em>不过这种情况使用的比较少</em>）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Published on <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;date&quot;</span>&gt;</span>2020,August,17<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>通过这样的方法将表示日期的元素划分开来，方便之后进行操作</p>
+<h3 id="ID与类名"><a href="#ID与类名" class="headerlink" title="ID与类名"></a>ID与类名</h3><p><strong>ID能够识别唯一的元素，因此其必须是唯一的，其还可以被用来标示一次性元素</strong></p>
+<p>在页面中，ID的使用应当尽量为区分概念上类似的元素，而类名为一些具有相同属性的元素的总称</p>
+<p><strong>注意在使用的时候，CSS是不区分大小写的，但是为了统一而且能够便于阅读，因此均采用驼峰命名法</strong></p>
+<p>在使用类的时候，应该避免类的过度使用</p>
+<p>如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;newsText&quot;</span>&gt;</span>News1 <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;newsText&quot;</span>&gt;</span>News2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里就属于类的国度使用</p>
+<p>比较好的做法</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;newsText&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>News1 <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>News2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样能够使代码看起来更有逻辑性并且更整洁</p>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><p>选择器分为：</p>
+<ol>
+<li><p>类型选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;<span class="attribute">color</span>:black;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后代选择器:即只针对li中的子节点中的标签为a的元素起作用</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span> <span class="selector-tag">a</span> &#123;<span class="attribute">color</span>:red;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.class1</span> &#123;<span class="attribute">color</span>:green;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ID选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#id1</span> &#123;<span class="attribute">color</span>:white;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>比较好的方法是使用这几种的组合</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#id1</span> <span class="selector-tag">a</span> &#123;<span class="attribute">font-size</span>:<span class="number">20px</span>;&#125;</span><br><span class="line"><span class="selector-class">.class1</span> <span class="selector-tag">div</span> &#123;<span class="attribute">font-size</span>:<span class="number">20px</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>使用类或id确定区域，再对其中的元素进行操作，这样会比较有条理一点</p>
+<p>同时还能够使用伪类选择器进行对条件的限制</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span> &#123;<span class="attribute">color</span>:blue;&#125;<span class="comment">/*未被访问的连接*/</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;<span class="attribute">color</span>:red;&#125;<span class="comment">/*已访问的连接*/</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;<span class="attribute">color</span>:yellow;&#125;<span class="comment">/*鼠标悬浮在链接上*/</span></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:focus</span> &#123;<span class="attribute">color</span>:green;&#125;<span class="comment">/*聚焦在输入框上*/</span></span><br></pre></td></tr></table></figure>
+<p>还有最强大的通用选择器（<em>同时也是最少使用的</em>）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">color</span>:red;</span><br><span class="line">  <span class="attribute">font-size</span>:<span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此选择器会作用在所有元素上</p>
+<h2 id="高级选择器"><a href="#高级选择器" class="headerlink" title="高级选择器"></a>高级选择器</h2><p>子选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#nav</span> &gt; <span class="selector-tag">li</span> &#123;<span class="attribute">color</span>:red;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>子选择器只会作用在其直接子节点上，而不会作用在孙子节点乃至更后代的节点上</strong></p>
+<p>相邻选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> + <span class="selector-tag">p</span> &#123;<span class="attribute">color</span>:white;&#125;</span><br></pre></td></tr></table></figure>
+<p>此选择器只会作用在h1后的第一个p上，其他的段落不会受到影响，<strong>即只作用于相邻的元素上</strong></p>
+<p>属性选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-attr">[id=<span class="string">&quot;text&quot;</span>]</span>&#123;<span class="attribute">color</span>:red;&#125;</span><br></pre></td></tr></table></figure>
+<p>即选择具有对应属性的元素，若有多个属性则使用逗号</p>
+<h2 id="可视化结构模型"><a href="#可视化结构模型" class="headerlink" title="可视化结构模型"></a>可视化结构模型</h2><p>CSS的最重要的概念是</p>
+<ol>
+<li>浮动</li>
+<li>定位</li>
+<li>框模型</li>
+</ol>
+<h3 id="框模型"><a href="#框模型" class="headerlink" title="框模型"></a>框模型</h3><h4 id="框模型结构"><a href="#框模型结构" class="headerlink" title="框模型结构"></a>框模型结构</h4><p>框模型由内容，填充，边框，空白组成</p>
+<p><img src="/2020/08/20/css/box-model.gif" alt="box-model"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">框模型</th>
+<th style="text-align:center">性质</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">内容</td>
+<td style="text-align:center">模型的主体部分</td>
+</tr>
+<tr>
+<td style="text-align:center">填充</td>
+<td style="text-align:center">出现在内容周围，如果有背景图，会显示在内容和填充上</td>
+</tr>
+<tr>
+<td style="text-align:center">边框</td>
+<td style="text-align:center">包围整个模型，可以是实线，虚线，点线等</td>
+</tr>
+<tr>
+<td style="text-align:center">空白</td>
+<td style="text-align:center">控制元素之间的间隔</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>填充、边框、空白默认都是0</strong></p>
+<p><strong>在css中使用的width和height指的是内容区域的宽与高</strong>，与其他无关<sup><a href="#fn_1" id="reffn_1">1</a></sup></p>
+<h4 id="空白边叠加"><a href="#空白边叠加" class="headerlink" title="空白边叠加"></a>空白边叠加</h4><p>当两个垂直空白边发生重叠的时候，会合并为一个空白边，宽度等于较大的那个</p>
+<p><img src="/2020/08/20/css/截屏2020-08-17 下午3.54.52.png" alt="截屏2020-08-17 下午3.54.52"></p>
+<p>一个元素包含在另一个元素中的时候也会发生叠加</p>
+<p><img src="/2020/08/20/css/截屏2020-08-17 下午3.57.02.png" alt="截屏2020-08-17 下午3.57.02"></p>
+<p>空白框叠加是为了能有更整齐的排版</p>
+<p><img src="/2020/08/20/css/截屏2020-08-17 下午4.00.49.png" alt="截屏2020-08-17 下午4.00.49"></p>
+<h3 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h3><p>CSS有三种定位机制</p>
+<ol>
+<li>普通流</li>
+<li>浮动</li>
+<li>绝对/相对定位</li>
+</ol>
+<p><strong>普通流即不进行特别定位，按照html的排版自动进行元素的摆放</strong></p>
+<p><strong>相对定位与绝对定位几乎相同，只是相对的坐标不同。相对定位的偏移是相对于其本应该在的位置，而绝对定位相对的是屏幕原点的位置</strong></p>
+<p><strong>浮动可以使元素脱离普通流，向左或向右移动直到碰到阻挡，浮动元素不会被普通流元素阻挡，但是会被浮动元素阻挡，浮动元素可以与普通流元素重叠</strong></p>
+<p>正常使用段落元素会导致一行都被占掉，而使用浮动元素就可以缩短行程，达到文本围绕图像的效果</p>
+<p><img src="/2020/08/20/css/截屏2020-08-17 下午4.21.13.png" alt="截屏2020-08-17 下午4.21.13"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.shadow</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只需要这样就能够创造一块100*100的文本围绕效果</p>
+<p>如果不想围绕浮动元素，则可以增减行框的上空白边，为浮动框清理出一片区域即可</p>
+<p>即使用clear属性</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attribute">clear</span>: left;<span class="comment">/*表示左边框不能挨着浮动框，否则向上添加空白将内容向下挤*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="背景图像"><a href="#背景图像" class="headerlink" title="背景图像"></a>背景图像</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p>背景可以通过</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(graph.jpg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法进行设置</p>
+<p><strong>在默认情况下，如果图像不能完全铺满整个页面，浏览器会将图像重复在水平和垂直方向上平铺</strong></p>
+<p>可以通过设置<code>repeat-x</code> <code>repeat-y</code> <code>no-repeat</code>等方式控制水平平铺，垂直平铺，不平铺</p>
+<p><img src="/2020/08/20/css/截屏2020-08-18 下午7.17.39.png" alt="截屏2020-08-18 下午7.17.39"></p>
+<p>这是no-repeat的效果</p>
+<p><img src="/2020/08/20/css/截屏2020-08-18 下午7.19.21.png" alt="截屏2020-08-18 下午7.19.21"></p>
+<p>这是repeat的效果</p>
+<p><strong>一般情况只需要创造一个与图像相同大小的<code>&lt;div&gt;&lt;\div&gt;</code>然后将图像设置为这个div的背景即可</strong></p>
+<p>还可以控制图像出现的相对于元素的位置</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="built_in">url</span>(<span class="string">&quot;chicken.jpg&quot;</span>) <span class="number">100px</span> <span class="number">100px</span> no-repeat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="圆角边框"><a href="#圆角边框" class="headerlink" title="圆角边框"></a>圆角边框</h3><p>通过设置元素的<code>border-radius</code>属性能够使页面出现圆角边框</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">600px</span>;</span><br><span class="line">    <span class="attribute">background</span>:<span class="built_in">url</span>(<span class="string">&quot;chicken.jpg&quot;</span>) no-repeat;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50px</span> <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/08/20/css/截屏2020-08-18 下午7.49.24.png" alt="截屏2020-08-18 下午7.49.24"></p>
+<p>可以达到这种效果</p>
+<h2 id="链接🔗"><a href="#链接🔗" class="headerlink" title="链接🔗"></a>链接🔗</h2><h3 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h3><p>html中的链接不仅可以链接到其他网址，同时还能够链接到页面元素</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;#test&quot;&gt;hello&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<p>这样可以链接到同一页面的，id为test的元素</p>
+<p>链接还可以通过伪类选择器来定义特殊情况下的样式</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">a:hover</td>
+<td style="text-align:center">鼠标悬浮时</td>
+</tr>
+<tr>
+<td style="text-align:center">a:link</td>
+<td style="text-align:center">正常状态的链接</td>
+</tr>
+<tr>
+<td style="text-align:center">a:visited</td>
+<td style="text-align:center">已浏览的链接</td>
+</tr>
+<tr>
+<td style="text-align:center">a:active</td>
+<td style="text-align:center">被点击时的链接</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由于默认的链接下划线很丑，所有经常有这样的需求 ：<em>正常的时候没有下划线，只有鼠标点击或悬浮到该链接时才有下划线提示</em></p>
+<p>可以通过以下方法实现：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span>,<span class="selector-tag">a</span><span class="selector-pseudo">:visited</span>&#123;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span>,<span class="selector-tag">a</span><span class="selector-pseudo">:active</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>这些选择器的顺序最好不要发生变化，因为css后定义的样式会覆盖先定义的样式，所以可能无效</strong></p>
+<p>同时也可以通过加粗使其更醒目</p>
+<h3 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h3><p>有时为了区分内外部链接长在链接旁添加一个小图片</p>
+<p><img src="/2020/08/20/css/截屏2020-08-18 下午8.24.14.png" alt="截屏2020-08-18 下午8.24.14"></p>
+<p>这样能够使链接更醒目，同时页更美观（<em>如wiki</em>）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span>,<span class="selector-tag">a</span><span class="selector-pseudo">:visited</span>&#123;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">&quot;link.jpg&quot;</span>) no-repeat right top;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只需要插入背景图片，同时指定在框中的位置</p>
+<p>注意：<strong>一定要增加padding，否则图片会和文字重合</strong></p>
+<p>但是如果给每一个元素都使用这个，会有点重复，不太优雅</p>
+<p>此时可以使用属性选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-attr">[href^=<span class="string">&quot;http&quot;</span>]</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">&quot;link.jpg&quot;</span>) no-repeat right top;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>^会匹配所有以后面的字符串为开头的链接</strong></p>
+<p>可以对任意文本使用</p>
+<p>通过这种结束，可以突出显示用于下载的链接，邮件的链接等，使得网页有较好的美观效果</p>
+<h3 id="按钮形链接"><a href="#按钮形链接" class="headerlink" title="按钮形链接"></a>按钮形链接</h3><p>我们常常需要将链接做成按钮形状</p>
+<p>首先需要</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">display</span>: <span class="selector-tag">block</span>;</span><br></pre></td></tr></table></figure>
+<p>这个可以将元素变成块级，本来只有点击文字才会跳转，现在点击整个块都能跳转，进而达到按钮的效果</p>
+<p>而通过设定<code>padding</code>能够空出一定的空间，有更好的显示效果</p>
+<p><strong>通过伪类设定不同的背景图片能够达到按钮翻转的效果</strong></p>
+<h3 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h3><p>链接经常需要在鼠标放在连接上时提供一些提示：</p>
+<p><img src="/2020/08/20/css/截屏2020-08-19 上午10.53.34.png" alt="截屏2020-08-19 上午10.53.34"></p>
+<p>此时可以在html的a中创建一个span</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;tool&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https:\\www.baidu.com&quot;</span>&gt;</span>hello<span class="tag">&lt;<span class="name">span</span>&gt;</span>This is a link<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-class">.tool</span> <span class="selector-tag">span</span>&#123;<span class="attribute">display</span>:none;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.tool</span><span class="selector-pseudo">:hover</span> <span class="selector-tag">span</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">left</span>:<span class="number">2em</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.2em</span> <span class="number">0.6em</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#996633</span>;</span><br><span class="line">    <span class="attribute">background-color</span>:<span class="number">#FFFF66</span>;</span><br><span class="line">    <span class="attribute">color</span>:<span class="number">#000</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过伪类选择器控制span的出现以及出现的状态</p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h3 id="基本列表样式"><a href="#基本列表样式" class="headerlink" title="基本列表样式"></a>基本列表样式</h3><p><img src="/2020/08/20/css/截屏2020-08-19 上午11.01.20.png" alt="截屏2020-08-19 上午11.01.20"></p>
+<p>如果直接使用列表的html元素，每一项前面会出现一个点，这个点可以替换成其他形状以及自定义</p>
+<p>可以通过</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span>&#123;</span><br><span class="line"><span class="attribute">list-style-type</span>: decimal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将前面的列表符号换成数字或其他（<em>甚至有亚美尼亚数字</em>）</p>
+<p>通过设置背景来形成列表前面自定义的图标</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span>&#123;</span><br><span class="line"><span class="attribute">list-style-type</span>: none;</span><br><span class="line"><span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">&quot;link.jpg&quot;</span>) no-repeat <span class="number">0</span> <span class="number">50%</span>;</span><br><span class="line"><span class="attribute">padding-left</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一定要注意要添加<code>no-repeat</code>属性，要不然会被铺满</p>
+<p>最终效果</p>
+<p><img src="/2020/08/20/css/截屏2020-08-19 上午11.10.39.png" alt="截屏2020-08-19 上午11.10.39"></p>
+<h3 id="垂直导航条"><a href="#垂直导航条" class="headerlink" title="垂直导航条"></a>垂直导航条</h3><p>通过向列表项中插入链接可以达到一个导航条的效果</p>
+<p><img src="/2020/08/20/css/截屏2020-08-19 上午11.21.38.png" alt="截屏2020-08-19 上午11.21.38"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">list-style-type</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">ul</span> <span class="selector-tag">a</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid ;</span><br><span class="line">    <span class="attribute">background-color</span>: beige;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="水平导航条"><a href="#水平导航条" class="headerlink" title="水平导航条"></a>水平导航条</h3><p>有时候需要达到一个水平导航条的效果，但是列表默认是垂直排列的</p>
+<p><strong>此时可以考虑之前的浮动的方法进行，由于浮动元素会相互阻挡，因此在一行还未满的时候，浮动的列表元素会排布在一片水平区域</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span>&#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">list-style</span>: none;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">720px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#FAA819</span> repeat-x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">ul</span> <span class="selector-tag">li</span>&#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这种方式存在一个问题：</p>
+<p><img src="/2020/08/20/css/截屏2020-08-20 下午3.49.50.png" alt="截屏2020-08-20 下午3.49.50"></p>
+<p>这样的话，由于浮动元素是脱离了普通流的，<strong>因此对于列表来说相当于没有东西</strong>，那么就不能显示出列表的背景。</p>
+<p>解决办法也很简单，只需要对列表本身同样设定为浮动元素即可，由于浮动元素是在同一层的，因此就能达到原有的背景显示效果</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span>&#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">list-style</span>: none;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">720px</span>;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#FAA819</span> repeat-x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/08/20/css/截屏2020-08-20 下午3.59.01.png" alt="截屏2020-08-20 下午3.59.01"></p>
+<p>达到这种显示效果</p>
+<p>之后再加上边框，就可以有一个比较好的分割效果</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span>&#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">list-style</span>: none;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">1295px</span>;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#FAA819</span> repeat-x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">ul</span> <span class="selector-tag">li</span>&#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">ul</span> <span class="selector-tag">a</span>&#123;</span><br><span class="line">    <span class="attribute">font-size</span>: xx-large;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">2em</span>;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/08/20/css/截屏2020-08-20 下午4.02.56.png" alt="截屏2020-08-20 下午4.02.56"></p>
+<h3 id="定义列表"><a href="#定义列表" class="headerlink" title="定义列表"></a>定义列表</h3><p>html中有一种定义列表，常用来表现一个物品的定义,可以起到一个解释说明的作用：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">dl</span>&gt;</span><br><span class="line">    &lt;dt&gt;Apple&lt;/dt&gt;</span><br><span class="line">    &lt;dd&gt;A red fruit&lt;/dd&gt;</span><br><span class="line">    &lt;dd&gt;A computer company&lt;/dd&gt;</span><br><span class="line">    &lt;dt&gt;bannana&lt;/dt&gt;</span><br><span class="line">    &lt;dd&gt;A yellow fruit&lt;/dd&gt;</span><br><span class="line">&lt;/dl&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/08/20/css/截屏2020-08-20 下午4.08.17.png" alt="截屏2020-08-20 下午4.08.17"></p>
+<h2 id="表单及表格"><a href="#表单及表格" class="headerlink" title="表单及表格"></a>表单及表格</h2><h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><ol>
+<li><p>caption和summary</p>
+<p>caption一般为表格的标题，而summary则是表格的总结，而且其并不会出现在屏幕显示中，因此<strong>只是给程序员进行提醒这是个什么表格</strong></p>
+</li>
+<li><p>thead，tbody，tfoot</p>
+<p>为表格中的不同的逻辑部分，行/列标题，表格内容和表尾**注意行/列标题应该使用th标签而不是td标签以和内容 元素进行区分</p>
+</li>
+<li><p>td，th</p>
+<p>用于表示表中的具体内容</p>
+</li>
+</ol>
+<p>一个较完整的表单结构</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">id</span>=<span class="string">&quot;playListTable&quot;</span> <span class="attr">summary</span>=<span class="string">&quot;a playList of songs&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">caption</span>&gt;</span>playlist<span class="tag">&lt;/<span class="name">caption</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">colgroup</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">col</span> <span class="attr">id</span>=<span class="string">&quot;playlistCol&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">col</span> <span class="attr">id</span>=<span class="string">&quot;trackCol&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">col</span> <span class="attr">id</span>=<span class="string">&quot;artistCol&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">col</span> <span class="attr">id</span>=<span class="string">&quot;albumCol&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">colgroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>PlayListPosition<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>TrackName<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>Artist<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>Album<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>mk<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>mk1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>world<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>mk<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>mk2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>3<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>mk<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>mk3<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>其中colgroups和col是用来之后对于表单整列应用样式</strong></p>
+<p>一般比较少使用tfoot，一般就用thead和tbody就够了</p>
+<p>再添加样式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">table</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">border-collapse</span>: collapse;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">50em</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#666</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">th</span>,<span class="selector-tag">td</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.1em</span> <span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/2020/08/20/css/截屏2020-08-21 上午9.40.16.png" alt="截屏2020-08-21 上午9.40.16"></p>
+<p>注意border-collapse属性，正常如果对表格应用边框会出现两层的边框（相邻的），而如果将该属性改为collapse则会合并成一个边框</p>
+<p>可以针对其中的奇数行或者偶数行单独应用样式，可以使表格结构更清晰美观</p>
+<p><img src="/2020/08/20/css/截屏2020-08-21 上午9.48.05.png" alt="截屏2020-08-21 上午9.48.05"></p>
+<p>再为行元素添加hover时的样式变化，能够突出显示当前行</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">tr</span><span class="selector-pseudo">:hover</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#3d80df</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">thead</span> <span class="selector-tag">tr</span><span class="selector-pseudo">:hover</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: transparent;</span><br><span class="line">    <span class="attribute">color</span>: inherit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/08/20/css/截屏2020-08-21 上午9.51.43.png" alt="截屏2020-08-21 上午9.51.43"></p>
+<h3 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h3><p>一般表单使用<code>&lt;fieldset&gt;</code>标签用来包括表单，而在描述表单的内容时通常使用<code>&lt;label&gt;</code>和<code>&lt;input&gt;</code>组合起来使用表示一个表单项,而<code>&lt;legend&gt;</code>标签则表示表单的标题</p>
+<p>通常采用以下的结构</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">legend</span>&gt;</span></span><br><span class="line">    Your Info</span><br><span class="line">  <span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;Name&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>Number<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;Number&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>显示效果如下</p>
+<p><img src="/2020/08/20/css/截屏2020-08-22 下午4.16.44.png" alt="截屏2020-08-22 下午4.16.44"></p>
+<p>而html中的输入项有很多种</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">text</td>
+<td style="text-align:center">输入文本</td>
+</tr>
+<tr>
+<td style="text-align:center">radio</td>
+<td style="text-align:center">单选框</td>
+</tr>
+<tr>
+<td style="text-align:center">checkbox</td>
+<td style="text-align:center">复选框</td>
+</tr>
+<tr>
+<td style="text-align:center">button</td>
+<td style="text-align:center">按钮</td>
+</tr>
+<tr>
+<td style="text-align:center">file</td>
+<td style="text-align:center">提交文件</td>
+</tr>
+<tr>
+<td style="text-align:center">hidden</td>
+<td style="text-align:center">隐藏</td>
+</tr>
+<tr>
+<td style="text-align:center">password</td>
+<td style="text-align:center">密码输入</td>
+</tr>
+<tr>
+<td style="text-align:center">reset</td>
+<td style="text-align:center">重置表单</td>
+</tr>
+<tr>
+<td style="text-align:center">submit</td>
+<td style="text-align:center">提交表单</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>显示效果如下</p>
+<p><img src="/2020/08/20/css/截屏2020-08-22 下午4.31.34.png" alt="截屏2020-08-22 下午4.31.34"></p>
+<p>如果要对表单中的不同类型的输入分别应用样式可以使用属性选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;text&quot;</span>]</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>一般在设计表单的时候一般会对表单中聚焦的元素进行变色处理，此时可以用focus进行设置</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;text&quot;</span>]</span><span class="selector-pseudo">:focus</span><span class="comment">/*在聚焦于此元素时的样式*/</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#ffc</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p><strong>所有的css布局技术都依靠的是三个基本概念：定位、浮动、空白边操纵</strong></p>
+<h3 id="设计居中"><a href="#设计居中" class="headerlink" title="设计居中"></a>设计居中</h3><p>因为有的时候屏幕尺寸较大，如果将文本展示宽度设定为整个屏幕有的时候不利于阅读。因此常将文本放在屏幕中间的一个更小的区域</p>
+<ol>
+<li><p>水平空白边</p>
+<p>在设计css的时候可以将水平的margin设计为auto，这样这个元素在屏幕中的位置就会自动居中</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#ffc</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">800px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/08/20/css/截屏2020-08-22 下午4.52.59.png" alt="截屏2020-08-22 下午4.52.59"></p>
+<p>将内容部分放在对应的div中即可达到这样的显示在屏幕中间的效果</p>
+</li>
+<li><p>使用定位和负空白边</p>
+<p>即使用相对定位，设定为<code>left:50%;</code>但是这样只会是左边缘为屏幕中心，实际上是向右偏的。因此还需要使用负空白边的方法移动元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">720px</span>;</span><br><span class="line">  <span class="attribute">position</span>:relative;</span><br><span class="line">  <span class="attribute">left</span>:<span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>:-<span class="number">360px</span>;<span class="comment">/*向左移动容器宽度的一半*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>特别注意css中的负空白边的用法，这样可以自由地移动元素，而且有较高的可读性</strong></p>
+<h3 id="基于浮动的布局"><a href="#基于浮动的布局" class="headerlink" title="基于浮动的布局"></a>基于浮动的布局</h3><p>如果对于几乎所有的元素使用浮动布局，这样能够使布局变得更容易</p>
+<p>将两个并排的元素分别向左浮动和向右浮动这样能够产生一个视觉隔离效果，视觉效果比较好</p>
+<p><strong>多列浮动布局</strong></p>
+<p>以三列为例</p>
+<p>如果想要将三列进行浮动布局，只需要将其中两个看作一个，与另一个进行左右的浮动布局之后，这两个列内部再进行浮动布局，就可以有三列的浮动布局</p>
+<p>对于多列来说和三列是相同的。</p>
+<p><img src="/2020/08/20/css/截屏2020-08-22 下午5.41.40.png" alt="截屏2020-08-22 下午5.41.40"></p>
+<p><strong>流体布局与弹性布局</strong></p>
+<p>流体布局即不是通过像素等硬性指标，而是通过百分比进行布局，这种方式可以使得布局不会随着浏览器的大小变化产生一些不可预知的布局变化</p>
+<p>而弹性布局是使用em的单位进行布局。em即当前页面的字体大小，多少em就是现在页面能有多少个字。这种布局同样比硬性布局更为灵活</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">来一口</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/08/20/css/">http://yoursite.com/2020/08/20/css/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/css/">css</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/08/20/css1/"><i class="fa fa-chevron-left">  </i><span>涟漪特效按钮</span></a></div><div class="next-post pull-right"><a href="/2020/08/20/javascript/"><span>javascript基础</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By 来一口</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.8.2"></script><script src="/js/fancybox.js?version=1.8.2"></script><script src="/js/sidebar.js?version=1.8.2"></script><script src="/js/copy.js?version=1.8.2"></script><script src="/js/fireworks.js?version=1.8.2"></script><script src="/js/transition.js?version=1.8.2"></script><script src="/js/scroll.js?version=1.8.2"></script><script src="/js/head.js?version=1.8.2"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>Powered by</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
