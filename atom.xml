@@ -3,11 +3,11 @@
   <title>来一口‘s blog</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="http://blog.lykdsb.cn/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="http://blog.lykdsb.cn/"/>
   <updated>2021-01-02T03:39:42.429Z</updated>
-  <id>http://example.com/</id>
+  <id>http://blog.lykdsb.cn/</id>
   
   <author>
     <name>来一口</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>操作指南</title>
-    <link href="http://example.com/9999/12/31/slide1/"/>
-    <id>http://example.com/9999/12/31/slide1/</id>
+    <link href="http://blog.lykdsb.cn/9999/12/31/slide1/"/>
+    <id>http://blog.lykdsb.cn/9999/12/31/slide1/</id>
     <published>9999-12-31T11:57:52.000Z</published>
     <updated>2021-01-02T03:39:42.429Z</updated>
     
@@ -37,14 +37,14 @@
     
     
     
-    <category term="slides" scheme="http://example.com/tags/slides/"/>
+    <category term="slides" scheme="http://blog.lykdsb.cn/tags/slides/"/>
     
   </entry>
   
   <entry>
     <title>计算机网络</title>
-    <link href="http://example.com/2021/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    <id>http://example.com/2021/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</id>
+    <link href="http://blog.lykdsb.cn/2021/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    <id>http://blog.lykdsb.cn/2021/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</id>
     <published>2021-01-06T02:14:07.000Z</published>
     <updated>2021-01-08T07:04:07.405Z</updated>
     
@@ -60,19 +60,19 @@
     
     
     
-    <category term="计算机网络" scheme="http://example.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    <category term="计算机网络" scheme="http://blog.lykdsb.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
     
-    <category term="计算机网络" scheme="http://example.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    <category term="计算机网络" scheme="http://blog.lykdsb.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
-    <category term="复习" scheme="http://example.com/tags/%E5%A4%8D%E4%B9%A0/"/>
+    <category term="复习" scheme="http://blog.lykdsb.cn/tags/%E5%A4%8D%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>解决中文问题</title>
-    <link href="http://example.com/2021/01/02/%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E9%97%AE%E9%A2%98/"/>
-    <id>http://example.com/2021/01/02/%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E9%97%AE%E9%A2%98/</id>
+    <link href="http://blog.lykdsb.cn/2021/01/02/%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E9%97%AE%E9%A2%98/"/>
+    <id>http://blog.lykdsb.cn/2021/01/02/%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E9%97%AE%E9%A2%98/</id>
     <published>2021-01-02T02:59:00.000Z</published>
     <updated>2021-01-02T03:23:11.428Z</updated>
     
@@ -87,21 +87,21 @@
     
     
     
-    <category term="技术问题" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
+    <category term="技术问题" scheme="http://blog.lykdsb.cn/categories/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
     
     
-    <category term="Springboot" scheme="http://example.com/tags/Springboot/"/>
+    <category term="Springboot" scheme="http://blog.lykdsb.cn/tags/Springboot/"/>
     
-    <category term="Mysql" scheme="http://example.com/tags/Mysql/"/>
+    <category term="Mysql" scheme="http://blog.lykdsb.cn/tags/Mysql/"/>
     
-    <category term="技术问题" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
+    <category term="技术问题" scheme="http://blog.lykdsb.cn/tags/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
     
   </entry>
   
   <entry>
     <title>API</title>
-    <link href="http://example.com/2020/12/27/API/"/>
-    <id>http://example.com/2020/12/27/API/</id>
+    <link href="http://blog.lykdsb.cn/2020/12/27/API/"/>
+    <id>http://blog.lykdsb.cn/2020/12/27/API/</id>
     <published>2020-12-27T06:30:06.000Z</published>
     <updated>2020-12-27T08:00:22.750Z</updated>
     
@@ -118,19 +118,19 @@
     
     
     
-    <category term="design" scheme="http://example.com/categories/design/"/>
+    <category term="design" scheme="http://blog.lykdsb.cn/categories/design/"/>
     
     
-    <category term="API style" scheme="http://example.com/tags/API-style/"/>
+    <category term="API style" scheme="http://blog.lykdsb.cn/tags/API-style/"/>
     
-    <category term="Springboot" scheme="http://example.com/tags/Springboot/"/>
+    <category term="Springboot" scheme="http://blog.lykdsb.cn/tags/Springboot/"/>
     
   </entry>
   
   <entry>
     <title>p2704炮兵阵地</title>
-    <link href="http://example.com/2020/09/26/p2704%E7%82%AE%E5%85%B5%E9%98%B5%E5%9C%B0/"/>
-    <id>http://example.com/2020/09/26/p2704%E7%82%AE%E5%85%B5%E9%98%B5%E5%9C%B0/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/26/p2704%E7%82%AE%E5%85%B5%E9%98%B5%E5%9C%B0/"/>
+    <id>http://blog.lykdsb.cn/2020/09/26/p2704%E7%82%AE%E5%85%B5%E9%98%B5%E5%9C%B0/</id>
     <published>2020-09-26T02:49:29.000Z</published>
     <updated>2020-09-27T11:06:13.662Z</updated>
     
@@ -145,23 +145,23 @@
     
     
     
-    <category term="动态规划" scheme="http://example.com/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="动态规划" scheme="http://blog.lykdsb.cn/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     
-    <category term="cpp" scheme="http://example.com/tags/cpp/"/>
+    <category term="cpp" scheme="http://blog.lykdsb.cn/tags/cpp/"/>
     
-    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="动态规划" scheme="http://blog.lykdsb.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="算法" scheme="http://blog.lykdsb.cn/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="dp" scheme="http://example.com/tags/dp/"/>
+    <category term="dp" scheme="http://blog.lykdsb.cn/tags/dp/"/>
     
   </entry>
   
   <entry>
     <title>align的差别</title>
-    <link href="http://example.com/2020/09/25/align%E7%9A%84%E5%B7%AE%E5%88%AB/"/>
-    <id>http://example.com/2020/09/25/align%E7%9A%84%E5%B7%AE%E5%88%AB/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/25/align%E7%9A%84%E5%B7%AE%E5%88%AB/"/>
+    <id>http://blog.lykdsb.cn/2020/09/25/align%E7%9A%84%E5%B7%AE%E5%88%AB/</id>
     <published>2020-09-25T07:18:27.000Z</published>
     <updated>2020-09-25T07:30:25.055Z</updated>
     
@@ -177,21 +177,21 @@
     
     
     
-    <category term="web前端" scheme="http://example.com/categories/web%E5%89%8D%E7%AB%AF/"/>
+    <category term="web前端" scheme="http://blog.lykdsb.cn/categories/web%E5%89%8D%E7%AB%AF/"/>
     
     
-    <category term="html" scheme="http://example.com/tags/html/"/>
+    <category term="html" scheme="http://blog.lykdsb.cn/tags/html/"/>
     
-    <category term="web前端" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF/"/>
+    <category term="web前端" scheme="http://blog.lykdsb.cn/tags/web%E5%89%8D%E7%AB%AF/"/>
     
-    <category term="css" scheme="http://example.com/tags/css/"/>
+    <category term="css" scheme="http://blog.lykdsb.cn/tags/css/"/>
     
   </entry>
   
   <entry>
     <title>HTTP</title>
-    <link href="http://example.com/2020/09/24/HTTP/"/>
-    <id>http://example.com/2020/09/24/HTTP/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/24/HTTP/"/>
+    <id>http://blog.lykdsb.cn/2020/09/24/HTTP/</id>
     <published>2020-09-24T01:46:39.000Z</published>
     <updated>2020-09-24T02:25:05.881Z</updated>
     
@@ -205,19 +205,19 @@
     
     
     
-    <category term="web前端" scheme="http://example.com/categories/web%E5%89%8D%E7%AB%AF/"/>
+    <category term="web前端" scheme="http://blog.lykdsb.cn/categories/web%E5%89%8D%E7%AB%AF/"/>
     
     
-    <category term="HTTP" scheme="http://example.com/tags/HTTP/"/>
+    <category term="HTTP" scheme="http://blog.lykdsb.cn/tags/HTTP/"/>
     
-    <category term="web" scheme="http://example.com/tags/web/"/>
+    <category term="web" scheme="http://blog.lykdsb.cn/tags/web/"/>
     
   </entry>
   
   <entry>
     <title>P1063能量项链</title>
-    <link href="http://example.com/2020/09/23/P1063/"/>
-    <id>http://example.com/2020/09/23/P1063/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/23/P1063/"/>
+    <id>http://blog.lykdsb.cn/2020/09/23/P1063/</id>
     <published>2020-09-23T12:24:48.000Z</published>
     <updated>2020-09-23T12:46:09.201Z</updated>
     
@@ -237,8 +237,8 @@
   
   <entry>
     <title>响应式网页布局</title>
-    <link href="http://example.com/2020/09/23/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/"/>
-    <id>http://example.com/2020/09/23/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/23/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/"/>
+    <id>http://blog.lykdsb.cn/2020/09/23/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/</id>
     <published>2020-09-23T10:39:56.000Z</published>
     <updated>2020-09-23T11:10:37.656Z</updated>
     
@@ -252,23 +252,23 @@
     
     
     
-    <category term="web前端" scheme="http://example.com/categories/web%E5%89%8D%E7%AB%AF/"/>
+    <category term="web前端" scheme="http://blog.lykdsb.cn/categories/web%E5%89%8D%E7%AB%AF/"/>
     
     
-    <category term="html" scheme="http://example.com/tags/html/"/>
+    <category term="html" scheme="http://blog.lykdsb.cn/tags/html/"/>
     
-    <category term="web前端" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF/"/>
+    <category term="web前端" scheme="http://blog.lykdsb.cn/tags/web%E5%89%8D%E7%AB%AF/"/>
     
-    <category term="css" scheme="http://example.com/tags/css/"/>
+    <category term="css" scheme="http://blog.lykdsb.cn/tags/css/"/>
     
-    <category term="响应式网页" scheme="http://example.com/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E9%A1%B5/"/>
+    <category term="响应式网页" scheme="http://blog.lykdsb.cn/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E9%A1%B5/"/>
     
   </entry>
   
   <entry>
     <title>P1541乌龟棋</title>
-    <link href="http://example.com/2020/09/21/P1541%E4%B9%8C%E9%BE%9F%E6%A3%8B/"/>
-    <id>http://example.com/2020/09/21/P1541%E4%B9%8C%E9%BE%9F%E6%A3%8B/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/21/P1541%E4%B9%8C%E9%BE%9F%E6%A3%8B/"/>
+    <id>http://blog.lykdsb.cn/2020/09/21/P1541%E4%B9%8C%E9%BE%9F%E6%A3%8B/</id>
     <published>2020-09-21T12:56:16.000Z</published>
     <updated>2020-09-21T13:10:05.035Z</updated>
     
@@ -282,21 +282,21 @@
     
     
     
-    <category term="动态规划" scheme="http://example.com/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="动态规划" scheme="http://blog.lykdsb.cn/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     
-    <category term="cpp" scheme="http://example.com/tags/cpp/"/>
+    <category term="cpp" scheme="http://blog.lykdsb.cn/tags/cpp/"/>
     
-    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="动态规划" scheme="http://blog.lykdsb.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="算法" scheme="http://blog.lykdsb.cn/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>Page模仿总结</title>
-    <link href="http://example.com/2020/09/21/Page%E6%A8%A1%E4%BB%BF%E6%80%BB%E7%BB%93/"/>
-    <id>http://example.com/2020/09/21/Page%E6%A8%A1%E4%BB%BF%E6%80%BB%E7%BB%93/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/21/Page%E6%A8%A1%E4%BB%BF%E6%80%BB%E7%BB%93/"/>
+    <id>http://blog.lykdsb.cn/2020/09/21/Page%E6%A8%A1%E4%BB%BF%E6%80%BB%E7%BB%93/</id>
     <published>2020-09-21T11:32:01.000Z</published>
     <updated>2020-09-21T11:46:28.092Z</updated>
     
@@ -313,23 +313,23 @@
     
     
     
-    <category term="web前端" scheme="http://example.com/categories/web%E5%89%8D%E7%AB%AF/"/>
+    <category term="web前端" scheme="http://blog.lykdsb.cn/categories/web%E5%89%8D%E7%AB%AF/"/>
     
     
-    <category term="html" scheme="http://example.com/tags/html/"/>
+    <category term="html" scheme="http://blog.lykdsb.cn/tags/html/"/>
     
-    <category term="web前端" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF/"/>
+    <category term="web前端" scheme="http://blog.lykdsb.cn/tags/web%E5%89%8D%E7%AB%AF/"/>
     
-    <category term="css" scheme="http://example.com/tags/css/"/>
+    <category term="css" scheme="http://blog.lykdsb.cn/tags/css/"/>
     
-    <category term="技术总结" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+    <category term="技术总结" scheme="http://blog.lykdsb.cn/tags/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
     
   </entry>
   
   <entry>
     <title>解决java写文件失败</title>
-    <link href="http://example.com/2020/09/18/%E8%A7%A3%E5%86%B3java%E5%86%99%E6%96%87%E4%BB%B6%E5%A4%B1%E8%B4%A5/"/>
-    <id>http://example.com/2020/09/18/%E8%A7%A3%E5%86%B3java%E5%86%99%E6%96%87%E4%BB%B6%E5%A4%B1%E8%B4%A5/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/18/%E8%A7%A3%E5%86%B3java%E5%86%99%E6%96%87%E4%BB%B6%E5%A4%B1%E8%B4%A5/"/>
+    <id>http://blog.lykdsb.cn/2020/09/18/%E8%A7%A3%E5%86%B3java%E5%86%99%E6%96%87%E4%BB%B6%E5%A4%B1%E8%B4%A5/</id>
     <published>2020-09-18T10:29:12.000Z</published>
     <updated>2020-09-18T11:01:49.105Z</updated>
     
@@ -343,19 +343,19 @@
     
     
     
-    <category term="技术总结" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+    <category term="技术总结" scheme="http://blog.lykdsb.cn/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
     
     
-    <category term="技术总结" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+    <category term="技术总结" scheme="http://blog.lykdsb.cn/tags/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
     
-    <category term="java" scheme="http://example.com/tags/java/"/>
+    <category term="java" scheme="http://blog.lykdsb.cn/tags/java/"/>
     
   </entry>
   
   <entry>
     <title>git</title>
-    <link href="http://example.com/2020/09/11/git/"/>
-    <id>http://example.com/2020/09/11/git/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/11/git/"/>
+    <id>http://blog.lykdsb.cn/2020/09/11/git/</id>
     <published>2020-09-11T11:50:36.000Z</published>
     <updated>2020-09-13T02:12:30.365Z</updated>
     
@@ -369,17 +369,17 @@
     
     
     
-    <category term="git" scheme="http://example.com/categories/git/"/>
+    <category term="git" scheme="http://blog.lykdsb.cn/categories/git/"/>
     
     
-    <category term="git" scheme="http://example.com/tags/git/"/>
+    <category term="git" scheme="http://blog.lykdsb.cn/tags/git/"/>
     
   </entry>
   
   <entry>
     <title>jquery无法使用</title>
-    <link href="http://example.com/2020/09/11/jquery%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8/"/>
-    <id>http://example.com/2020/09/11/jquery%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/11/jquery%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8/"/>
+    <id>http://blog.lykdsb.cn/2020/09/11/jquery%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8/</id>
     <published>2020-09-11T11:23:50.000Z</published>
     <updated>2020-09-11T12:29:56.484Z</updated>
     
@@ -394,21 +394,21 @@
     
     
     
-    <category term="技术总结" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+    <category term="技术总结" scheme="http://blog.lykdsb.cn/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
     
     
-    <category term="javascript" scheme="http://example.com/tags/javascript/"/>
+    <category term="javascript" scheme="http://blog.lykdsb.cn/tags/javascript/"/>
     
-    <category term="技术总结" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+    <category term="技术总结" scheme="http://blog.lykdsb.cn/tags/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
     
-    <category term="jquery" scheme="http://example.com/tags/jquery/"/>
+    <category term="jquery" scheme="http://blog.lykdsb.cn/tags/jquery/"/>
     
   </entry>
   
   <entry>
     <title>P3842走直线</title>
-    <link href="http://example.com/2020/09/09/P3842/"/>
-    <id>http://example.com/2020/09/09/P3842/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/09/P3842/"/>
+    <id>http://blog.lykdsb.cn/2020/09/09/P3842/</id>
     <published>2020-09-09T00:54:37.000Z</published>
     <updated>2020-09-23T12:26:28.827Z</updated>
     
@@ -422,21 +422,21 @@
     
     
     
-    <category term="动态规划" scheme="http://example.com/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="动态规划" scheme="http://blog.lykdsb.cn/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     
-    <category term="cpp" scheme="http://example.com/tags/cpp/"/>
+    <category term="cpp" scheme="http://blog.lykdsb.cn/tags/cpp/"/>
     
-    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="动态规划" scheme="http://blog.lykdsb.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="算法" scheme="http://blog.lykdsb.cn/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>java启用assert</title>
-    <link href="http://example.com/2020/09/05/java%E5%90%AF%E7%94%A8assert/"/>
-    <id>http://example.com/2020/09/05/java%E5%90%AF%E7%94%A8assert/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/05/java%E5%90%AF%E7%94%A8assert/"/>
+    <id>http://blog.lykdsb.cn/2020/09/05/java%E5%90%AF%E7%94%A8assert/</id>
     <published>2020-09-05T12:11:25.000Z</published>
     <updated>2020-09-06T01:59:01.000Z</updated>
     
@@ -450,21 +450,21 @@
     
     
     
-    <category term="JavaSE" scheme="http://example.com/categories/JavaSE/"/>
+    <category term="JavaSE" scheme="http://blog.lykdsb.cn/categories/JavaSE/"/>
     
     
-    <category term="javaSE" scheme="http://example.com/tags/javaSE/"/>
+    <category term="javaSE" scheme="http://blog.lykdsb.cn/tags/javaSE/"/>
     
-    <category term="java" scheme="http://example.com/tags/java/"/>
+    <category term="java" scheme="http://blog.lykdsb.cn/tags/java/"/>
     
-    <category term="assert" scheme="http://example.com/tags/assert/"/>
+    <category term="assert" scheme="http://blog.lykdsb.cn/tags/assert/"/>
     
   </entry>
   
   <entry>
     <title>P1095逃跑</title>
-    <link href="http://example.com/2020/09/05/P1095/"/>
-    <id>http://example.com/2020/09/05/P1095/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/05/P1095/"/>
+    <id>http://blog.lykdsb.cn/2020/09/05/P1095/</id>
     <published>2020-09-05T03:26:15.000Z</published>
     <updated>2020-09-23T12:26:10.187Z</updated>
     
@@ -478,23 +478,23 @@
     
     
     
-    <category term="动态规划" scheme="http://example.com/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="动态规划" scheme="http://blog.lykdsb.cn/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     
-    <category term="cpp" scheme="http://example.com/tags/cpp/"/>
+    <category term="cpp" scheme="http://blog.lykdsb.cn/tags/cpp/"/>
     
-    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="动态规划" scheme="http://blog.lykdsb.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="算法" scheme="http://blog.lykdsb.cn/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="线性dp" scheme="http://example.com/tags/%E7%BA%BF%E6%80%A7dp/"/>
+    <category term="线性dp" scheme="http://blog.lykdsb.cn/tags/%E7%BA%BF%E6%80%A7dp/"/>
     
   </entry>
   
   <entry>
     <title>jquery</title>
-    <link href="http://example.com/2020/09/02/jquery/"/>
-    <id>http://example.com/2020/09/02/jquery/</id>
+    <link href="http://blog.lykdsb.cn/2020/09/02/jquery/"/>
+    <id>http://blog.lykdsb.cn/2020/09/02/jquery/</id>
     <published>2020-09-02T10:23:05.000Z</published>
     <updated>2020-09-16T11:41:04.668Z</updated>
     
@@ -509,21 +509,21 @@
     
     
     
-    <category term="web前端" scheme="http://example.com/categories/web%E5%89%8D%E7%AB%AF/"/>
+    <category term="web前端" scheme="http://blog.lykdsb.cn/categories/web%E5%89%8D%E7%AB%AF/"/>
     
     
-    <category term="javascript" scheme="http://example.com/tags/javascript/"/>
+    <category term="javascript" scheme="http://blog.lykdsb.cn/tags/javascript/"/>
     
-    <category term="web前端" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF/"/>
+    <category term="web前端" scheme="http://blog.lykdsb.cn/tags/web%E5%89%8D%E7%AB%AF/"/>
     
-    <category term="jquery" scheme="http://example.com/tags/jquery/"/>
+    <category term="jquery" scheme="http://blog.lykdsb.cn/tags/jquery/"/>
     
   </entry>
   
   <entry>
     <title>大码大全笔记</title>
-    <link href="http://example.com/2020/08/31/%E5%A4%A7%E7%A0%81%E5%A4%A7%E5%85%A8%E7%AC%94%E8%AE%B0/"/>
-    <id>http://example.com/2020/08/31/%E5%A4%A7%E7%A0%81%E5%A4%A7%E5%85%A8%E7%AC%94%E8%AE%B0/</id>
+    <link href="http://blog.lykdsb.cn/2020/08/31/%E5%A4%A7%E7%A0%81%E5%A4%A7%E5%85%A8%E7%AC%94%E8%AE%B0/"/>
+    <id>http://blog.lykdsb.cn/2020/08/31/%E5%A4%A7%E7%A0%81%E5%A4%A7%E5%85%A8%E7%AC%94%E8%AE%B0/</id>
     <published>2020-08-31T11:57:14.000Z</published>
     <updated>2020-09-06T00:42:07.000Z</updated>
     
@@ -538,17 +538,17 @@
     
     
     
-    <category term="技术总结" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+    <category term="技术总结" scheme="http://blog.lykdsb.cn/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
     
     
-    <category term="技术总结" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+    <category term="技术总结" scheme="http://blog.lykdsb.cn/tags/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
     
   </entry>
   
   <entry>
     <title>背包问题</title>
-    <link href="http://example.com/2020/08/29/%E8%83%8C%E5%8C%85%E4%B9%9D%E8%AE%B2%E7%AC%94%E8%AE%B0/"/>
-    <id>http://example.com/2020/08/29/%E8%83%8C%E5%8C%85%E4%B9%9D%E8%AE%B2%E7%AC%94%E8%AE%B0/</id>
+    <link href="http://blog.lykdsb.cn/2020/08/29/%E8%83%8C%E5%8C%85%E4%B9%9D%E8%AE%B2%E7%AC%94%E8%AE%B0/"/>
+    <id>http://blog.lykdsb.cn/2020/08/29/%E8%83%8C%E5%8C%85%E4%B9%9D%E8%AE%B2%E7%AC%94%E8%AE%B0/</id>
     <published>2020-08-29T09:23:14.000Z</published>
     <updated>2020-09-05T03:26:54.000Z</updated>
     
@@ -562,16 +562,16 @@
     
     
     
-    <category term="动态规划" scheme="http://example.com/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="动态规划" scheme="http://blog.lykdsb.cn/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     
-    <category term="cpp" scheme="http://example.com/tags/cpp/"/>
+    <category term="cpp" scheme="http://blog.lykdsb.cn/tags/cpp/"/>
     
-    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="动态规划" scheme="http://blog.lykdsb.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="算法" scheme="http://blog.lykdsb.cn/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="背包问题" scheme="http://example.com/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"/>
+    <category term="背包问题" scheme="http://blog.lykdsb.cn/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"/>
     
   </entry>
   
