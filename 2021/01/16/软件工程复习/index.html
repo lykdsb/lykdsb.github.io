@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="软件工程复习"><meta name="keywords" content="软件工程,复习"><meta name="author" content="来一口"><meta name="copyright" content="来一口"><title>软件工程复习 | 来一口‘s blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.8.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.8.2"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = {root:"/",algolia:{appId:"GPB8G9DOAS",apiKey:"1ef47741c728ee9350ed86cc2f6e69ce",indexName:"test_NAME",hits:{per_page:10},languages:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}.",hits_stats:"${hits} results found in ${time} ms"}},localSearch:void 0,copy:{success:"Copy successfully",error:"Copy error",noSupport:"The browser does not support"}}</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="来一口‘s blog" type="application/atom+xml">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-number">1.</span> <span class="toc-text">软件的本质</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">软件定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="toc-number">1.2.</span> <span class="toc-text">软件的种类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%97%E7%95%99%E8%BD%AF%E4%BB%B6"><span class="toc-number">1.3.</span> <span class="toc-text">遗留软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E7%9A%84%E5%8F%98%E6%9B%B4%E6%9C%AC%E8%B4%A8"><span class="toc-number">1.4.</span> <span class="toc-text">软件的变更本质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">软件工程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">定义软件工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E8%BF%87%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">软件过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5"><span class="toc-number">2.3.</span> <span class="toc-text">软件工程实践</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E8%BF%87%E7%A8%8B%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">软件过程结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">过程模式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">过程模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%AF%E7%94%A8%E8%BF%87%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">惯用过程模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.1.</span> <span class="toc-text">瀑布模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E8%BF%87%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.2.</span> <span class="toc-text">增量过程模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E5%8C%96%E8%BF%87%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.3.</span> <span class="toc-text">演化过程模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91"><span class="toc-number">5.</span> <span class="toc-text">敏捷开发</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2376191261,361962468&amp;fm=26&amp;gp=0.jpg"></div><div class="author-info__name text-center">来一口</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">39</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">53</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">11</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友链</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://www.luogu.com.cn">洛谷</a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">来一口‘s blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">主页</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">目录</a><a class="site-page" href="/slides">幻灯片</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">软件工程复习</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-01-17</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="软件的本质"><a href="#软件的本质" class="headerlink" title="软件的本质"></a>软件的本质</h1><h2 id="软件定义"><a href="#软件定义" class="headerlink" title="软件定义"></a>软件定义</h2><p>软件实际上扮演双重的角色</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><ul>
+<li>产品</li>
+<li>产品交付的载体</li>
+</ul>
+<p>教科书对于软件的定义是</p>
+<ol>
+<li>指令的集合，通过这些指令可以满足预期的特性、功能、和性能需求</li>
+<li>数据结构，使得程序可以合理利用信息</li>
+<li>软件描述信息：描述程序的操作和使用</li>
+</ol>
+<p>软件和硬件有一个非常重大的差别</p>
+<p><strong>软件是逻辑的而非物理的系统元素，因此软件是不会磨损的</strong></p>
+<p>硬件的失效图</p>
+<p><img src="/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/截屏2021-01-16 13.21.49.png" alt="硬件的失效图" style="zoom:33%;"></p>
+<p>但是硬件虽然会逐渐磨损，<strong>但其是可更换的，只需要将磨损的零件更换即可继续使用</strong></p>
+<p>软件的失效图</p>
+<p><img src="/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/截屏2021-01-16 13.23.23.png" alt="软件的失效图" style="zoom:33%;"></p>
+<ul>
+<li>理想的软件失效图是<ul>
+<li>一开始有未发现的错误</li>
+<li>但是随着逐渐更新、修正错误，错误率会越来越低</li>
+</ul>
+</li>
+<li>实际的软件失效图<ul>
+<li>一开始的部分和理想的失效图很像</li>
+<li>软件会面临变更，每次变更都可能引入新的错误，使得失效率陡然上升（<strong>软件的退化</strong>）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>不断的变更是软件退化的根本原因</p>
+</blockquote>
+<h2 id="软件的种类"><a href="#软件的种类" class="headerlink" title="软件的种类"></a>软件的种类</h2><ul>
+<li><p>系统软件</p>
+<p>一整套服务于其他程序的软件（编译器、编辑器、操作系统）</p>
+</li>
+<li><p>应用软件</p>
+<p>解决特定业务需要的独立应用程序</p>
+</li>
+<li><p>工程/科学软件</p>
+<p>解决数值计算领域</p>
+</li>
+<li><p>嵌入式软件</p>
+<p>存在于某个产品或者系统中（如微波炉中的系统）</p>
+</li>
+<li><p>产品线软件</p>
+<p>为多个不同用户的使用提供特定功能，<strong>关注有限的、内部的市场（库存控制产品）</strong></p>
+</li>
+<li><p>网络应用</p>
+<p>以网络为中心，涵盖宽泛的应用软件产品</p>
+</li>
+<li><p>人工智能软件</p>
+<p>利用非数值算法解决计算和直接分析无法解决的复杂问题</p>
+</li>
+</ul>
+<h2 id="遗留软件"><a href="#遗留软件" class="headerlink" title="遗留软件"></a>遗留软件</h2><p>有很多计算机程序年代过于久远，一般被称为<strong>遗留软件</strong></p>
+<p>遗留软件有以下几个特点</p>
+<ul>
+<li>生命周期长</li>
+<li>业务关键性</li>
+<li>质量差</li>
+</ul>
+<p>如果遗留软件可以满足用户的需求并且可以正常运行，那么就没有失效，但是随着时间的推移，遗留软件一般出于以下原因发生演化</p>
+<ul>
+<li>软件需要适应化调整</li>
+<li>软件必须升级实现新的商业需求</li>
+<li>软件必须扩展使之具有领域更多新的系统和数据库的互操能力</li>
+<li>软件架构必须进行改建以适应不断演化的计算环境</li>
+</ul>
+<h2 id="软件的变更本质"><a href="#软件的变更本质" class="headerlink" title="软件的变更本质"></a>软件的变更本质</h2><p>四大类软件不断进化，在行业中占据了主导地位</p>
+<ul>
+<li><p>WebApp</p>
+</li>
+<li><p>移动App</p>
+</li>
+<li><p>云计算</p>
+<p>实现需要开发包含前端和后端服务的体系结构</p>
+</li>
+<li><p>产品线软件</p>
+</li>
+</ul>
+<h1 id="软件工程"><a href="#软件工程" class="headerlink" title="软件工程"></a>软件工程</h1><p>要构建能够适应21世纪的软件产品，必须认识到一下几个事实</p>
+<ul>
+<li>软件实际上已经影响到生活的方方面面，<strong>因此确定软件方案之前，需要共同努力来理解问题</strong></li>
+<li>设计已经成为关键活动</li>
+<li>软件应当具有高质量</li>
+<li>软件需要具备可维护性</li>
+</ul>
+<p>最终得出一个结论：<strong>各种形式、各个应用领域的软件都需要工程化</strong></p>
+<h2 id="定义软件工程"><a href="#定义软件工程" class="headerlink" title="定义软件工程"></a>定义软件工程</h2><p>软件工程是</p>
+<ol>
+<li>将系统化的、规范化的、可量化的方法应用于软件的开发、运行、维护，即将工程化的思想应用于软件</li>
+<li>对1中所述的方法的研究</li>
+</ol>
+<p>没有一种能够对任何开发队伍都有效的方法，<strong>因此需要规范，也需要可适应性和灵活性</strong></p>
+<p>软件工程的层次图</p>
+<p><img src="/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/截屏2021-01-17 09.35.08.png" alt="软件工程层次图" style="zoom: 25%;"></p>
+<ul>
+<li><p>支撑软件工程的根基的是<strong>质量关注点</strong></p>
+<p>软件工程必须构建在质量承诺的基础上</p>
+</li>
+<li><p>软件工程的基础是<strong>过程层</strong></p>
+<p>建立工作环境、提交工作产品、建立里程碑、保证质量、管理变更</p>
+</li>
+<li><p>软件工程的<strong>方法层</strong>提供技术上的解决方法</p>
+<p>如何做？</p>
+</li>
+<li><p>软件工程的<strong>工具层</strong>为过程和方法提供自动化和半自动化的支持</p>
+<p>计算机辅助软件工程（CASE）</p>
+</li>
+</ul>
+<h2 id="软件过程"><a href="#软件过程" class="headerlink" title="软件过程"></a>软件过程</h2><blockquote>
+<p>软件过程是工作产品构建时执行的一系列活动、动作和任务的集合</p>
+</blockquote>
+<ul>
+<li><strong>活动</strong>主要实现宽泛的目标（如与利益相关者进行沟通）</li>
+<li><strong>动作</strong>包含了主要工作产品生产过程中的一系列任务（如体系结构设计模型）</li>
+<li><strong>任务</strong>关注小而明确的目标，能够生产实际产品（如进行单元测试）</li>
+</ul>
+<p>过程框架定义了若干个框架活动，为实现完整的软件工程过程建立了基础</p>
+<p>其中包含适用于整个软件过程的<strong>普适性活动（Umbrella Activity）</strong></p>
+<p>一个通用的软件工程过程框架通常包含以下五个活动</p>
+<ul>
+<li>沟通：与客户等进行沟通理解项目目标</li>
+<li>策划：软件项目计划</li>
+<li>建模</li>
+<li>构建：<strong>包含编码和测试</strong></li>
+<li>部署：将软件（<strong>全部或者部分增量</strong>）交付给用户，用户进行评测并给出反馈性意见</li>
+</ul>
+<p>这个框架活动在实际开发中会迭代应用，每一次迭代产生一个<strong>软件增量</strong></p>
+<p>典型的普适性活动包括以下</p>
+<ul>
+<li>软件项目跟踪和控制：根据计划来评估项目进度，保证能够按计划进行</li>
+<li>风险管理：对可能影线项目成果或者产品质量的风险进行评估</li>
+<li>软件质量保证</li>
+<li>技术评审：评估软件工程产品</li>
+<li>测量</li>
+<li>软件配置管理：管理变更带来的影响</li>
+<li>可复用管理：定义复用标准</li>
+<li>工作产品的准备和生产</li>
+</ul>
+<p>软件工程不是教条的法则，<strong>而是灵活可适应的</strong></p>
+<h2 id="软件工程实践"><a href="#软件工程实践" class="headerlink" title="软件工程实践"></a>软件工程实践</h2><p>通用的框架活动和普适性活动构成了软件工程工作的体系结构的轮廓</p>
+<p>实践的精髓</p>
+<ul>
+<li>理解问题：沟通和分析</li>
+<li>策划解决方案：建模和软件设计</li>
+<li>实施计划：代码生成</li>
+<li>检查结果的正确性：测试和质量保证</li>
+</ul>
+<p>软件工程整体实践的原则</p>
+<ol>
+<li>存在价值：考虑系统功能的时候应该考虑是否真正增加了价值</li>
+<li>保持简洁：所有设计都应该尽量简洁，但是不能过于简化</li>
+<li>保持愿景：清晰的愿景时软件项目成功的基础</li>
+<li>关注使用者：在需求说明、设计、实现过程中要牢记让别人理解你所做的事情</li>
+<li>面向未来：不要将软件的设计局限于一隅</li>
+<li>提前计划复用：提前做好复用的计划将降低开发费用，并增加可服用构件以及构件化系统的价值</li>
+<li>认真思考：在行动前清晰定位、完整思考通常能够产生更好的结果</li>
+</ol>
+<h1 id="软件过程结构"><a href="#软件过程结构" class="headerlink" title="软件过程结构"></a>软件过程结构</h1><p>软件过程框架</p>
+<p><img src="/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/截屏2021-01-17 11.07.15.png" alt="软件过程框架" style="zoom:33%;"></p>
+<p><strong>每一个框架活动由一系列软件工程动作构成，每个软件工程动作由任务集来定义，每一个任务集都由软件工程工作任务、相关工作产品、质量保证点和项目里程碑组成</strong></p>
+<p>任务集定义了为达到一个软件工程动作的目标所需要完成的工作</p>
+<p>另一方面有以下几种<strong>过程流（描述在执行顺序和执行时间上如何组织框架中的活动、动作、任务）</strong></p>
+<p><img src="/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/截屏2021-01-17 11.11.09.png" alt="过程流" style="zoom:33%;"></p>
+<ul>
+<li>线性过程流：按照顺序执行五个框架活动</li>
+<li>迭代过程流：执行下一个活动前重复执行之前的活动</li>
+<li>演化过程流：采用循环的方式执行各个活动</li>
+<li>并行过程流：并行执行多个活动</li>
+</ul>
+<h2 id="过程模式"><a href="#过程模式" class="headerlink" title="过程模式"></a>过程模式</h2><p><strong>过程模式中描述了软件工程工作中遇到的过程相关的问题，明确了问题环境并给出了针对该问题的一种或者几种可证明的解决方案</strong></p>
+<p>即提供了一种模版，一种在软件过程的背景下统一描述问题解决方案的方法</p>
+<p>有三种过程模式类型</p>
+<ol>
+<li>步骤模式：定义了与过程的框架活动相关的问题（如建立沟通）</li>
+<li>任务模式：定义了与软件工程动作或是工作任务相关、关系软件工程实践成败的问题（如需求收集）</li>
+<li>阶段模式：定义在过程中发生的框架活动序列（如螺旋模型、原型开发）</li>
+</ol>
+<h1 id="过程模型"><a href="#过程模型" class="headerlink" title="过程模型"></a>过程模型</h1><p>过程模型的提出是为了解决软件开发的混乱状况，使软件开发更加有序</p>
+<h2 id="惯用过程模型"><a href="#惯用过程模型" class="headerlink" title="惯用过程模型"></a>惯用过程模型</h2><p>管用过程模型规定了一套过程元素，还定义了过程流，即过程元素之间相互关联的过程</p>
+<h3 id="瀑布模型"><a href="#瀑布模型" class="headerlink" title="瀑布模型"></a>瀑布模型</h3><p><img src="/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/截屏2021-01-17 11.34.35.png" alt="瀑布模型" style="zoom:33%;"></p>
+<p>瀑布模型又叫<strong>经典生命周期</strong></p>
+<p>是一个系统的、顺序的软件开发方法，从用户需求规格说明开始，通过策划、建模、构建、部署的过程最终提供完整的软件支持</p>
+<p>瀑布模型的一个变体称为<strong>V模型</strong></p>
+<ul>
+<li>首先软件团队工作沿着V模型左侧步骤向下推进</li>
+<li>一旦编码完成则沿着右侧向上推进（进行一系列测试工作）</li>
+</ul>
+<p><img src="/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/截屏2021-01-17 11.40.36.png" alt="V模型" style="zoom:33%;"></p>
+<p>V模型和经典生命周期之间没有本质上的区别，V模型提供了一种 将验证和确认动作应用于早期软件工程工作中的直观方法</p>
+<p>在使用瀑布模型时有很多问题</p>
+<ul>
+<li>实际项目很少遵循瀑布模型的顺序，可能产生混乱</li>
+<li>客户难以清楚描述所有的需求</li>
+<li>只有项目接近尾声的时候才能够获得完整的程序</li>
+<li>存在阻塞状态，有些工作需要等待其他员工的工作完成</li>
+</ul>
+<p><strong>对于存在变更的项目来说，瀑布模型并不适合</strong></p>
+<h3 id="增量过程模型"><a href="#增量过程模型" class="headerlink" title="增量过程模型"></a>增量过程模型</h3><p>有很多时候，并不适用单独进行线性模型，<strong>需要先提供一套功能有限的软件，再逐渐增加增量</strong></p>
+<p>因此一般使用增量过程模型</p>
+<p><img src="/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/截屏2021-01-17 14.40.08.png" alt="增量过程模型过" style="zoom:33%;"></p>
+<p>增量过程模型中再每一次迭代中使用线性模型，每个线性序列产出软件的可交付增量</p>
+<p>使用该模型时，<strong>一般第一个增量是核心产品</strong></p>
+<h3 id="演化过程模型"><a href="#演化过程模型" class="headerlink" title="演化过程模型"></a>演化过程模型</h3><p>在开发中，商业和产品需求经常发生变化，导致最终产品难以实现。因此需要一种应对不断演变的过程模型</p>
+<ul>
+<li><p><strong>原型开发</strong>：</p>
+<p>一般用于以下情况</p>
+<ul>
+<li>客户定义了软件的一些基本任务，但是没有详细定义功能和特性需求</li>
+<li>开发人员对于算法的效率、操作系统的适用性等情况没有把握</li>
+</ul>
+<p><strong>原型系统提供了定义软件需求的一种机制，其在演化过程中一般是会被丢弃的</strong></p>
+</li>
+</ul>
+<p><img src="/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/截屏2021-01-17 14.49.18.png" alt="原型开发" style="zoom:33%;"></p>
+<ul>
+<li><p>螺旋模型</p>
+<p>螺旋模型是一种风险驱动型的过程模型生成器，其有两个特点</p>
+<ul>
+<li>采用循环的方式逐步加深系统定义和实现的深度</li>
+<li>确定一系列里程碑作为支撑点</li>
+</ul>
+<p>每一次演进的过程都需要考虑风险</p>
+<p><strong>一般第一圈开发出规格说明，之后是原型系统，然后逐渐进行完善，每一次都需要进行策划</strong></p>
+<p>但是这种模型非常依赖大量的风险评估专家，<strong>如果有较大的风险没有被发现和管理，就一定会发生问题</strong></p>
+</li>
+</ul>
+<p><img src="/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/截屏2021-01-17 14.54.27.png" alt="螺旋模型" style="zoom:33%;"></p>
+<h1 id="敏捷开发"><a href="#敏捷开发" class="headerlink" title="敏捷开发"></a>敏捷开发</h1></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">来一口</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://blog.lykdsb.cn/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/">http://blog.lykdsb.cn/2021/01/16/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a><a class="post-meta__tags" href="/tags/%E5%A4%8D%E4%B9%A0/">复习</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/9999/12/31/slide1/"><i class="fa fa-chevron-left">  </i><span>操作指南</span></a></div><div class="next-post pull-right"><a href="/2021/01/11/%E5%9C%A8mac%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6/"><span>在mac中创建脚本文件</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By 来一口</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.8.2"></script><script src="/js/fancybox.js?version=1.8.2"></script><script src="/js/sidebar.js?version=1.8.2"></script><script src="/js/copy.js?version=1.8.2"></script><script src="/js/fireworks.js?version=1.8.2"></script><script src="/js/transition.js?version=1.8.2"></script><script src="/js/scroll.js?version=1.8.2"></script><script src="/js/head.js?version=1.8.2"></script><script src="/js/search/algolia.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
