@@ -42,6 +42,32 @@
   </entry>
   
   <entry>
+    <title>二维数组中的查找</title>
+    <link href="http://blog.lykdsb.cn/2021/03/03/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/"/>
+    <id>http://blog.lykdsb.cn/2021/03/03/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/</id>
+    <published>2021-03-03T12:53:12.000Z</published>
+    <updated>2021-03-03T13:06:30.407Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-题目"><a href="#1-题目" class="headerlink" title="1. 题目"></a>1. 题目</h1><p>在一个二维数组中，每一行都按照从左到右的顺序逐渐递增，每一列都按照从上到下的顺序逐渐递增，请完成以下一个函数    ，查找二维数组中是否存在某一个数</p><h1 id="2-想法"><a href="#2-想法" class="headerlink" title="2. 想法"></a>2. 想法</h1><p>我一开始想的有点复杂，只要看到查找就开始考虑二分的方式，但是对于一个二维数组并不是很好进行二分的操作。因此我先对于这个二维数组进行了一定的处理，首先我通过比较每一行的范围与目标数，得出目标数可能存在的行，在该行内部使用二分的方法，如果没有找到的话就在下一行进行查找。但是实际上有一个更简单的方式</p><h1 id="3-解法"><a href="#3-解法" class="headerlink" title="3. 解法"></a>3. 解法</h1><p><img src="/2021/03/03/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/截屏2021-03-03 20.59.49.png" alt="截屏2021-03-03 20.59.49" style="zoom: 25%;"></p><p>从图中可以看到，如果从矩阵的右上角开始进行查找，可以发现一个规律。如果该数比目标数大，那么该数所在行一定没有目标数，然后就可以从剩下区域进行查找。如果该数比目标数小，那么该数所在列一定没有该目标数，那么就在剩余地方进行查找，最终逐渐缩小范围得到答案</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> target, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; <span class="built_in">array</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">array</span>.size()==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> j=(<span class="keyword">int</span>)<span class="built_in">array</span>[<span class="number">0</span>].size()<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;<span class="built_in">array</span>.size()&amp;&amp;j&gt;=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">array</span>[i][j]==target)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">array</span>[i][j]&gt;target)--j;</span><br><span class="line">        <span class="keyword">else</span> ++i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这种方式的时间复杂度是$O(n+m)$,而之前进行二分算法的时间复杂度为$O(nlogm)$，因此显然这种方式会优于二分的方法。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;1-题目&quot;&gt;&lt;a href=&quot;#1-题目&quot; class=&quot;headerlink&quot; title=&quot;1. 题目&quot;&gt;&lt;/a&gt;1. 题目&lt;/h1&gt;&lt;p&gt;在一个二维数组中，每一行都按照从左到右的顺序逐渐递增，每一列都按照从上到下的顺序逐渐递增，请完成以下一个函数    ，查</summary>
+      
+    
+    
+    
+    <category term="剑指offer" scheme="http://blog.lykdsb.cn/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+    <category term="算法" scheme="http://blog.lykdsb.cn/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="面试" scheme="http://blog.lykdsb.cn/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>数组中重复的数字</title>
     <link href="http://blog.lykdsb.cn/2021/03/02/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/"/>
     <id>http://blog.lykdsb.cn/2021/03/02/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/</id>
@@ -543,34 +569,6 @@
     <category term="动态规划" scheme="http://blog.lykdsb.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     <category term="算法" scheme="http://blog.lykdsb.cn/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java启用assert</title>
-    <link href="http://blog.lykdsb.cn/2020/09/05/java%E5%90%AF%E7%94%A8assert/"/>
-    <id>http://blog.lykdsb.cn/2020/09/05/java%E5%90%AF%E7%94%A8assert/</id>
-    <published>2020-09-05T12:11:25.000Z</published>
-    <updated>2020-09-06T01:59:01.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="使用java的assert功能"><a href="#使用java的assert功能" class="headerlink" title="使用java的assert功能"></a>使用java的assert功能</h2><p>之前在尝试使用java的assert功能时，发现在idea环境下无法使用assert</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> a&gt;b:<span class="string">&quot;Something Wrong&quot;</span>;</span><br></pre></td></tr></table></figure><p>上面的代码在不满足断言条件的情况下并没有输出之后的语句</p><p>在查阅资料后发现可以通过以下方法打开断言机制</p><p>先打开编辑配置选项</p><p><img src="/2020/09/05/java%E5%90%AF%E7%94%A8assert/截屏2020-09-05 下午8.24.42.png" alt="截屏2020-09-05 下午8.24.42"></p><p>再在此处输入<code>-ea</code>即可打开assert功能</p><p><img src="/2020/09/05/java%E5%90%AF%E7%94%A8assert/截屏2020-09-05 下午8.25.24.png" alt="截屏2020-09-05 下午8.25.24"></p><p>最后</p><p><img src="/2020/09/05/java%E5%90%AF%E7%94%A8assert/截屏2020-09-05 下午8.26.40.png" alt="截屏2020-09-05 下午8.26.40"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;使用java的assert功能&quot;&gt;&lt;a href=&quot;#使用java的assert功能&quot; class=&quot;headerlink&quot; title=&quot;使用java的assert功能&quot;&gt;&lt;/a&gt;使用java的assert功能&lt;/h2&gt;&lt;p&gt;之前在尝试使用java的assert</summary>
-      
-    
-    
-    
-    <category term="JavaSE" scheme="http://blog.lykdsb.cn/categories/JavaSE/"/>
-    
-    
-    <category term="javaSE" scheme="http://blog.lykdsb.cn/tags/javaSE/"/>
-    
-    <category term="java" scheme="http://blog.lykdsb.cn/tags/java/"/>
-    
-    <category term="assert" scheme="http://blog.lykdsb.cn/tags/assert/"/>
     
   </entry>
   
