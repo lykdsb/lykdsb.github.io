@@ -376,14 +376,14 @@ div {
   padding: 0px 5px;
   margin: 3px;
   display: inline-block;
-  border: 1px solid #808080;
+  border: 1px solid rgba(99, 96, 96, 0.8);
   border-radius: 999em;
   color: #aaa;
 }
 .post .post-content .tagcloud a:hover {
   color: #fff;
-  border: 1px solid #808080;
-  background: #808080;
+  border: 1px solid #1a8d76;
+  background: #1a8a76;
 }
 .post .post-content .one-tag-list {
   margin: 30px 0;
