@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>疲惫与困倦</title>
-    <url>/2022/09/07/pi-bei-yu-kun-juan/</url>
-    <content><![CDATA[<p>此刻我站在床边打下这一段文字，用这种方式克服仿佛在高楼边缘向下看想要跳下去一般的困倦。立交桥上过往的车流发出低沉的声音，与远处维港中货轮发出的汽笛声纠结在一起，好像形成了共振一般放大了我思想的昏沉。要是能倒下去一睡不醒就好了，没有Peer Pressure、没有内卷、没有压迫、没有绝望，只有充满爱的留着奶与蜜的梦乡。“你恨它，但是你摆脱不了它”不知何方而来的这样的嘲讽更加深了神（也许有吧）的这种设计的滑稽性。我挥舞着利刃，想要将它刺穿，可是我从未击中，也许疲倦从此而来吧。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>香港札记（一）</title>
-    <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
-    <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
-<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
-<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
-<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>香港</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>forEach的实现方式</title>
     <url>/2022/09/08/foreach-de-shi-xian-fang-shi/</url>
     <content><![CDATA[<p>今天本来想要研究一下java其中的<code>Collection</code>的，但是当我看到java源码中的第一行时，我忽然发现我对于这个<code>Iterable</code>接口几乎毫无了解，虽然知道它与<code>forEach</code>的实现有关，但是过程是什么样的我还没有研究过。</p>
@@ -114,6 +86,62 @@
       <tags>
         <tag>技术</tag>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>疲惫与困倦</title>
+    <url>/2022/09/07/pi-bei-yu-kun-juan/</url>
+    <content><![CDATA[<p>此刻我站在床边打下这一段文字，用这种方式克服仿佛在高楼边缘向下看想要跳下去一般的困倦。立交桥上过往的车流发出低沉的声音，与远处维港中货轮发出的汽笛声纠结在一起，好像形成了共振一般放大了我思想的昏沉。要是能倒下去一睡不醒就好了，没有Peer Pressure、没有内卷、没有压迫、没有绝望，只有充满爱的留着奶与蜜的梦乡。“你恨它，但是你摆脱不了它”不知何方而来的这样的嘲讽更加深了神（也许有吧）的这种设计的滑稽性。我挥舞着利刃，想要将它刺穿，可是我从未击中，也许疲倦从此而来吧。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>香港札记（一）</title>
+    <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
+    <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
+<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
+<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
+<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>香港</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>三数之和</title>
+    <url>/2022/09/09/san-shu-zhi-he/</url>
+    <content><![CDATA[<p>给你一个整数数组 <code>nums</code> ，判断是否存在三元组 <code>[nums[i], nums[j], nums[k]]</code> 满足 <code>i != j</code>、<code>i != k</code> 且 <code>j != k</code> ，同时还满足 <code>nums[i] + nums[j] + nums[k] == 0</code> 。请你返回所有和为 0 且不重复的三元组。注意：<strong>答案中不可以包含重复的三元组。</strong></p>
+<p><a href="https://leetcode.cn/problems/3sum">题目信息</a></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这道题目非常容易想出暴力虚幻遍历的方式，但是这种算法的时间复杂度达到了$O(N^3)$级别，基本上是不可接受的。从题目信息中的数据量$10^5$可以看出时间复杂度应该需要降到$O(N^2)$及以下。</p>
+<p>应该有这种直觉，<strong>当需要进行两层循环进行遍历的时候，可以使用双指针的方法将时间复杂度降低到$O(N)$级别</strong>，因此我们这里也需要考虑使用双指针的方法解决问题。</p>
+<p>但是仍然存在一个问题，就是双指针法必须在一个有序的数组中才能够使用。那么我们就可以使用$O(N\log N)$的排序方式对其进行排序，之后再使用双指针法进行搜索。由于排序之后的时间复杂度为$O(N^2)$，根据主定理可知排序并不会影响我们最终的时间复杂度。</p>
+<p>我们可以得到这样一种思维</p>
+<blockquote>
+<p>当数组降维之后，遍历时间复杂度仍然大于$O(N\log N)$时，先进行排序是必然没有坏处的，在此基础上使用双指针法往往能够降低时间复杂度。</p>
+</blockquote>
+<p>在本题中先进行排序有两个好处</p>
+<ul>
+<li>能够使用双指针法进行遍历</li>
+<li>能够非常方便的进行去重</li>
+</ul>
+<p>由于排序之后，相同的数都在一起，因此如果我们找到了满足条件的数之后，我们只需要挪动指针一直到一个不相同的数即可</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">threeSum</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">      	<span class="comment">//进行排序</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.length-<span class="number">2</span>;i++){</span><br><span class="line">          	<span class="comment">//剪枝，如果最小的数都大于0，那么就没有必要计算了，和一定大于0</span></span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;<span class="number">0</span>)<span class="keyword">continue</span>;</span><br><span class="line">          	<span class="comment">//去重，如果两个数相同，那么结果在遍历前一个的时候已经得出了</span></span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i-<span class="number">1</span>])<span class="keyword">continue</span>;</span><br><span class="line">            <span class="type">int</span> j=i+<span class="number">1</span>,k=nums.length-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j&lt;k){</span><br><span class="line">              	<span class="comment">//双指针遍历</span></span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]+nums[k]&gt;<span class="number">0</span>)k--;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(nums[i]+nums[j]+nums[k]&lt;<span class="number">0</span>) j++;</span><br><span class="line">                <span class="keyword">else</span>{</span><br><span class="line">                    List&lt;Integer&gt; cur = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">                    cur.add(nums[i]);</span><br><span class="line">                    cur.add(nums[j]);</span><br><span class="line">                    cur.add(nums[k]);</span><br><span class="line">                    list.add(cur);</span><br><span class="line">										<span class="comment">//去重，将相同的j、k全部排除掉</span></span><br><span class="line">                    <span class="keyword">while</span>(j&lt;k&amp;&amp;nums[j+<span class="number">1</span>]==nums[j])j++;</span><br><span class="line">                    <span class="keyword">while</span>(j&lt;k&amp;&amp;nums[k-<span class="number">1</span>]==nums[k])k--;</span><br><span class="line">                    j++;</span><br><span class="line">                    k--;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            </span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
 </search>
