@@ -86,34 +86,7 @@
       <tags>
         <tag>技术</tag>
         <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>疲惫与困倦</title>
-    <url>/2022/09/07/pi-bei-yu-kun-juan/</url>
-    <content><![CDATA[<p>此刻我站在床边打下这一段文字，用这种方式克服仿佛在高楼边缘向下看想要跳下去一般的困倦。立交桥上过往的车流发出低沉的声音，与远处维港中货轮发出的汽笛声纠结在一起，好像形成了共振一般放大了我思想的昏沉。要是能倒下去一睡不醒就好了，没有Peer Pressure、没有内卷、没有压迫、没有绝望，只有充满爱的留着奶与蜜的梦乡。“你恨它，但是你摆脱不了它”不知何方而来的这样的嘲讽更加深了神（也许有吧）的这种设计的滑稽性。我挥舞着利刃，想要将它刺穿，可是我从未击中，也许疲倦从此而来吧。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>香港札记（一）</title>
-    <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
-    <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
-<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
-<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
-<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>香港</tag>
+        <tag>集合</tag>
       </tags>
   </entry>
   <entry>
@@ -142,6 +115,103 @@
       </categories>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>下一个排列</title>
+    <url>/2022/09/14/xia-yi-ge-pai-lie/</url>
+    <content><![CDATA[<p>整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。</p>
+<p>例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。<br>整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。</p>
+<p>例如，arr = [1,2,3] 的下一个排列是 [1,3,2] 。<br>类似地，arr = [2,3,1] 的下一个排列是 [3,1,2] 。<br>而 arr = [3,2,1] 的下一个排列是 [1,2,3] ，因为 [3,2,1] 不存在一个字典序更大的排列。<br>给你一个整数数组 nums ，找出 nums 的下一个排列。</p>
+<p>必须 <strong>原地 修改</strong>，只允许使用额外常数空间。</p>
+<p><a href="https://leetcode.cn/problems/next-permutation/">题目</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><img src="/2022/09/14/xia-yi-ge-pai-lie/step1.png" class="" title="step1">
+
+<p>我们可以随便使用一个排列<code>12385764</code>，他的下一个排列是<code>12386457</code>，经过多次实验观察，我们可以发现这样的规律：</p>
+<ul>
+<li>我们只需要操作的是从某一个数开始的后面的数</li>
+</ul>
+<p>那么如何找到这个数呢？</p>
+<p>我们只需要确保只使用这个数及后面的部分就能够实现找到下一个更大的排列，那么我们需要找到一个数，<strong>这个数的后面一定有至少一个比他大的数</strong>。这样就能够保证在不使用前面的数的同时，生成一个更大的排列。我们只需要从右向左，一直比较相邻的数，只要左边的数比右边的数小，那么左边的数就是我们要找的数（因为由于我们刚刚的比较，右边的数是递减的，只要相邻的数比他大，那么右边一定有至少一个比它大的数）</p>
+<img src="/2022/09/14/xia-yi-ge-pai-lie/step2.png" class="" title="step2">
+
+<p>然后为了保证生成的是<strong>下一个</strong>排列，我们需要保证增加的值最小，因此我们只需要从后往前找到一个比这个数更大的数，对于<code>12385764</code>来说是6，我们进行交换就得到了<code>12386754</code></p>
+<img src="/2022/09/14/xia-yi-ge-pai-lie/step3.png" class="" title="step3">
+
+<img src="/2022/09/14/xia-yi-ge-pai-lie/step4.png" class="" title="step4">
+
+<p>为了让这个排列最小，我们还需要保证6后面的数是升序排列，这是我们只需要将后面的数反转即可，因为后面的数一定是降序排列的。</p>
+  <img src="/2022/09/14/xia-yi-ge-pai-lie/step5.png" class="" title="step5">
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[]nums,<span class="type">int</span> i,<span class="type">int</span> j)</span>{</span><br><span class="line">        <span class="type">int</span> temp=nums[i];</span><br><span class="line">        nums[i]=nums[j];</span><br><span class="line">        nums[j]=temp;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">nextPermutation</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        <span class="type">int</span> len= nums.length;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=len-<span class="number">2</span>;i&gt;=<span class="number">0</span>;i--){</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;nums[i+<span class="number">1</span>])<span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(i&gt;=<span class="number">0</span>){</span><br><span class="line">        	<span class="keyword">for</span>(j=len-<span class="number">1</span>;j&gt;i;j--){</span><br><span class="line">            	<span class="keyword">if</span>(nums[j]&gt;nums[i])<span class="keyword">break</span>;</span><br><span class="line">        	}</span><br><span class="line">        	swap(nums,i,j);</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> m=i+<span class="number">1</span>;m&lt;=(len+i)/<span class="number">2</span>;m++){</span><br><span class="line">            </span><br><span class="line">            swap(nums,m,nums.length+i-m);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>合并k个升序链表</title>
+    <url>/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/</url>
+    <content><![CDATA[<p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
+<p><a href="https://leetcode.cn/problems/merge-k-sorted-lists/">题目</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>其实这里很容易就会想到归并排序中，两个有序数组合并的过程，这里使用的也是相同的思想。但是需要注意的是这里需要合并的是多个链表，也就是说每一次要进行K次的比较，如果采用这种方式的话，时间复杂度为$O(KN)$。</p>
+<p>但是如果我们在这里使用<strong>堆</strong>就能比较容易得解决这个问题。我们建立一个堆，根据链表所指节点的值来进行比较，每次挑选出堆顶的一个节点，选出后将这个节点的值用于建立新链表，同时将这个节点的下一个节点放入堆中，并进行调整，重复直到所有链表节点都已经遍历。</p>
+<p>我们可以将这道题的思路总结成下面这样：</p>
+<blockquote>
+<p>如果我们要在一组数中挑选出最小的或者最大的一个，而且这组数是动态变化的，那么我们一般优先考虑使用堆/优先队列来解决这个问题</p>
+</blockquote>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeKLists</span><span class="params">(ListNode[] lists)</span> {</span><br><span class="line">        <span class="keyword">if</span>(lists.length==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">        ListNode cur=head;</span><br><span class="line">        PriorityQueue&lt;ListNode&gt;heap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;a.val-b.val);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;lists.length;i++){</span><br><span class="line">            <span class="keyword">if</span>(lists[i]!=<span class="literal">null</span>)heap.offer(lists[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span>(!heap.isEmpty()){</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">peek</span> <span class="operator">=</span> heap.poll();</span><br><span class="line">            <span class="keyword">if</span>(peek.next!=<span class="literal">null</span>)</span><br><span class="line">                heap.offer(peek.next);</span><br><span class="line">            cur.next=<span class="keyword">new</span> <span class="title class_">ListNode</span>(peek.val);</span><br><span class="line">            cur=cur.next;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> head.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>标记接口</title>
+    <url>/2022/09/09/biao-ji-jie-kou/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>香港札记（一）</title>
+    <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
+    <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
+<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
+<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
+<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>香港</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>疲惫与困倦</title>
+    <url>/2022/09/07/pi-bei-yu-kun-juan/</url>
+    <content><![CDATA[<p>此刻我站在床边打下这一段文字，用这种方式克服仿佛在高楼边缘向下看想要跳下去一般的困倦。立交桥上过往的车流发出低沉的声音，与远处维港中货轮发出的汽笛声纠结在一起，好像形成了共振一般放大了我思想的昏沉。要是能倒下去一睡不醒就好了，没有Peer Pressure、没有内卷、没有压迫、没有绝望，只有充满爱的留着奶与蜜的梦乡。“你恨它，但是你摆脱不了它”不知何方而来的这样的嘲讽更加深了神（也许有吧）的这种设计的滑稽性。我挥舞着利刃，想要将它刺穿，可是我从未击中，也许疲倦从此而来吧。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
       </tags>
   </entry>
 </search>
