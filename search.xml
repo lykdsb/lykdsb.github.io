@@ -154,27 +154,6 @@
       </tags>
   </entry>
   <entry>
-    <title>合并k个升序链表</title>
-    <url>/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/</url>
-    <content><![CDATA[<p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
-<p><a href="https://leetcode.cn/problems/merge-k-sorted-lists/">题目</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>其实这里很容易就会想到归并排序中，两个有序数组合并的过程，这里使用的也是相同的思想。但是需要注意的是这里需要合并的是多个链表，也就是说每一次要进行K次的比较，如果采用这种方式的话，时间复杂度为$O(KN)$。</p>
-<p>但是如果我们在这里使用<strong>堆</strong>就能比较容易得解决这个问题。我们建立一个堆，根据链表所指节点的值来进行比较，每次挑选出堆顶的一个节点，选出后将这个节点的值用于建立新链表，同时将这个节点的下一个节点放入堆中，并进行调整，重复直到所有链表节点都已经遍历。</p>
-<p>我们可以将这道题的思路总结成下面这样：</p>
-<blockquote>
-<p>如果我们要在一组数中挑选出最小的或者最大的一个，而且这组数是动态变化的，那么我们一般优先考虑使用堆/优先队列来解决这个问题</p>
-</blockquote>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeKLists</span><span class="params">(ListNode[] lists)</span> {</span><br><span class="line">        <span class="keyword">if</span>(lists.length==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">        ListNode cur=head;</span><br><span class="line">        PriorityQueue&lt;ListNode&gt;heap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;a.val-b.val);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;lists.length;i++){</span><br><span class="line">            <span class="keyword">if</span>(lists[i]!=<span class="literal">null</span>)heap.offer(lists[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span>(!heap.isEmpty()){</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">peek</span> <span class="operator">=</span> heap.poll();</span><br><span class="line">            <span class="keyword">if</span>(peek.next!=<span class="literal">null</span>)</span><br><span class="line">                heap.offer(peek.next);</span><br><span class="line">            cur.next=<span class="keyword">new</span> <span class="title class_">ListNode</span>(peek.val);</span><br><span class="line">            cur=cur.next;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> head.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>标记接口</title>
     <url>/2022/09/09/biao-ji-jie-kou/</url>
     <content><![CDATA[]]></content>
@@ -184,6 +163,46 @@
       <tags>
         <tag>技术</tag>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>只出现一次的数字</title>
+    <url>/2022/10/18/zhi-chu-xian-yi-ci-de-shu-zi/</url>
+    <content><![CDATA[<p>给你一个整数数组&nbsp;nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。你可以按 任意顺序 返回答案。</p>
+<p>你必须设计并实现线性时间复杂度的算法且仅使用常量额外空间来解决此问题。<br><a href="https://leetcode.cn/problems/single-number-iii/">题目</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>​	可能是因为我之前做到过类似的题目，所以我可以非常清楚的记得这里存在对所有数字使用异或可以抵消全部的相同数字的方法。但是如何将这两个异或之后的数字进行合并我之前就没有考虑过了。在看题解的过程中我发现了一个思路：</p>
+<ol>
+<li>找到一个属性，使这两个数在这个属性上不一样</li>
+<li>用这个属性将整个数组进行分类</li>
+<li>在两个部分中分别使用异或去除重复的数（<strong>重复的数因为属性一样一定会被分入同一个部分</strong>）</li>
+<li>得到这两个数</li>
+</ol>
+<p>那么使用什么属性能够保证这两个数在这个属性上不一样呢？</p>
+<p><strong>这两个数的1的位数不一样</strong></p>
+<p>那么为了方便，我们可以使用这两个数异或之后最低位的1来进行区分（因为异或之后要为1，在这个位上必定是一个1一个0）</p>
+<p>那么问题就解决了！🎆</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] singleNumber(<span class="type">int</span>[] nums) {</span><br><span class="line">        <span class="type">int</span> <span class="variable">xor</span> <span class="operator">=</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> nums.length;</span><br><span class="line">        <span class="type">int</span>[] res = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;len;i++)</span><br><span class="line">            xor^=nums[i];</span><br><span class="line">        <span class="type">int</span> <span class="variable">mask</span> <span class="operator">=</span> xor&amp;(-xor);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;len;i++){</span><br><span class="line">            <span class="keyword">if</span>((nums[i]&amp;mask)==<span class="number">0</span>){</span><br><span class="line">                res[<span class="number">1</span>]^=nums[i];</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">else</span>{</span><br><span class="line">                res[<span class="number">0</span>]^=nums[i];</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="一些值得注意的地方"><a href="#一些值得注意的地方" class="headerlink" title="一些值得注意的地方"></a>一些值得注意的地方</h2><p>要获得最后一位1有一个很巧妙的方式：<br>$$<br>Mask=n\and(-n)<br>$$<br>首先在计算机中二进制取负是取反再加一。比如a的二进制是 00010000，取反就是11101111，加1就是11110000。前面?的部分是和原来a相反的，相与必然都是0，所以最后整体相与的结果就是00010000。</p>
+<p>另外，java中计算<code>(nums[i]&amp;mask)==0</code>的时候需要加括号，<strong>因为==的优先级高于&amp;</strong></p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>疲惫与困倦</title>
+    <url>/2022/09/07/pi-bei-yu-kun-juan/</url>
+    <content><![CDATA[<p>此刻我站在床边打下这一段文字，用这种方式克服仿佛在高楼边缘向下看想要跳下去一般的困倦。立交桥上过往的车流发出低沉的声音，与远处维港中货轮发出的汽笛声纠结在一起，好像形成了共振一般放大了我思想的昏沉。要是能倒下去一睡不醒就好了，没有Peer Pressure、没有内卷、没有压迫、没有绝望，只有充满爱的留着奶与蜜的梦乡。“你恨它，但是你摆脱不了它”不知何方而来的这样的嘲讽更加深了神（也许有吧）的这种设计的滑稽性。我挥舞着利刃，想要将它刺穿，可是我从未击中，也许疲倦从此而来吧。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -203,15 +222,24 @@
       </tags>
   </entry>
   <entry>
-    <title>疲惫与困倦</title>
-    <url>/2022/09/07/pi-bei-yu-kun-juan/</url>
-    <content><![CDATA[<p>此刻我站在床边打下这一段文字，用这种方式克服仿佛在高楼边缘向下看想要跳下去一般的困倦。立交桥上过往的车流发出低沉的声音，与远处维港中货轮发出的汽笛声纠结在一起，好像形成了共振一般放大了我思想的昏沉。要是能倒下去一睡不醒就好了，没有Peer Pressure、没有内卷、没有压迫、没有绝望，只有充满爱的留着奶与蜜的梦乡。“你恨它，但是你摆脱不了它”不知何方而来的这样的嘲讽更加深了神（也许有吧）的这种设计的滑稽性。我挥舞着利刃，想要将它刺穿，可是我从未击中，也许疲倦从此而来吧。</p>
+    <title>合并k个升序链表</title>
+    <url>/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/</url>
+    <content><![CDATA[<p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
+<p><a href="https://leetcode.cn/problems/merge-k-sorted-lists/">题目</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>其实这里很容易就会想到归并排序中，两个有序数组合并的过程，这里使用的也是相同的思想。但是需要注意的是这里需要合并的是多个链表，也就是说每一次要进行K次的比较，如果采用这种方式的话，时间复杂度为$O(KN)$。</p>
+<p>但是如果我们在这里使用<strong>堆</strong>就能比较容易得解决这个问题。我们建立一个堆，根据链表所指节点的值来进行比较，每次挑选出堆顶的一个节点，选出后将这个节点的值用于建立新链表，同时将这个节点的下一个节点放入堆中，并进行调整，重复直到所有链表节点都已经遍历。</p>
+<p>我们可以将这道题的思路总结成下面这样：</p>
+<blockquote>
+<p>如果我们要在一组数中挑选出最小的或者最大的一个，而且这组数是动态变化的，那么我们一般优先考虑使用堆/优先队列来解决这个问题</p>
+</blockquote>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeKLists</span><span class="params">(ListNode[] lists)</span> {</span><br><span class="line">        <span class="keyword">if</span>(lists.length==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">        ListNode cur=head;</span><br><span class="line">        PriorityQueue&lt;ListNode&gt;heap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;a.val-b.val);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;lists.length;i++){</span><br><span class="line">            <span class="keyword">if</span>(lists[i]!=<span class="literal">null</span>)heap.offer(lists[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span>(!heap.isEmpty()){</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">peek</span> <span class="operator">=</span> heap.poll();</span><br><span class="line">            <span class="keyword">if</span>(peek.next!=<span class="literal">null</span>)</span><br><span class="line">                heap.offer(peek.next);</span><br><span class="line">            cur.next=<span class="keyword">new</span> <span class="title class_">ListNode</span>(peek.val);</span><br><span class="line">            cur=cur.next;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> head.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
 ]]></content>
       <categories>
-        <category>随笔</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>随笔</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
 </search>
