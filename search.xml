@@ -90,40 +90,6 @@
       </tags>
   </entry>
   <entry>
-    <title>三数之和</title>
-    <url>/2022/09/09/san-shu-zhi-he/</url>
-    <content><![CDATA[<p>给你一个整数数组 <code>nums</code> ，判断是否存在三元组 <code>[nums[i], nums[j], nums[k]]</code> 满足 <code>i != j</code>、<code>i != k</code> 且 <code>j != k</code> ，同时还满足 <code>nums[i] + nums[j] + nums[k] == 0</code> 。请你返回所有和为 0 且不重复的三元组。注意：<strong>答案中不可以包含重复的三元组。</strong></p>
-<p><a href="https://leetcode.cn/problems/3sum">题目信息</a></p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这道题目非常容易想出暴力虚幻遍历的方式，但是这种算法的时间复杂度达到了$O(N^3)$级别，基本上是不可接受的。从题目信息中的数据量$10^5$可以看出时间复杂度应该需要降到$O(N^2)$及以下。</p>
-<p>应该有这种直觉，<strong>当需要进行两层循环进行遍历的时候，可以使用双指针的方法将时间复杂度降低到$O(N)$级别</strong>，因此我们这里也需要考虑使用双指针的方法解决问题。</p>
-<p>但是仍然存在一个问题，就是双指针法必须在一个有序的数组中才能够使用。那么我们就可以使用$O(N\log N)$的排序方式对其进行排序，之后再使用双指针法进行搜索。由于排序之后的时间复杂度为$O(N^2)$，根据主定理可知排序并不会影响我们最终的时间复杂度。</p>
-<p>我们可以得到这样一种思维</p>
-<blockquote>
-<p>当数组降维之后，遍历时间复杂度仍然大于$O(N\log N)$时，先进行排序是必然没有坏处的，在此基础上使用双指针法往往能够降低时间复杂度。</p>
-</blockquote>
-<p>在本题中先进行排序有两个好处</p>
-<ul>
-<li>能够使用双指针法进行遍历</li>
-<li>能够非常方便的进行去重</li>
-</ul>
-<p>由于排序之后，相同的数都在一起，因此如果我们找到了满足条件的数之后，我们只需要挪动指针一直到一个不相同的数即可</p>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p><strong>需要注意在求几数之和的时候需要考虑到溢出的问题</strong></p>
-<p>解决方法主要有：</p>
-<ul>
-<li>如果计算 <code>a+b+c+d&lt;sum</code>会发生溢出的话，可以考虑将左边部分移到右边<code>a+b&lt;sum-c-d</code>，这样发生溢出的可能性会更低</li>
-<li>同样也可以使用<code>(long)a+b+c+d&lt;sum</code>将和暂时转换为long可以避免发生溢出的情况。</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">threeSum</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">      	<span class="comment">//进行排序</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.length-<span class="number">2</span>;i++){</span><br><span class="line">          	<span class="comment">//剪枝，如果最小的数都大于0，那么就没有必要计算了，和一定大于0</span></span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;<span class="number">0</span>)<span class="keyword">continue</span>;</span><br><span class="line">          	<span class="comment">//去重，如果两个数相同，那么结果在遍历前一个的时候已经得出了</span></span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i-<span class="number">1</span>])<span class="keyword">continue</span>;</span><br><span class="line">            <span class="type">int</span> j=i+<span class="number">1</span>,k=nums.length-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j&lt;k){</span><br><span class="line">              	<span class="comment">//双指针遍历</span></span><br><span class="line">                <span class="keyword">if</span>((<span class="type">long</span>)nums[i]+nums[j]+nums[k]&gt;<span class="number">0</span>)k--;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>((<span class="type">long</span>)nums[i]+nums[j]+nums[k]&lt;<span class="number">0</span>) j++;</span><br><span class="line">                <span class="keyword">else</span>{</span><br><span class="line">                    List&lt;Integer&gt; cur = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">                    cur.add(nums[i]);</span><br><span class="line">                    cur.add(nums[j]);</span><br><span class="line">                    cur.add(nums[k]);</span><br><span class="line">                    list.add(cur);</span><br><span class="line">										<span class="comment">//去重，将相同的j、k全部排除掉</span></span><br><span class="line">                    <span class="keyword">while</span>(j&lt;k&amp;&amp;nums[j+<span class="number">1</span>]==nums[j])j++;</span><br><span class="line">                    <span class="keyword">while</span>(j&lt;k&amp;&amp;nums[k-<span class="number">1</span>]==nums[k])k--;</span><br><span class="line">                    j++;</span><br><span class="line">                    k--;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            </span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>下一个排列</title>
     <url>/2022/09/14/xia-yi-ge-pai-lie/</url>
     <content><![CDATA[<p>整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。</p>
@@ -150,6 +116,40 @@
   <img src="/2022/09/14/xia-yi-ge-pai-lie/step5.png" class="" title="step5">
 
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[]nums,<span class="type">int</span> i,<span class="type">int</span> j)</span>{</span><br><span class="line">        <span class="type">int</span> temp=nums[i];</span><br><span class="line">        nums[i]=nums[j];</span><br><span class="line">        nums[j]=temp;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">nextPermutation</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        <span class="type">int</span> len= nums.length;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=len-<span class="number">2</span>;i&gt;=<span class="number">0</span>;i--){</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;nums[i+<span class="number">1</span>])<span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(i&gt;=<span class="number">0</span>){</span><br><span class="line">        	<span class="keyword">for</span>(j=len-<span class="number">1</span>;j&gt;i;j--){</span><br><span class="line">            	<span class="keyword">if</span>(nums[j]&gt;nums[i])<span class="keyword">break</span>;</span><br><span class="line">        	}</span><br><span class="line">        	swap(nums,i,j);</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> m=i+<span class="number">1</span>;m&lt;=(len+i)/<span class="number">2</span>;m++){</span><br><span class="line">            </span><br><span class="line">            swap(nums,m,nums.length+i-m);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>三数之和</title>
+    <url>/2022/09/09/san-shu-zhi-he/</url>
+    <content><![CDATA[<p>给你一个整数数组 <code>nums</code> ，判断是否存在三元组 <code>[nums[i], nums[j], nums[k]]</code> 满足 <code>i != j</code>、<code>i != k</code> 且 <code>j != k</code> ，同时还满足 <code>nums[i] + nums[j] + nums[k] == 0</code> 。请你返回所有和为 0 且不重复的三元组。注意：<strong>答案中不可以包含重复的三元组。</strong></p>
+<p><a href="https://leetcode.cn/problems/3sum">题目信息</a></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这道题目非常容易想出暴力虚幻遍历的方式，但是这种算法的时间复杂度达到了$O(N^3)$级别，基本上是不可接受的。从题目信息中的数据量$10^5$可以看出时间复杂度应该需要降到$O(N^2)$及以下。</p>
+<p>应该有这种直觉，<strong>当需要进行两层循环进行遍历的时候，可以使用双指针的方法将时间复杂度降低到$O(N)$级别</strong>，因此我们这里也需要考虑使用双指针的方法解决问题。</p>
+<p>但是仍然存在一个问题，就是双指针法必须在一个有序的数组中才能够使用。那么我们就可以使用$O(N\log N)$的排序方式对其进行排序，之后再使用双指针法进行搜索。由于排序之后的时间复杂度为$O(N^2)$，根据主定理可知排序并不会影响我们最终的时间复杂度。</p>
+<p>我们可以得到这样一种思维</p>
+<blockquote>
+<p>当数组降维之后，遍历时间复杂度仍然大于$O(N\log N)$时，先进行排序是必然没有坏处的，在此基础上使用双指针法往往能够降低时间复杂度。</p>
+</blockquote>
+<p>在本题中先进行排序有两个好处</p>
+<ul>
+<li>能够使用双指针法进行遍历</li>
+<li>能够非常方便的进行去重</li>
+</ul>
+<p>由于排序之后，相同的数都在一起，因此如果我们找到了满足条件的数之后，我们只需要挪动指针一直到一个不相同的数即可</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p><strong>需要注意在求几数之和的时候需要考虑到溢出的问题</strong></p>
+<p>解决方法主要有：</p>
+<ul>
+<li>如果计算 <code>a+b+c+d&lt;sum</code>会发生溢出的话，可以考虑将左边部分移到右边<code>a+b&lt;sum-c-d</code>，这样发生溢出的可能性会更低</li>
+<li>同样也可以使用<code>(long)a+b+c+d&lt;sum</code>将和暂时转换为long可以避免发生溢出的情况。</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">threeSum</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">      	<span class="comment">//进行排序</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.length-<span class="number">2</span>;i++){</span><br><span class="line">          	<span class="comment">//剪枝，如果最小的数都大于0，那么就没有必要计算了，和一定大于0</span></span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;<span class="number">0</span>)<span class="keyword">continue</span>;</span><br><span class="line">          	<span class="comment">//去重，如果两个数相同，那么结果在遍历前一个的时候已经得出了</span></span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i-<span class="number">1</span>])<span class="keyword">continue</span>;</span><br><span class="line">            <span class="type">int</span> j=i+<span class="number">1</span>,k=nums.length-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j&lt;k){</span><br><span class="line">              	<span class="comment">//双指针遍历</span></span><br><span class="line">                <span class="keyword">if</span>((<span class="type">long</span>)nums[i]+nums[j]+nums[k]&gt;<span class="number">0</span>)k--;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>((<span class="type">long</span>)nums[i]+nums[j]+nums[k]&lt;<span class="number">0</span>) j++;</span><br><span class="line">                <span class="keyword">else</span>{</span><br><span class="line">                    List&lt;Integer&gt; cur = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">                    cur.add(nums[i]);</span><br><span class="line">                    cur.add(nums[j]);</span><br><span class="line">                    cur.add(nums[k]);</span><br><span class="line">                    list.add(cur);</span><br><span class="line">										<span class="comment">//去重，将相同的j、k全部排除掉</span></span><br><span class="line">                    <span class="keyword">while</span>(j&lt;k&amp;&amp;nums[j+<span class="number">1</span>]==nums[j])j++;</span><br><span class="line">                    <span class="keyword">while</span>(j&lt;k&amp;&amp;nums[k-<span class="number">1</span>]==nums[k])k--;</span><br><span class="line">                    j++;</span><br><span class="line">                    k--;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            </span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 ]]></content>
       <categories>
@@ -209,21 +209,84 @@
       </tags>
   </entry>
   <entry>
+    <title>快捷指令</title>
+    <url>/2022/10/22/kuai-jie-zhi-ling/</url>
+    <content><![CDATA[<p>今天在写博客的时候发现，创建博客的步骤比较繁琐。大概需要执行以下几个步骤：</p>
+<ol>
+<li>进入到blog所在的文件夹</li>
+<li>输入<code>hexo  new blogname</code></li>
+</ol>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cd ~/Desktop/blog</span><br><span class="line">hexo new blogname</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="Alias"><a href="#Alias" class="headerlink" title="Alias"></a>Alias</h2><h3 id="alias使用"><a href="#alias使用" class="headerlink" title="alias使用"></a>alias使用</h3><p>那么要如何简化这个过程呢？</p>
+<ol>
+<li>新建或者打开<code>~/.bashrc</code></li>
+</ol>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></tbody></table></figure>
+
+<ol start="2">
+<li>在文件中使用alias指令添加别名</li>
+</ol>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">alias goblog="cd ~/Desktop/blog"</span><br><span class="line">alias newblog="hexo new"</span><br></pre></td></tr></tbody></table></figure>
+
+<ol start="3">
+<li>使别名生效</li>
+</ol>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></tbody></table></figure>
+
+<p>但是<strong>这个别名只能够在本session中使用</strong>，如果我们使用另一个session或者关闭这个session并重新打开，这个别名就会消失。必须在下一次打开session的时候，再调用一次这个指令就能重新使alias生效</p>
+<ol start="4">
+<li>如果需要使alias永久生效</li>
+</ol>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>在<code>vim ~/.bash_profile</code>中出现的语句会在session打开时全部执行一遍</p>
+</blockquote>
+<p>这样就使得我们每次登陆session的时候alias都生效</p>
+<ol start="5">
+<li>使用</li>
+</ol>
+<p>我们只需要在命令行中使用</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">lykdsb@MacBook-Pro-4 &gt; ~ &gt; goblog</span><br><span class="line">lykdsb@MacBook-Pro-4 &gt; ~/Desktop/blog &gt; newblog test</span><br></pre></td></tr></tbody></table></figure>
+
+<p>就可以创建博客了</p>
+<h3 id="alias多个语句"><a href="#alias多个语句" class="headerlink" title="alias多个语句"></a>alias多个语句</h3><p>但是这样需要输入两个语句，有点过于麻烦了。由于第一个语句是不会发生变化的，因此我们可以将两个语句设定为一个alias，这样我们只需要输入一个指令就可以执行这全部两个指令。</p>
+<p>我们只需要在<code>vim ~/.bashrc</code>之后输入</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">alias blog="cd ~/Desktop/blog&amp;&amp;hexo new"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这样我们就可以直接输入</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">blog blogname</span><br></pre></td></tr></tbody></table></figure>
+
+<p>就可以直接创建博客了</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>但是还不算完。我们有这样一种习惯：在创建完博客之后一般都会直接打开博客来进行编辑，有没有办法让一个指令整合所有操作呢？</p>
+<p>如果我们仍然使用alias</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">alias blog="cd ~/Desktop/blog &amp;&amp; hexo new &amp;&amp; open"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>会发现我们在<code>hexo new</code>和<code>open</code>后面都需要输入一个值，我们好像没有办法使用alias完成这个功能</p>
+<p>这个时候我们可以使用函数来完成这个功能</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">blog () {</span><br><span class="line">        cd ~/Desktop/blog</span><br><span class="line">        hexo new "$1"</span><br><span class="line">        cd /Users/lykdsb/Desktop/blog/source/_posts</span><br><span class="line">        open -a /Applications/Typora.app "$1.md"</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这样我们就可以使用</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">blog blogname</span><br></pre></td></tr></tbody></table></figure>
+
+<p>来完成上面所有的功能</p>
+<p>其中<code>"$1"</code>标识这个函数后面接受的第一个输入值。同理我们还可以通过这种方式输入多个变量并且分别使用。</p>
+<p>但是这样仍然是暂时的，因此我们可以像之前的方式一样将其写入到<code>～/.bshrc</code>中，这样我们就可以一步完成上面所有的工作了。</p>
+]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>旋转链表</title>
     <url>/2022/10/21/xuan-zhuan-lian-biao/</url>
     <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>标记接口</title>
-    <url>/2022/09/09/biao-ji-jie-kou/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>技术</tag>
-        <tag>java</tag>
-      </tags>
   </entry>
   <entry>
     <title>疲惫与困倦</title>
@@ -235,6 +298,18 @@
       </categories>
       <tags>
         <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>标记接口</title>
+    <url>/2022/09/09/biao-ji-jie-kou/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
