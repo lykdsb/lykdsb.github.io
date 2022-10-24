@@ -90,6 +90,40 @@
       </tags>
   </entry>
   <entry>
+    <title>三数之和</title>
+    <url>/2022/09/09/san-shu-zhi-he/</url>
+    <content><![CDATA[<p>给你一个整数数组 <code>nums</code> ，判断是否存在三元组 <code>[nums[i], nums[j], nums[k]]</code> 满足 <code>i != j</code>、<code>i != k</code> 且 <code>j != k</code> ，同时还满足 <code>nums[i] + nums[j] + nums[k] == 0</code> 。请你返回所有和为 0 且不重复的三元组。注意：<strong>答案中不可以包含重复的三元组。</strong></p>
+<p><a href="https://leetcode.cn/problems/3sum">题目信息</a></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这道题目非常容易想出暴力虚幻遍历的方式，但是这种算法的时间复杂度达到了$O(N^3)$级别，基本上是不可接受的。从题目信息中的数据量$10^5$可以看出时间复杂度应该需要降到$O(N^2)$及以下。</p>
+<p>应该有这种直觉，<strong>当需要进行两层循环进行遍历的时候，可以使用双指针的方法将时间复杂度降低到$O(N)$级别</strong>，因此我们这里也需要考虑使用双指针的方法解决问题。</p>
+<p>但是仍然存在一个问题，就是双指针法必须在一个有序的数组中才能够使用。那么我们就可以使用$O(N\log N)$的排序方式对其进行排序，之后再使用双指针法进行搜索。由于排序之后的时间复杂度为$O(N^2)$，根据主定理可知排序并不会影响我们最终的时间复杂度。</p>
+<p>我们可以得到这样一种思维</p>
+<blockquote>
+<p>当数组降维之后，遍历时间复杂度仍然大于$O(N\log N)$时，先进行排序是必然没有坏处的，在此基础上使用双指针法往往能够降低时间复杂度。</p>
+</blockquote>
+<p>在本题中先进行排序有两个好处</p>
+<ul>
+<li>能够使用双指针法进行遍历</li>
+<li>能够非常方便的进行去重</li>
+</ul>
+<p>由于排序之后，相同的数都在一起，因此如果我们找到了满足条件的数之后，我们只需要挪动指针一直到一个不相同的数即可</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p><strong>需要注意在求几数之和的时候需要考虑到溢出的问题</strong></p>
+<p>解决方法主要有：</p>
+<ul>
+<li>如果计算 <code>a+b+c+d&lt;sum</code>会发生溢出的话，可以考虑将左边部分移到右边<code>a+b&lt;sum-c-d</code>，这样发生溢出的可能性会更低</li>
+<li>同样也可以使用<code>(long)a+b+c+d&lt;sum</code>将和暂时转换为long可以避免发生溢出的情况。</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">threeSum</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">      	<span class="comment">//进行排序</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.length-<span class="number">2</span>;i++){</span><br><span class="line">          	<span class="comment">//剪枝，如果最小的数都大于0，那么就没有必要计算了，和一定大于0</span></span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;<span class="number">0</span>)<span class="keyword">continue</span>;</span><br><span class="line">          	<span class="comment">//去重，如果两个数相同，那么结果在遍历前一个的时候已经得出了</span></span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i-<span class="number">1</span>])<span class="keyword">continue</span>;</span><br><span class="line">            <span class="type">int</span> j=i+<span class="number">1</span>,k=nums.length-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j&lt;k){</span><br><span class="line">              	<span class="comment">//双指针遍历</span></span><br><span class="line">                <span class="keyword">if</span>((<span class="type">long</span>)nums[i]+nums[j]+nums[k]&gt;<span class="number">0</span>)k--;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>((<span class="type">long</span>)nums[i]+nums[j]+nums[k]&lt;<span class="number">0</span>) j++;</span><br><span class="line">                <span class="keyword">else</span>{</span><br><span class="line">                    List&lt;Integer&gt; cur = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">                    cur.add(nums[i]);</span><br><span class="line">                    cur.add(nums[j]);</span><br><span class="line">                    cur.add(nums[k]);</span><br><span class="line">                    list.add(cur);</span><br><span class="line">										<span class="comment">//去重，将相同的j、k全部排除掉</span></span><br><span class="line">                    <span class="keyword">while</span>(j&lt;k&amp;&amp;nums[j+<span class="number">1</span>]==nums[j])j++;</span><br><span class="line">                    <span class="keyword">while</span>(j&lt;k&amp;&amp;nums[k-<span class="number">1</span>]==nums[k])k--;</span><br><span class="line">                    j++;</span><br><span class="line">                    k--;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            </span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>下一个排列</title>
     <url>/2022/09/14/xia-yi-ge-pai-lie/</url>
     <content><![CDATA[<p>整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。</p>
@@ -126,30 +160,17 @@
       </tags>
   </entry>
   <entry>
-    <title>三数之和</title>
-    <url>/2022/09/09/san-shu-zhi-he/</url>
-    <content><![CDATA[<p>给你一个整数数组 <code>nums</code> ，判断是否存在三元组 <code>[nums[i], nums[j], nums[k]]</code> 满足 <code>i != j</code>、<code>i != k</code> 且 <code>j != k</code> ，同时还满足 <code>nums[i] + nums[j] + nums[k] == 0</code> 。请你返回所有和为 0 且不重复的三元组。注意：<strong>答案中不可以包含重复的三元组。</strong></p>
-<p><a href="https://leetcode.cn/problems/3sum">题目信息</a></p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这道题目非常容易想出暴力虚幻遍历的方式，但是这种算法的时间复杂度达到了$O(N^3)$级别，基本上是不可接受的。从题目信息中的数据量$10^5$可以看出时间复杂度应该需要降到$O(N^2)$及以下。</p>
-<p>应该有这种直觉，<strong>当需要进行两层循环进行遍历的时候，可以使用双指针的方法将时间复杂度降低到$O(N)$级别</strong>，因此我们这里也需要考虑使用双指针的方法解决问题。</p>
-<p>但是仍然存在一个问题，就是双指针法必须在一个有序的数组中才能够使用。那么我们就可以使用$O(N\log N)$的排序方式对其进行排序，之后再使用双指针法进行搜索。由于排序之后的时间复杂度为$O(N^2)$，根据主定理可知排序并不会影响我们最终的时间复杂度。</p>
-<p>我们可以得到这样一种思维</p>
+    <title>合并k个升序链表</title>
+    <url>/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/</url>
+    <content><![CDATA[<p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
+<p><a href="https://leetcode.cn/problems/merge-k-sorted-lists/">题目</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>其实这里很容易就会想到归并排序中，两个有序数组合并的过程，这里使用的也是相同的思想。但是需要注意的是这里需要合并的是多个链表，也就是说每一次要进行K次的比较，如果采用这种方式的话，时间复杂度为$O(KN)$。</p>
+<p>但是如果我们在这里使用<strong>堆</strong>就能比较容易得解决这个问题。我们建立一个堆，根据链表所指节点的值来进行比较，每次挑选出堆顶的一个节点，选出后将这个节点的值用于建立新链表，同时将这个节点的下一个节点放入堆中，并进行调整，重复直到所有链表节点都已经遍历。</p>
+<p>我们可以将这道题的思路总结成下面这样：</p>
 <blockquote>
-<p>当数组降维之后，遍历时间复杂度仍然大于$O(N\log N)$时，先进行排序是必然没有坏处的，在此基础上使用双指针法往往能够降低时间复杂度。</p>
+<p>如果我们要在一组数中挑选出最小的或者最大的一个，而且这组数是动态变化的，那么我们一般优先考虑使用堆/优先队列来解决这个问题</p>
 </blockquote>
-<p>在本题中先进行排序有两个好处</p>
-<ul>
-<li>能够使用双指针法进行遍历</li>
-<li>能够非常方便的进行去重</li>
-</ul>
-<p>由于排序之后，相同的数都在一起，因此如果我们找到了满足条件的数之后，我们只需要挪动指针一直到一个不相同的数即可</p>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p><strong>需要注意在求几数之和的时候需要考虑到溢出的问题</strong></p>
-<p>解决方法主要有：</p>
-<ul>
-<li>如果计算 <code>a+b+c+d&lt;sum</code>会发生溢出的话，可以考虑将左边部分移到右边<code>a+b&lt;sum-c-d</code>，这样发生溢出的可能性会更低</li>
-<li>同样也可以使用<code>(long)a+b+c+d&lt;sum</code>将和暂时转换为long可以避免发生溢出的情况。</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">threeSum</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">      	<span class="comment">//进行排序</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.length-<span class="number">2</span>;i++){</span><br><span class="line">          	<span class="comment">//剪枝，如果最小的数都大于0，那么就没有必要计算了，和一定大于0</span></span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;<span class="number">0</span>)<span class="keyword">continue</span>;</span><br><span class="line">          	<span class="comment">//去重，如果两个数相同，那么结果在遍历前一个的时候已经得出了</span></span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i-<span class="number">1</span>])<span class="keyword">continue</span>;</span><br><span class="line">            <span class="type">int</span> j=i+<span class="number">1</span>,k=nums.length-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j&lt;k){</span><br><span class="line">              	<span class="comment">//双指针遍历</span></span><br><span class="line">                <span class="keyword">if</span>((<span class="type">long</span>)nums[i]+nums[j]+nums[k]&gt;<span class="number">0</span>)k--;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>((<span class="type">long</span>)nums[i]+nums[j]+nums[k]&lt;<span class="number">0</span>) j++;</span><br><span class="line">                <span class="keyword">else</span>{</span><br><span class="line">                    List&lt;Integer&gt; cur = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">                    cur.add(nums[i]);</span><br><span class="line">                    cur.add(nums[j]);</span><br><span class="line">                    cur.add(nums[k]);</span><br><span class="line">                    list.add(cur);</span><br><span class="line">										<span class="comment">//去重，将相同的j、k全部排除掉</span></span><br><span class="line">                    <span class="keyword">while</span>(j&lt;k&amp;&amp;nums[j+<span class="number">1</span>]==nums[j])j++;</span><br><span class="line">                    <span class="keyword">while</span>(j&lt;k&amp;&amp;nums[k-<span class="number">1</span>]==nums[k])k--;</span><br><span class="line">                    j++;</span><br><span class="line">                    k--;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            </span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeKLists</span><span class="params">(ListNode[] lists)</span> {</span><br><span class="line">        <span class="keyword">if</span>(lists.length==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">        ListNode cur=head;</span><br><span class="line">        PriorityQueue&lt;ListNode&gt;heap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;a.val-b.val);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;lists.length;i++){</span><br><span class="line">            <span class="keyword">if</span>(lists[i]!=<span class="literal">null</span>)heap.offer(lists[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span>(!heap.isEmpty()){</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">peek</span> <span class="operator">=</span> heap.poll();</span><br><span class="line">            <span class="keyword">if</span>(peek.next!=<span class="literal">null</span>)</span><br><span class="line">                heap.offer(peek.next);</span><br><span class="line">            cur.next=<span class="keyword">new</span> <span class="title class_">ListNode</span>(peek.val);</span><br><span class="line">            cur=cur.next;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> head.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 ]]></content>
       <categories>
@@ -179,27 +200,6 @@
 
 <h2 id="一些值得注意的地方"><a href="#一些值得注意的地方" class="headerlink" title="一些值得注意的地方"></a>一些值得注意的地方</h2><p>要获得最后一位1有一个很巧妙的方式：<br>$$<br>Mask=n\and(-n)<br>$$<br>首先在计算机中二进制取负是取反再加一。比如a的二进制是 00010000，取反就是11101111，加1就是11110000。前面?的部分是和原来a相反的，相与必然都是0，所以最后整体相与的结果就是00010000。</p>
 <p>另外，java中计算<code>(nums[i]&amp;mask)==0</code>的时候需要加括号，<strong>因为==的优先级高于&amp;</strong></p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>合并k个升序链表</title>
-    <url>/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/</url>
-    <content><![CDATA[<p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
-<p><a href="https://leetcode.cn/problems/merge-k-sorted-lists/">题目</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>其实这里很容易就会想到归并排序中，两个有序数组合并的过程，这里使用的也是相同的思想。但是需要注意的是这里需要合并的是多个链表，也就是说每一次要进行K次的比较，如果采用这种方式的话，时间复杂度为$O(KN)$。</p>
-<p>但是如果我们在这里使用<strong>堆</strong>就能比较容易得解决这个问题。我们建立一个堆，根据链表所指节点的值来进行比较，每次挑选出堆顶的一个节点，选出后将这个节点的值用于建立新链表，同时将这个节点的下一个节点放入堆中，并进行调整，重复直到所有链表节点都已经遍历。</p>
-<p>我们可以将这道题的思路总结成下面这样：</p>
-<blockquote>
-<p>如果我们要在一组数中挑选出最小的或者最大的一个，而且这组数是动态变化的，那么我们一般优先考虑使用堆/优先队列来解决这个问题</p>
-</blockquote>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeKLists</span><span class="params">(ListNode[] lists)</span> {</span><br><span class="line">        <span class="keyword">if</span>(lists.length==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">        ListNode cur=head;</span><br><span class="line">        PriorityQueue&lt;ListNode&gt;heap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;a.val-b.val);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;lists.length;i++){</span><br><span class="line">            <span class="keyword">if</span>(lists[i]!=<span class="literal">null</span>)heap.offer(lists[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span>(!heap.isEmpty()){</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">peek</span> <span class="operator">=</span> heap.poll();</span><br><span class="line">            <span class="keyword">if</span>(peek.next!=<span class="literal">null</span>)</span><br><span class="line">                heap.offer(peek.next);</span><br><span class="line">            cur.next=<span class="keyword">new</span> <span class="title class_">ListNode</span>(peek.val);</span><br><span class="line">            cur=cur.next;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> head.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
 ]]></content>
       <categories>
         <category>算法</category>
@@ -284,9 +284,45 @@
       </tags>
   </entry>
   <entry>
+    <title>标记接口</title>
+    <url>/2022/09/09/biao-ji-jie-kou/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>旋转链表</title>
     <url>/2022/10/21/xuan-zhuan-lian-biao/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p>给你一个链表的头节点 <code>head</code> ，旋转链表，将链表每个节点向右移动 <code>k</code> 个位置。</p>
+<p><a href="https://leetcode.cn/problems/rotate-list/">题目</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先这道题是向右边移动，如果是向左移动可能实现上会比较简单一点。比如说：</p>
+<figure class="highlight basic"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">2 </span><span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">1</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果这样移动的话，只需要将头节点移动到尾节点上（我们可以同时维护头节点和尾节点），然后旋转几次就重复几次即可。</p>
+<p>但是这道是需要向右移动</p>
+<figure class="highlight basic"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">5 </span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>那么如果还是需要按照之前的方式进行移动的话，会发现我们每一次都需要将最后一个节点移到最前面。这时会发现我们需要时时维护一个倒数第二个节点，而这个<strong>节点是没有办法通过链表指向来进行更新的</strong>。我们每一次进行旋转都需要额外进行一次链表的遍历，将时间复杂度从$O(N)$提高到了$O(NM)$显然效率不高。</p>
+<p>每当涉及到与链表方向相反的遍历的时候，我们都需要有一个思路：</p>
+<blockquote>
+<p>将链表首尾相连，然后向后移Length-k就可以得到向右移动k个节点的情况</p>
+</blockquote>
+<p>最后我们将链表在需要的时候断开，就可以得到答案了。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode {</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() {}</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) { this.val = val; }</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }</span></span><br><span class="line"><span class="comment"> * }</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">rotateRight</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> {</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="literal">null</span>)<span class="keyword">return</span> head;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">tail</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span>(tail.next!=<span class="literal">null</span>){</span><br><span class="line">            tail=tail.next;</span><br><span class="line">            len++;</span><br><span class="line">        }</span><br><span class="line">        k = k%len;</span><br><span class="line">        <span class="keyword">if</span>(k==<span class="number">0</span>)<span class="keyword">return</span> head;</span><br><span class="line">        tail.next=head;</span><br><span class="line">        k=len-k;</span><br><span class="line">        <span class="keyword">while</span>(k&gt;<span class="number">0</span>){</span><br><span class="line">            head=head.next;</span><br><span class="line">            tail=tail.next;</span><br><span class="line">            k--;</span><br><span class="line">        }</span><br><span class="line">        tail.next = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>链表</tag>
+      </tags>
   </entry>
   <entry>
     <title>疲惫与困倦</title>
@@ -298,18 +334,6 @@
       </categories>
       <tags>
         <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>标记接口</title>
-    <url>/2022/09/09/biao-ji-jie-kou/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>技术</tag>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
