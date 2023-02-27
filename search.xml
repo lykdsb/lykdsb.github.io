@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>test1</title>
+    <url>/2023/02/27/test1/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>forEach的实现方式</title>
     <url>/2022/09/08/foreach-de-shi-xian-fang-shi/</url>
     <content><![CDATA[<p>今天本来想要研究一下java其中的<code>Collection</code>的，但是当我看到java源码中的第一行时，我忽然发现我对于这个<code>Iterable</code>接口几乎毫无了解，虽然知道它与<code>forEach</code>的实现有关，但是过程是什么样的我还没有研究过。</p>
@@ -209,6 +214,35 @@
       </tags>
   </entry>
   <entry>
+    <title>旋转链表</title>
+    <url>/2022/10/21/xuan-zhuan-lian-biao/</url>
+    <content><![CDATA[<p>给你一个链表的头节点 <code>head</code> ，旋转链表，将链表每个节点向右移动 <code>k</code> 个位置。</p>
+<p><a href="https://leetcode.cn/problems/rotate-list/">题目</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先这道题是向右边移动，如果是向左移动可能实现上会比较简单一点。比如说：</p>
+<figure class="highlight basic"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">2 </span><span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">1</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果这样移动的话，只需要将头节点移动到尾节点上（我们可以同时维护头节点和尾节点），然后旋转几次就重复几次即可。</p>
+<p>但是这道是需要向右移动</p>
+<figure class="highlight basic"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">5 </span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>那么如果还是需要按照之前的方式进行移动的话，会发现我们每一次都需要将最后一个节点移到最前面。这时会发现我们需要时时维护一个倒数第二个节点，而这个<strong>节点是没有办法通过链表指向来进行更新的</strong>。我们每一次进行旋转都需要额外进行一次链表的遍历，将时间复杂度从$O(N)$提高到了$O(NM)$显然效率不高。</p>
+<p>每当涉及到与链表方向相反的遍历的时候，我们都需要有一个思路：</p>
+<blockquote>
+<p>将链表首尾相连，然后向后移Length-k就可以得到向右移动k个节点的情况</p>
+</blockquote>
+<p>最后我们将链表在需要的时候断开，就可以得到答案了。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode {</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() {}</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) { this.val = val; }</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }</span></span><br><span class="line"><span class="comment"> * }</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">rotateRight</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> {</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="literal">null</span>)<span class="keyword">return</span> head;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">tail</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span>(tail.next!=<span class="literal">null</span>){</span><br><span class="line">            tail=tail.next;</span><br><span class="line">            len++;</span><br><span class="line">        }</span><br><span class="line">        k = k%len;</span><br><span class="line">        <span class="keyword">if</span>(k==<span class="number">0</span>)<span class="keyword">return</span> head;</span><br><span class="line">        tail.next=head;</span><br><span class="line">        k=len-k;</span><br><span class="line">        <span class="keyword">while</span>(k&gt;<span class="number">0</span>){</span><br><span class="line">            head=head.next;</span><br><span class="line">            tail=tail.next;</span><br><span class="line">            k--;</span><br><span class="line">        }</span><br><span class="line">        tail.next = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>快捷指令</title>
     <url>/2022/10/22/kuai-jie-zhi-ling/</url>
     <content><![CDATA[<p>今天在写博客的时候发现，创建博客的步骤比较繁琐。大概需要执行以下几个步骤：</p>
@@ -357,35 +391,6 @@
       <tags>
         <tag>随笔</tag>
         <tag>香港</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>旋转链表</title>
-    <url>/2022/10/21/xuan-zhuan-lian-biao/</url>
-    <content><![CDATA[<p>给你一个链表的头节点 <code>head</code> ，旋转链表，将链表每个节点向右移动 <code>k</code> 个位置。</p>
-<p><a href="https://leetcode.cn/problems/rotate-list/">题目</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先这道题是向右边移动，如果是向左移动可能实现上会比较简单一点。比如说：</p>
-<figure class="highlight basic"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">2 </span><span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">1</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>如果这样移动的话，只需要将头节点移动到尾节点上（我们可以同时维护头节点和尾节点），然后旋转几次就重复几次即可。</p>
-<p>但是这道是需要向右移动</p>
-<figure class="highlight basic"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">5 </span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>那么如果还是需要按照之前的方式进行移动的话，会发现我们每一次都需要将最后一个节点移到最前面。这时会发现我们需要时时维护一个倒数第二个节点，而这个<strong>节点是没有办法通过链表指向来进行更新的</strong>。我们每一次进行旋转都需要额外进行一次链表的遍历，将时间复杂度从$O(N)$提高到了$O(NM)$显然效率不高。</p>
-<p>每当涉及到与链表方向相反的遍历的时候，我们都需要有一个思路：</p>
-<blockquote>
-<p>将链表首尾相连，然后向后移Length-k就可以得到向右移动k个节点的情况</p>
-</blockquote>
-<p>最后我们将链表在需要的时候断开，就可以得到答案了。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode {</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() {}</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) { this.val = val; }</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }</span></span><br><span class="line"><span class="comment"> * }</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">rotateRight</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> {</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="literal">null</span>)<span class="keyword">return</span> head;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">tail</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span>(tail.next!=<span class="literal">null</span>){</span><br><span class="line">            tail=tail.next;</span><br><span class="line">            len++;</span><br><span class="line">        }</span><br><span class="line">        k = k%len;</span><br><span class="line">        <span class="keyword">if</span>(k==<span class="number">0</span>)<span class="keyword">return</span> head;</span><br><span class="line">        tail.next=head;</span><br><span class="line">        k=len-k;</span><br><span class="line">        <span class="keyword">while</span>(k&gt;<span class="number">0</span>){</span><br><span class="line">            head=head.next;</span><br><span class="line">            tail=tail.next;</span><br><span class="line">            k--;</span><br><span class="line">        }</span><br><span class="line">        tail.next = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>链表</tag>
       </tags>
   </entry>
 </search>
