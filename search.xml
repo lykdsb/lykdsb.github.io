@@ -90,79 +90,6 @@
       </tags>
   </entry>
   <entry>
-    <title>volatile</title>
-    <url>/2023/03/01/volatile/</url>
-    <content><![CDATA[<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>在存在并发的多个线程之间，要保证synchronized需要考虑到两个方面：</p>
-<ol>
-<li>Atomicity ： 原子性</li>
-<li>Memory Visibility ： 内存可见性</li>
-</ol>
-<p>原子性是指执行多个操作时，要么全部发生，要么全部不发生。而可见性则是指的一个线程对于一个共享变量的修改会被其他线程立即看到。<strong>只满足其中的一个并不能保证另一个。</strong></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@NotThreadSafe</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoVisibility</span>{</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> ready;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> number;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ReaderThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>{</span><br><span class="line">      <span class="keyword">while</span>(!ready)</span><br><span class="line">        Thread.yield();</span><br><span class="line">      <span class="comment">//supposed to be 42</span></span><br><span class="line">      <span class="comment">//but actually may be 0 or never printed out</span></span><br><span class="line">      System.out.println(number);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">ReaderThread</span>().start();</span><br><span class="line">    <span class="comment">//if no sync, these writes may happen in opposite order</span></span><br><span class="line">    <span class="comment">//Or even not at all</span></span><br><span class="line">    number = <span class="number">42</span>;</span><br><span class="line">    ready = <span class="literal">true</span>;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>在上面这种情况中，<code>ReaderThread</code>本来应该在结束自旋之后，打印出42的。但是实际上这个程序还有两种运行结果：</p>
-<ul>
-<li><code>ReaderThread</code> 没有能够结束自旋</li>
-<li><code>ReaderThread</code>结束自旋之后，打印出来的值为0</li>
-</ul>
-<p>没有能够结束自旋是因为主线程对于<code>ready</code>的修改没有立即被<code>ReaderThread</code>读到:</p>
-<pre class="mermaid">graph LR;
-CPU1 --&gt; Cache1 --&gt; Memory;
-CPU2 --&gt; Cache2 --&gt; Memory;
-CPU3 --&gt; Cache3 --&gt; Memory;</pre>
-
-<p>在多线程编程中，不同的线程往往要在不同的CPU上运行。由于每一个CPU都具有自己的cache。因此一个线程在读取Memory中的数据时，另一个线程可能没有将自己对于数据的修改写入到Memory中，<strong>进而出现了缓存不一致性</strong>。</p>
-<p>另一方面，打印出来的值为0的情况则是因为<code>number = 42;</code> 和<code>ready = true;</code>被重新排序。由于这两个语句在单线程情况中不存在<strong>数据依赖性</strong>，因此这两个语句会被重排而影响到多线程中的正确性。</p>
-<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>对于上面所说的这个问题，有两个解决方式：</p>
-<ul>
-<li>使用<code>synchronized</code>关键字</li>
-<li>使用<code>volatile</code>关键字</li>
-</ul>
-<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p><code>synchronized</code> 不仅可以保证原子性，还能保证可见性</p>
-</div>
-
-<blockquote>
-<p>The synchronized creates a read-barrier, which means “<strong>you have to re-read this value, even if you already have it in your CPU cache</strong>“</p>
-</blockquote>
-<p>因此我们可以将上面的程序更改成这样：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoVisibility</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="variable">ready</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">number</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Object</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ReaderThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> {</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">            <span class="keyword">synchronized</span> (lock) {</span><br><span class="line">                <span class="keyword">while</span> (!ready) {</span><br><span class="line">                    Thread.yield();</span><br><span class="line">                }</span><br><span class="line">                System.out.println(number);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ReaderThread</span>().start();</span><br><span class="line">        <span class="keyword">synchronized</span> (lock) {</span><br><span class="line">            number = <span class="number">42</span>;</span><br><span class="line">            ready = <span class="literal">true</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>将所有会访问到共享变量的语句（包括读和写）都加上<code>synchronized</code>即可。</p>
-<div class="note-large notel-blue"><div class="notel-title"><p>Tips</p>
-</div><div class="notel-content"><p>需要注意<code>yield</code>使用的时候只会让出时间片，<strong>不会释放锁！</strong></p>
- </div></div>
-
-<h3 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h3><p>由于<code>synchronized</code>存在开销较大的获取锁和释放锁的过程，因此对于只需要保证可见性的情况，只使用<code>volatile</code>即可。</p>
-<p>加上<code>volatile</code>修饰的变量具有两个特点：</p>
-<ul>
-<li>不能够读取缓存中的值</li>
-<li>不会被重排</li>
-</ul>
-<p>因此同样可以用来解决上面所说的问题</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoVisibility</span>{</span><br><span class="line">  <span class="comment">//给变量加上volatile关键字</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="type">boolean</span> ready;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="type">int</span> number;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ReaderThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>{</span><br><span class="line">      <span class="keyword">while</span>(!ready)</span><br><span class="line">        Thread.yield();</span><br><span class="line"></span><br><span class="line">      System.out.println(number);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">ReaderThread</span>().start();</span><br><span class="line">    number = <span class="number">42</span>;</span><br><span class="line">    ready = <span class="literal">true</span>;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-
-
-<h2 id="Volatile的使用场景"><a href="#Volatile的使用场景" class="headerlink" title="Volatile的使用场景"></a>Volatile的使用场景</h2><ol>
-<li>状态量标记</li>
-</ol>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span>(!flag){</span><br><span class="line">    doSomething();</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setFlag</span><span class="params">()</span> {</span><br><span class="line">    flag = <span class="literal">true</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-<ol start="2">
-<li>Double check</li>
-</ol>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span>{</span><br><span class="line">  	<span class="comment">//使用volatile保证一个线程还没创建单例完成时，另一个线程通过最外层判断拿到instance还没创建的时候的值，进而能够进入临界区</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> {</span><br><span class="line">         </span><br><span class="line">    }</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> {</span><br><span class="line">      	<span class="comment">//在进入锁之前提前判断是否为null，降低进入锁的概率</span></span><br><span class="line">      	<span class="comment">//但是不加锁无法保证原子性，因此需要在sync中二次判断</span></span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="literal">null</span>) {</span><br><span class="line">          	<span class="comment">//保证原子性，防止同时创建出两个实例</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) {</span><br><span class="line">              	<span class="comment">//如果现在没有实例则创建一个</span></span><br><span class="line">                <span class="keyword">if</span>(instance==<span class="literal">null</span>)</span><br><span class="line">                    instance = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>并发</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>三数之和</title>
     <url>/2022/09/09/san-shu-zhi-he/</url>
     <content><![CDATA[<p>给你一个整数数组 <code>nums</code> ，判断是否存在三元组 <code>[nums[i], nums[j], nums[k]]</code> 满足 <code>i != j</code>、<code>i != k</code> 且 <code>j != k</code> ，同时还满足 <code>nums[i] + nums[j] + nums[k] == 0</code> 。请你返回所有和为 0 且不重复的三元组。注意：<strong>答案中不可以包含重复的三元组。</strong></p>
@@ -444,6 +371,22 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </tags>
   </entry>
   <entry>
+    <title>香港札记（一）</title>
+    <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
+    <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
+<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
+<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
+<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>香港</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>至少有K个重复字符的最长子串</title>
     <url>/2022/10/26/zhi-shao-you-k-ge-chong-fu-zi-fu-de-zui-chang-zi-chuan/</url>
     <content><![CDATA[<p>给你一个字符串 <code>s</code> 和一个整数 <code>k</code> ，请你找出 <code>s</code> 中的最长子串， 要求该子串中的每一字符出现次数都不少于 <code>k</code> 。返回这一子串的长度。</p>
@@ -480,19 +423,76 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </tags>
   </entry>
   <entry>
-    <title>香港札记（一）</title>
-    <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
-    <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
-<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
-<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
-<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
+    <title>volatile</title>
+    <url>/2023/03/01/volatile/</url>
+    <content><![CDATA[<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>在存在并发的多个线程之间，要保证synchronized需要考虑到两个方面：</p>
+<ol>
+<li>Atomicity ： 原子性</li>
+<li>Memory Visibility ： 内存可见性</li>
+</ol>
+<p>原子性是指执行多个操作时，要么全部发生，要么全部不发生。而可见性则是指的一个线程对于一个共享变量的修改会被其他线程立即看到。<strong>只满足其中的一个并不能保证另一个。</strong></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@NotThreadSafe</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoVisibility</span>{</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> ready;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> number;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ReaderThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>{</span><br><span class="line">      <span class="keyword">while</span>(!ready)</span><br><span class="line">        Thread.yield();</span><br><span class="line">      <span class="comment">//supposed to be 42</span></span><br><span class="line">      <span class="comment">//but actually may be 0 or never printed out</span></span><br><span class="line">      System.out.println(number);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">ReaderThread</span>().start();</span><br><span class="line">    <span class="comment">//if no sync, these writes may happen in opposite order</span></span><br><span class="line">    <span class="comment">//Or even not at all</span></span><br><span class="line">    number = <span class="number">42</span>;</span><br><span class="line">    ready = <span class="literal">true</span>;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>在上面这种情况中，<code>ReaderThread</code>本来应该在结束自旋之后，打印出42的。但是实际上这个程序还有两种运行结果：</p>
+<ul>
+<li><code>ReaderThread</code> 没有能够结束自旋</li>
+<li><code>ReaderThread</code>结束自旋之后，打印出来的值为0</li>
+</ul>
+<p>没有能够结束自旋是因为主线程对于<code>ready</code>的修改没有立即被<code>ReaderThread</code>读到:</p>
+<pre class="mermaid">graph LR;
+CPU1 --&gt; Cache1 --&gt; Memory;
+CPU2 --&gt; Cache2 --&gt; Memory;
+CPU3 --&gt; Cache3 --&gt; Memory;</pre>
+
+<p>在多线程编程中，不同的线程往往要在不同的CPU上运行。由于每一个CPU都具有自己的cache。因此一个线程在读取Memory中的数据时，另一个线程可能没有将自己对于数据的修改写入到Memory中，<strong>进而出现了缓存不一致性</strong>。</p>
+<p>另一方面，打印出来的值为0的情况则是因为<code>number = 42;</code> 和<code>ready = true;</code>被重新排序。由于这两个语句在单线程情况中不存在<strong>数据依赖性</strong>，因此这两个语句会被重排而影响到多线程中的正确性。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>对于上面所说的这个问题，有两个解决方式：</p>
+<ul>
+<li>使用<code>synchronized</code>关键字</li>
+<li>使用<code>volatile</code>关键字</li>
+</ul>
+<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p><code>synchronized</code> 不仅可以保证原子性，还能保证可见性</p>
+</div>
+
+<blockquote>
+<p>The synchronized creates a read-barrier, which means “<strong>you have to re-read this value, even if you already have it in your CPU cache</strong>“</p>
+</blockquote>
+<p>因此我们可以将上面的程序更改成这样：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoVisibility</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="variable">ready</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">number</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Object</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ReaderThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> {</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">            <span class="keyword">synchronized</span> (lock) {</span><br><span class="line">                <span class="keyword">while</span> (!ready) {</span><br><span class="line">                    Thread.yield();</span><br><span class="line">                }</span><br><span class="line">                System.out.println(number);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ReaderThread</span>().start();</span><br><span class="line">        <span class="keyword">synchronized</span> (lock) {</span><br><span class="line">            number = <span class="number">42</span>;</span><br><span class="line">            ready = <span class="literal">true</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>将所有会访问到共享变量的语句（包括读和写）都加上<code>synchronized</code>即可。</p>
+<div class="note-large notel-blue"><div class="notel-title"><p>Tips</p>
+</div><div class="notel-content"><p>需要注意<code>yield</code>使用的时候只会让出时间片，<strong>不会释放锁！</strong></p>
+ </div></div>
+
+<h3 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h3><p>由于<code>synchronized</code>存在开销较大的获取锁和释放锁的过程，因此对于只需要保证可见性的情况，只使用<code>volatile</code>即可。</p>
+<p>加上<code>volatile</code>修饰的变量具有两个特点：</p>
+<ul>
+<li>不能够读取缓存中的值</li>
+<li>不会被重排</li>
+</ul>
+<p>因此同样可以用来解决上面所说的问题</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoVisibility</span>{</span><br><span class="line">  <span class="comment">//给变量加上volatile关键字</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="type">boolean</span> ready;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="type">int</span> number;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ReaderThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>{</span><br><span class="line">      <span class="keyword">while</span>(!ready)</span><br><span class="line">        Thread.yield();</span><br><span class="line"></span><br><span class="line">      System.out.println(number);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">ReaderThread</span>().start();</span><br><span class="line">    number = <span class="number">42</span>;</span><br><span class="line">    ready = <span class="literal">true</span>;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+
+
+<h2 id="Volatile的使用场景"><a href="#Volatile的使用场景" class="headerlink" title="Volatile的使用场景"></a>Volatile的使用场景</h2><ol>
+<li>状态量标记</li>
+</ol>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span>(!flag){</span><br><span class="line">    doSomething();</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setFlag</span><span class="params">()</span> {</span><br><span class="line">    flag = <span class="literal">true</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<ol start="2">
+<li>Double check</li>
+</ol>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span>{</span><br><span class="line">  	<span class="comment">//使用volatile保证一个线程还没创建单例完成时，另一个线程通过最外层判断拿到instance还没创建的时候的值，进而能够进入临界区</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> {</span><br><span class="line">         </span><br><span class="line">    }</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> {</span><br><span class="line">      	<span class="comment">//在进入锁之前提前判断是否为null，降低进入锁的概率</span></span><br><span class="line">      	<span class="comment">//但是不加锁无法保证原子性，因此需要在sync中二次判断</span></span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="literal">null</span>) {</span><br><span class="line">          	<span class="comment">//保证原子性，防止同时创建出两个实例</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) {</span><br><span class="line">              	<span class="comment">//如果现在没有实例则创建一个</span></span><br><span class="line">                <span class="keyword">if</span>(instance==<span class="literal">null</span>)</span><br><span class="line">                    instance = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
 ]]></content>
       <categories>
-        <category>随笔</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>随笔</tag>
-        <tag>香港</tag>
+        <tag>java</tag>
+        <tag>并发</tag>
       </tags>
   </entry>
 </search>
