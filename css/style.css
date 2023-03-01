@@ -787,6 +787,7 @@ button {
   transition-timing-function: ease, ease, ease, ease, linear;
 }
 .btn:hover {
+  transform: scaleX(1.06) scaleY(1.06);
   box-shadow: var(--redefine-box-shadow-hover);
 }
 .btn:hover {
@@ -3524,6 +3525,7 @@ pre .deletion {
   margin-bottom: 0;
 }
 .post-tools-container .tools-list li:hover {
+  transform: scaleX(1.06) scaleY(1.06);
   box-shadow: var(--redefine-box-shadow-hover);
 }
 .post-tools-container .tools-list li.page-aside-toggle {
@@ -3591,6 +3593,25 @@ pre .deletion {
 .side-tools-container .unfolded-tools-list.show {
   opacity: 1;
   transform: translateX(0);
+}
+.side-tools-container .folded-tools-list .tool-scroll-to-top {
+  display: none;
+}
+.side-tools-container .folded-tools-list .tool-scroll-to-top.show {
+  display: flex;
+}
+.side-tools-container .folded-tools-list .tool-scroll-to-top:hover .percent {
+  display: none;
+}
+.side-tools-container .folded-tools-list .tool-scroll-to-top:hover .arrow-up {
+  display: flex;
+}
+.side-tools-container .folded-tools-list .tool-scroll-to-top .arrow-up {
+  display: none;
+}
+.side-tools-container .folded-tools-list .tool-scroll-to-top .percent {
+  display: flex;
+  font-size: 1rem;
 }
 :root {
   --background-color: #fff;
@@ -5667,6 +5688,7 @@ pre .deletion {
   }
 }
 .home-content-container .home-article-list .home-article-item:hover {
+  transform: scaleX(1.015) scaleY(1.015);
   box-shadow: var(--redefine-box-shadow-hover);
 }
 @media (max-width: 780px) {
@@ -6311,6 +6333,7 @@ pre .deletion {
 }
 .post-page-container .article-content-container .article-nav .article-prev:hover,
 .post-page-container .article-content-container .article-nav .article-next:hover {
+  transform: scaleX(1.03) scaleY(1.03);
   box-shadow: var(--redefine-box-shadow-hover);
 }
 @media (max-width: 780px) {
