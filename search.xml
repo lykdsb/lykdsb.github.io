@@ -124,42 +124,6 @@
       </tags>
   </entry>
   <entry>
-    <title>下一个排列</title>
-    <url>/2022/09/14/xia-yi-ge-pai-lie/</url>
-    <content><![CDATA[<p>整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。</p>
-<p>例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。<br>整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。</p>
-<p>例如，arr = [1,2,3] 的下一个排列是 [1,3,2] 。<br>类似地，arr = [2,3,1] 的下一个排列是 [3,1,2] 。<br>而 arr = [3,2,1] 的下一个排列是 [1,2,3] ，因为 [3,2,1] 不存在一个字典序更大的排列。<br>给你一个整数数组 nums ，找出 nums 的下一个排列。</p>
-<p>必须 <strong>原地 修改</strong>，只允许使用额外常数空间。</p>
-<p><a class="link" href="https://leetcode.cn/problems/next-permutation/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step1.png" class="" title="step1">
-
-<p>我们可以随便使用一个排列<code>12385764</code>，他的下一个排列是<code>12386457</code>，经过多次实验观察，我们可以发现这样的规律：</p>
-<ul>
-<li>我们只需要操作的是从某一个数开始的后面的数</li>
-</ul>
-<p>那么如何找到这个数呢？</p>
-<p>我们只需要确保只使用这个数及后面的部分就能够实现找到下一个更大的排列，那么我们需要找到一个数，<strong>这个数的后面一定有至少一个比他大的数</strong>。这样就能够保证在不使用前面的数的同时，生成一个更大的排列。我们只需要从右向左，一直比较相邻的数，只要左边的数比右边的数小，那么左边的数就是我们要找的数（因为由于我们刚刚的比较，右边的数是递减的，只要相邻的数比他大，那么右边一定有至少一个比它大的数）</p>
-<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step2.png" class="" title="step2">
-
-<p>然后为了保证生成的是<strong>下一个</strong>排列，我们需要保证增加的值最小，因此我们只需要从后往前找到一个比这个数更大的数，对于<code>12385764</code>来说是6，我们进行交换就得到了<code>12386754</code></p>
-<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step3.png" class="" title="step3">
-
-<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step4.png" class="" title="step4">
-
-<p>为了让这个排列最小，我们还需要保证6后面的数是升序排列，这是我们只需要将后面的数反转即可，因为后面的数一定是降序排列的。</p>
-  <img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step5.png" class="" title="step5">
-
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[]nums,<span class="type">int</span> i,<span class="type">int</span> j)</span>{</span><br><span class="line">        <span class="type">int</span> temp=nums[i];</span><br><span class="line">        nums[i]=nums[j];</span><br><span class="line">        nums[j]=temp;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">nextPermutation</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        <span class="type">int</span> len= nums.length;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=len-<span class="number">2</span>;i&gt;=<span class="number">0</span>;i--){</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;nums[i+<span class="number">1</span>])<span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(i&gt;=<span class="number">0</span>){</span><br><span class="line">        	<span class="keyword">for</span>(j=len-<span class="number">1</span>;j&gt;i;j--){</span><br><span class="line">            	<span class="keyword">if</span>(nums[j]&gt;nums[i])<span class="keyword">break</span>;</span><br><span class="line">        	}</span><br><span class="line">        	swap(nums,i,j);</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> m=i+<span class="number">1</span>;m&lt;=(len+i)/<span class="number">2</span>;m++){</span><br><span class="line">            </span><br><span class="line">            swap(nums,m,nums.length+i-m);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>只出现一次的数字</title>
     <url>/2022/10/18/zhi-chu-xian-yi-ci-de-shu-zi/</url>
     <content><![CDATA[<p>给你一个整数数组&nbsp;nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。你可以按 任意顺序 返回答案。</p>
@@ -310,6 +274,42 @@
       <tags>
         <tag>算法</tag>
         <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>下一个排列</title>
+    <url>/2022/09/14/xia-yi-ge-pai-lie/</url>
+    <content><![CDATA[<p>整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。</p>
+<p>例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。<br>整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。</p>
+<p>例如，arr = [1,2,3] 的下一个排列是 [1,3,2] 。<br>类似地，arr = [2,3,1] 的下一个排列是 [3,1,2] 。<br>而 arr = [3,2,1] 的下一个排列是 [1,2,3] ，因为 [3,2,1] 不存在一个字典序更大的排列。<br>给你一个整数数组 nums ，找出 nums 的下一个排列。</p>
+<p>必须 <strong>原地 修改</strong>，只允许使用额外常数空间。</p>
+<p><a class="link" href="https://leetcode.cn/problems/next-permutation/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step1.png" class="" title="step1">
+
+<p>我们可以随便使用一个排列<code>12385764</code>，他的下一个排列是<code>12386457</code>，经过多次实验观察，我们可以发现这样的规律：</p>
+<ul>
+<li>我们只需要操作的是从某一个数开始的后面的数</li>
+</ul>
+<p>那么如何找到这个数呢？</p>
+<p>我们只需要确保只使用这个数及后面的部分就能够实现找到下一个更大的排列，那么我们需要找到一个数，<strong>这个数的后面一定有至少一个比他大的数</strong>。这样就能够保证在不使用前面的数的同时，生成一个更大的排列。我们只需要从右向左，一直比较相邻的数，只要左边的数比右边的数小，那么左边的数就是我们要找的数（因为由于我们刚刚的比较，右边的数是递减的，只要相邻的数比他大，那么右边一定有至少一个比它大的数）</p>
+<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step2.png" class="" title="step2">
+
+<p>然后为了保证生成的是<strong>下一个</strong>排列，我们需要保证增加的值最小，因此我们只需要从后往前找到一个比这个数更大的数，对于<code>12385764</code>来说是6，我们进行交换就得到了<code>12386754</code></p>
+<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step3.png" class="" title="step3">
+
+<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step4.png" class="" title="step4">
+
+<p>为了让这个排列最小，我们还需要保证6后面的数是升序排列，这是我们只需要将后面的数反转即可，因为后面的数一定是降序排列的。</p>
+  <img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step5.png" class="" title="step5">
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[]nums,<span class="type">int</span> i,<span class="type">int</span> j)</span>{</span><br><span class="line">        <span class="type">int</span> temp=nums[i];</span><br><span class="line">        nums[i]=nums[j];</span><br><span class="line">        nums[j]=temp;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">nextPermutation</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        <span class="type">int</span> len= nums.length;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=len-<span class="number">2</span>;i&gt;=<span class="number">0</span>;i--){</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;nums[i+<span class="number">1</span>])<span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(i&gt;=<span class="number">0</span>){</span><br><span class="line">        	<span class="keyword">for</span>(j=len-<span class="number">1</span>;j&gt;i;j--){</span><br><span class="line">            	<span class="keyword">if</span>(nums[j]&gt;nums[i])<span class="keyword">break</span>;</span><br><span class="line">        	}</span><br><span class="line">        	swap(nums,i,j);</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> m=i+<span class="number">1</span>;m&lt;=(len+i)/<span class="number">2</span>;m++){</span><br><span class="line">            </span><br><span class="line">            swap(nums,m,nums.length+i-m);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
