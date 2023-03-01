@@ -426,8 +426,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-03-01 12:47:55</span>
-            <span class="mobile">2023-03-01 12:47</span>
+            <span class="pc">2023-03-01 12:53:24</span>
+            <span class="mobile">2023-03-01 12:53</span>
             <span class="hover-info">更新时间</span>
         </span>
     
@@ -502,6 +502,8 @@ mjx-container[display="true"] + br {
 <p>但是对于这道题来说，并不仅仅只有新的值会进来，队首的最大值在滑动窗口移动的过程中会被挤出去。因此我们需要维护<strong>队列中的首尾跨度不超过滑动窗口的长度</strong></p>
 <p>因此我们在单调队列中维护的值不能是数组中的值，而应该是数组的index。只有我们维护的是index，我们才能够随时计算出来两个元素之间的跨度。</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(!q.isEmpty()&amp;&amp;i-q.peekFirst()&gt;=k)</span><br><span class="line">	q.poll();</span><br></pre></td></tr></tbody></table></figure></div>
+
+
 
 <div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>存储index比直接存值存储了更多的信息。因此优先考虑存index。</p>
 </div>
