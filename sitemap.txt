@@ -1,3 +1,4 @@
+http://example.com/2023/02/27/test/
 http://example.com/2023/02/27/test1/
 http://example.com/2022/10/26/zhi-shao-you-k-ge-chong-fu-zi-fu-de-zui-chang-zi-chuan/
 http://example.com/2022/10/21/xuan-zhuan-lian-biao/
@@ -17,13 +18,13 @@ http://example.com/tags/%E6%8A%80%E6%9C%AF/
 http://example.com/tags/java/
 http://example.com/tags/%E9%9B%86%E5%90%88/
 http://example.com/tags/%E7%AE%97%E6%B3%95/
-http://example.com/tags/%E9%93%BE%E8%A1%A8/
-http://example.com/tags/shell/
 http://example.com/tags/%E9%9A%8F%E7%AC%94/
+http://example.com/tags/%E9%A6%99%E6%B8%AF/
+http://example.com/tags/shell/
 http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/
 http://example.com/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/
-http://example.com/tags/%E9%A6%99%E6%B8%AF/
+http://example.com/tags/%E9%93%BE%E8%A1%A8/
 http://example.com/categories/java/
 http://example.com/categories/%E7%AE%97%E6%B3%95/
-http://example.com/categories/shell/
 http://example.com/categories/%E9%9A%8F%E7%AC%94/
+http://example.com/categories/shell/
