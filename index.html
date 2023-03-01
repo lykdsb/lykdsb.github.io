@@ -187,194 +187,1062 @@ mjx-container[display="true"] + br {
 
 
 <body>
-@import "../common/variables"
-
-.page-container {
-  position relative
-  box-sizing border-box
-  width 100%
-  height auto
-  background var(--background-color)
-  //padding-left 230px
-
-
-  +redefine-tablet() {
-    padding-right 0 !important
-  }
-
-
-  .page-main-content {
-    padding-top $menu-height
-    position relative
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
     
 
-    .menu-shrink & {
-      padding-top $menu-shrink-height
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
 
 
-      +redefine-tablet() {
-        padding-top ($menu-shrink-height * 0.9)
-      }
+<main class="page-container">
 
-      +redefine-mobile() {
-        padding-top $menu-shrink-height * 0.8
-      }
-    }
-
-
-    +redefine-tablet() {
-      padding-top $menu-height * 0.9
-    }
-
-
-    +redefine-mobile() {
-      padding-top $menu-height * 0.8
-    }
-
-
-    .page-main-content-top {
-      position fixed
-      top 0
-      right 0
-      width 100%
-      height $menu-height
-      z-index $z-index-5
-      box-sizing border-box
-      transition-t("transform, padding-left, height", "0, 0, 0", "0.3, 0.2, 0.2", "ease-out, linear, ease")
-
-      &.hide {
-        transform translateY(-105%)
-      }
-
-      .menu-shrink & {
-        height $menu-shrink-height
-
-        +redefine-tablet() {
-          height ($menu-shrink-height * 0.9)
-        }
-
-        +redefine-mobile() {
-          height $menu-shrink-height * 0.8
-        }
-      }
-
-
-      +redefine-tablet() {
-        height $menu-height * 0.9
-        padding-left 0 !important
-      }
-
-
-      +redefine-mobile() {
-        height $menu-height  * 0.8
-      }
-
-    }
-
-
-    .page-main-content-middle {
-      box-sizing border-box
-      width 100%
-      display flex
-      justify-content center
-      padding $spacing-unit 0
-
-      +redefine-tablet() {
-        padding ($spacing-unit * 0.8) 0
-        box-shadow none !important
-
-        :hover {
-          box-shadow none !important
-        }
-      }
-
-      +redefine-mobile() {
+    
+        <div class="first-screen-container flex-center">
+    <div class="content flex-center">
+        <div class="description fade-in-down-animation" >
+          Laiyikou's Blog
+        </div>
         
-        box-shadow none !important
-        border none !important
+    </div>
+</div>
 
-        :hover {
-          box-shadow none !important
-        }
-      }
+    
 
-      .main-content {
-        position relative
-        box-sizing border-box
-        width $main-content-width
-        max-width $content-max-width 
-        height 100%
-        transition-t("max-width, width", "0, 0", "0.2, 0.2", "ease, ease")
+    <div class="page-main-content">
 
-        +redefine-tablet() {
-          width $main-content-width-tablet
-        }
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content has-first-screen">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                <h1>
+                Laiyikou&#39;s Blog
+                </h1>
+            </a>
+        </div>
 
-        +redefine-mobile() {
-          width $main-content-width-mobile
-        }
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="active" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        归档
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/categories"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-inbox"></i>
+                                        
+                                        分类
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/tags"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-tag"></i>
+                                        
+                                        标签
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        &.has-toc{
-          max-width $has-toc-content-max-width !important
-        }
-      }
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="active" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                归档
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/categories"  >
+                             
+                                
+                                    <i class="fa-regular fa-inbox"></i>
+                                
+                                分类
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/tags"  >
+                             
+                                
+                                    <i class="fa-regular fa-tag"></i>
+                                
+                                标签
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
 
-      .page-main-content-bottom {
-        width 100%
-      }
-    }
-  }
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
 
 
-  .post-tools {
-    position fixed
-    top $menu-height + $spacing-unit
-    right $spacing-unit
-    transition-t("top", "0", "0.2", "ease")
+        </div>
 
-    .menu-shrink & {
-      top $menu-shrink-height + $spacing-unit
+        <div class="page-main-content-middle">
 
-      +redefine-tablet() {
-        top (($menu-shrink-height * 0.9) + $spacing-unit)
-      }
+            <div class="main-content">
 
-      +redefine-mobile() {
-        top ($menu-shrink-height * 0.8 + $spacing-unit)
-      }
-    }
+                
+                    <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2023/03/01/volatile/">
+                        volatile
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        可见性在存在并发的多个线程之间，要保证synchronized需要考虑到两个方面：
+
+Atomicity ： 原子性
+Memory Visibility ： 内存可见性
+
+原子性是指执行多个操作时，要么全部发生，要么全部不发生。而可见性则是指的一个线...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Mar 01 2023 15:03:14 GMT+0800">
+                
+                    2023-03-01
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/java/">java</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/java/">java</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%B9%B6%E5%8F%91/">并发</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/03/01/volatile/">阅读全文<span class="seo-reader-text">volatile</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2023/03/01/hua-dong-chuang-kou-de-zui-da-zhi/">
+                        滑动窗口的最大值
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        给你一个整数数组 nums，有一个大小为k的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的k个数字。滑动窗口每次只向右移动一位。
+返回 滑动窗口中的最大值 。
+朴素算法滑动窗口中的最大值 
+首先我们考虑朴素的算法：在移动滑动窗口...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Mar 01 2023 12:07:34 GMT+0800">
+                
+                    2023-03-01
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">单调队列</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/03/01/hua-dong-chuang-kou-de-zui-da-zhi/">阅读全文<span class="seo-reader-text">滑动窗口的最大值</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/10/26/zhi-shao-you-k-ge-chong-fu-zi-fu-de-zui-chang-zi-chuan/">
+                        至少有K个重复字符的最长子串
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        给你一个字符串 s 和一个整数 k ，请你找出 s 中的最长子串， 要求该子串中的每一字符出现次数都不少于 k 。返回这一子串的长度。
+题目 
+思路首先需要注意的是子串和子序列之间的区别
+
+子串必须是数组/字符串中连续的多个元素
+子序列可以不连续，但...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Oct 26 2022 10:57:28 GMT+0800">
+                
+                    2022-10-26
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/10/26/zhi-shao-you-k-ge-chong-fu-zi-fu-de-zui-chang-zi-chuan/">阅读全文<span class="seo-reader-text">至少有K个重复字符的最长子串</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/10/22/kuai-jie-zhi-ling/">
+                        快捷指令
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        今天在写博客的时候发现，创建博客的步骤比较繁琐。大概需要执行以下几个步骤：
+
+进入到blog所在的文件夹
+输入hexo  new blogname
+
+12cd ~/Desktop/bloghexo new blogname
+
+Aliasalias使用...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sat Oct 22 2022 08:36:30 GMT+0800">
+                
+                    2022-10-22
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/shell/">shell</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/shell/">shell</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/10/22/kuai-jie-zhi-ling/">阅读全文<span class="seo-reader-text">快捷指令</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/10/21/xuan-zhuan-lian-biao/">
+                        旋转链表
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        给你一个链表的头节点 head ，旋转链表，将链表每个节点向右移动 k 个位置。
+题目 
+思路首先这道题是向右边移动，如果是向左移动可能实现上会比较简单一点。比如说：
+1231 2 3 4 52 3 4 5 1
+
+如果这样移动的话，只需要将头节点移动...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Oct 21 2022 21:04:16 GMT+0800">
+                
+                    2022-10-21
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/10/21/xuan-zhuan-lian-biao/">阅读全文<span class="seo-reader-text">旋转链表</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/10/18/zhi-chu-xian-yi-ci-de-shu-zi/">
+                        只出现一次的数字
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        给你一个整数数组&nbsp;nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。你可以按 任意顺序 返回答案。
+你必须设计并实现线性时间复杂度的算法且仅使用常量额外空间来解决此问题。题目 
+思路​	可能是因为...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Oct 18 2022 21:53:11 GMT+0800">
+                
+                    2022-10-18
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/10/18/zhi-chu-xian-yi-ci-de-shu-zi/">阅读全文<span class="seo-reader-text">只出现一次的数字</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/09/14/xia-yi-ge-pai-lie/">
+                        下一个排列
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。
+例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。整数数组的 下一个排列 是指其整数的下一个字典序...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Sep 14 2022 10:34:25 GMT+0800">
+                
+                    2022-09-14
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/14/xia-yi-ge-pai-lie/">阅读全文<span class="seo-reader-text">下一个排列</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/09/09/biao-ji-jie-kou/">
+                        标记接口
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Sep 09 2022 17:54:41 GMT+0800">
+                
+                    2022-09-09
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/java/">java</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/java/">java</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/09/biao-ji-jie-kou/">阅读全文<span class="seo-reader-text">标记接口</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/">
+                        合并k个升序链表
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。
+题目 
+思路其实这里很容易就会想到归并排序中，两个有序数组合并的过程，这里使用的也是相同的思想。但是需要注意的是这里需要合并的是多个链表，也就是说每一...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Sep 09 2022 17:41:20 GMT+0800">
+                
+                    2022-09-09
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/">阅读全文<span class="seo-reader-text">合并k个升序链表</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/09/09/san-shu-zhi-he/">
+                        三数之和
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请你返回所...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Sep 09 2022 15:01:05 GMT+0800">
+                
+                    2022-09-09
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/09/san-shu-zhi-he/">阅读全文<span class="seo-reader-text">三数之和</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator">
+        <div class="paginator">
+    
+
+    
+        <a class="next btn"
+           href="/page/2/"
+        >下一页</a>
+    
+</div>
+
+    </div>
+</div>
 
 
-    +redefine-tablet() {
-      top ($menu-height * 0.9 + $spacing-unit)
-      right 10px
-      transform scale(0.82)
-      transform-origin right top
-    }
+                
+
+            </div>
 
 
-    +redefine-mobile() {
-      top ($menu-height * 0.8 + $spacing-unit)
-      right 5px
-      transform scale(0.72)
-    }
-  }
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Laiyikou</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a> 驱动</span>
+                <br> 
+            <span class="theme-version-container">主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.3</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
 
 
-  .right-bottom-side-tools {
-    position fixed
-    bottom 5%
-    right $spacing-unit
-    opacity 1
-    transition opacity 0.2s ease
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
 
-    &.hide {
-      opacity 0
-      pointer-events none
-      transition opacity 0.2s ease
-    }
-  }
-}
+    
+
+
+</main>
+
+
 
 
 

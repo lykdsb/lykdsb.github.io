@@ -77,194 +77,408 @@
 
 
 <body>
-@import "../common/variables"
-
-.page-container {
-  position relative
-  box-sizing border-box
-  width 100%
-  height auto
-  background var(--background-color)
-  //padding-left 230px
-
-
-  +redefine-tablet() {
-    padding-right 0 !important
-  }
-
-
-  .page-main-content {
-    padding-top $menu-height
-    position relative
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
     
 
-    .menu-shrink & {
-      padding-top $menu-shrink-height
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
 
 
-      +redefine-tablet() {
-        padding-top ($menu-shrink-height * 0.9)
-      }
+<main class="page-container">
 
-      +redefine-mobile() {
-        padding-top $menu-shrink-height * 0.8
-      }
-    }
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Laiyikou&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        归档
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="active" 
+                                    href="/categories"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-inbox"></i>
+                                        
+                                        分类
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/tags"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-tag"></i>
+                                        
+                                        标签
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                归档
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="active" 
+                        href="/categories"  >
+                             
+                                
+                                    <i class="fa-regular fa-inbox"></i>
+                                
+                                分类
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/tags"  >
+                             
+                                
+                                    <i class="fa-regular fa-tag"></i>
+                                
+                                标签
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
 
 
-    +redefine-tablet() {
-      padding-top $menu-height * 0.9
-    }
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="category-container">
+        <div class="category-name">
+            <i class="fa-solid fa-folder"></i>&nbsp;shell
+        </div>
+        <div class="category-post-list">
+            
+<div class="archive-list-container">
+    
+        <section class="archive-item">
+            <div class="archive-item-header">
+                <span class="archive-year">2022</span>
+                <span class="archive-year-post-count">[1]</span>
+            </div>
+            <ul class="article-list">
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2022/10/22/kuai-jie-zhi-ling/"
+                        >快捷指令</a>
+                        <span class="article-date">10-22</span>
+                    </li>
+                
+            </ul>
+        </section>
+    
+</div>
+
+        </div>
+    </div>
+    <div class="category-paginator">
+        <div class="paginator">
+    
+
+    
+</div>
+
+    </div>
+</div>
 
 
-    +redefine-mobile() {
-      padding-top $menu-height * 0.8
-    }
+                
+
+            </div>
 
 
-    .page-main-content-top {
-      position fixed
-      top 0
-      right 0
-      width 100%
-      height $menu-height
-      z-index $z-index-5
-      box-sizing border-box
-      transition-t("transform, padding-left, height", "0, 0, 0", "0.3, 0.2, 0.2", "ease-out, linear, ease")
 
-      &.hide {
-        transform translateY(-105%)
-      }
+        </div>
 
-      .menu-shrink & {
-        height $menu-shrink-height
-
-        +redefine-tablet() {
-          height ($menu-shrink-height * 0.9)
-        }
-
-        +redefine-mobile() {
-          height $menu-shrink-height * 0.8
-        }
-      }
-
-
-      +redefine-tablet() {
-        height $menu-height * 0.9
-        padding-left 0 !important
-      }
-
-
-      +redefine-mobile() {
-        height $menu-height  * 0.8
-      }
-
-    }
-
-
-    .page-main-content-middle {
-      box-sizing border-box
-      width 100%
-      display flex
-      justify-content center
-      padding $spacing-unit 0
-
-      +redefine-tablet() {
-        padding ($spacing-unit * 0.8) 0
-        box-shadow none !important
-
-        :hover {
-          box-shadow none !important
-        }
-      }
-
-      +redefine-mobile() {
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Laiyikou</a>
+        </div>
         
-        box-shadow none !important
-        border none !important
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a> 驱动</span>
+                <br> 
+            <span class="theme-version-container">主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.3</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
 
-        :hover {
-          box-shadow none !important
-        }
-      }
+    
 
-      .main-content {
-        position relative
-        box-sizing border-box
-        width $main-content-width
-        max-width $content-max-width 
-        height 100%
-        transition-t("max-width, width", "0, 0", "0.2, 0.2", "ease, ease")
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
 
-        +redefine-tablet() {
-          width $main-content-width-tablet
-        }
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
 
-        +redefine-mobile() {
-          width $main-content-width-mobile
-        }
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
 
-        &.has-toc{
-          max-width $has-toc-content-max-width !important
-        }
-      }
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
 
-      .page-main-content-bottom {
-        width 100%
-      }
-    }
-  }
+        <!-- rss -->
+        
 
+        
 
-  .post-tools {
-    position fixed
-    top $menu-height + $spacing-unit
-    right $spacing-unit
-    transition-t("top", "0", "0.2", "ease")
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
 
-    .menu-shrink & {
-      top $menu-shrink-height + $spacing-unit
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
 
-      +redefine-tablet() {
-        top (($menu-shrink-height * 0.9) + $spacing-unit)
-      }
+    </div>
 
-      +redefine-mobile() {
-        top ($menu-shrink-height * 0.8 + $spacing-unit)
-      }
-    }
-
-
-    +redefine-tablet() {
-      top ($menu-height * 0.9 + $spacing-unit)
-      right 10px
-      transform scale(0.82)
-      transform-origin right top
-    }
+    <div class="image-viewer-container">
+    <img src="">
+</div>
 
 
-    +redefine-mobile() {
-      top ($menu-height * 0.8 + $spacing-unit)
-      right 5px
-      transform scale(0.72)
-    }
-  }
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
 
 
-  .right-bottom-side-tools {
-    position fixed
-    bottom 5%
-    right $spacing-unit
-    opacity 1
-    transition opacity 0.2s ease
+</main>
 
-    &.hide {
-      opacity 0
-      pointer-events none
-      transition opacity 0.2s ease
-    }
-  }
-}
+
 
 
 <script src="/js/utils.js"></script>
