@@ -278,198 +278,460 @@
             <div class="main-content">
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="post-page-container">
-        <div class="article-content-container">
+                    @import "../common/variables"
+$avatarWidth = 46px
+$arrow-icon-width = 16px
+$post-nav-max-width = 220px
+$article-title-font-size = 3.2rem 
+$temp-toc-width = hexo-config('style.right_side_width')
+$toc-container-width = $temp-toc-width ? convert($temp-toc-width) : 210px
+$without-toc-container-width = calc(100% - $temp-toc-width)
+$gap = 30px
 
-            
-            
-                <div class="article-title">
-                    <h1 class="article-title-regular">香港札记（一）</h1>
-                </div>
-            
-                
-            
+.post-page-container{
+  display flex
+  position relative
+  justify-content space-between
+  box-sizing border-box
+  width 100%
+  height 100%
 
-            
-                <div class="article-header">
-                    <div class="avatar">
-                        <img src="/images/redefine-avatar.svg">
-                    </div>
-                    <div class="info">
-                        <div class="author">
-                            <span class="name">Laiyikou</span>
-                            
-                                <span class="author-label">lol</span>
-                            
-                        </div>
-                        <div class="meta-info">
-                            <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2022-09-07 19:48:02</span>
-        <span class="mobile">2022-09-07 19:48</span>
-        <span class="hover-info">创建时间</span>
-    </span>
-    
-        <span class="article-date article-meta-item">
-            <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2022-09-07 22:57:01</span>
-            <span class="mobile">2022-09-07 22:57</span>
-            <span class="hover-info">更新时间</span>
-        </span>
-    
+  &.show-toc {
+    .toc-content-container {
+      display block
+      opacity 1
+      transition opacity 0.2s ease-in 0.2s
+      width $toc-container-width
 
-    
-        <span class="article-categories article-meta-item">
-            <i class="fa-regular fa-folders"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fa-regular fa-tags"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/%E9%A6%99%E6%B8%AF/">香港</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
+      &:hover::-webkit-scrollbar-thumb {
+        border: 3px solid rgba(183, 183, 183, 0.3);
+      }
 
-    
-    
-        <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-file-word"></i>&nbsp;<span>854 字</span>
-        </span>
-    
-    
-        <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 分钟</span>
-        </span>
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
-    
-</div>
+      &::-webkit-scrollbar {
+        width 6px
+        height 6px
+        transition all 0.2s ease
+        display block
+      }
+      
+      &::-webkit-scrollbar-track {
+        background transparent
+        border none
+      }
 
-                        </div>
-                    </div>
-                </div>
-            
+      &::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        border: 3px solid rgba(183, 183, 183, 0);
+        transition all 0.2s ease
+      }
+    }
 
-            <div class="article-content markdown-body">
-                <p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
-<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
-<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
-<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
+    .article-content-container {
+      width calc(100% - 210px) !important
+    }
+  }
 
-            </div>
+  +redefine-tablet() {
+    .toc-content-container {
+      display none !important
+    }
 
-            
-                <div class="post-copyright-info">
-                    <div class="article-copyright-info-container">
-    <ul>
-        <li>本文标题：香港札记（一）</li>
-        <li>本文作者：Laiyikou</li>
-        <li>创建时间：2022-09-07 19:48:02</li>
-        <li>
-            本文链接：https://lykdsb.github.io/2022/09/07/xiang-gang-zha-ji-yi/
-        </li>
-        <li>
-            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
-        </li>
-    </ul>
-</div>
+    .article-content-container {
+      width 100% !important
+    }
 
-                </div>
-            
+    &.show-toc {
+      .toc-content-container {
+        display none
+      }
 
-            
-                <ul class="post-tags-box">
-                    
-                        <li class="tag-item">
-                            <a href="/tags/%E9%9A%8F%E7%AC%94/">#随笔</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/%E9%A6%99%E6%B8%AF/">#香港</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            
-
-            
-
-            
-                <div class="article-nav">
-                    
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2022/09/08/foreach-de-shi-xian-fang-shi/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">forEach的实现方式</span>
-                                    <span class="post-nav-item">上一篇</span>
-                                </span>
-                            </a>
-                        </div>
-                    
-                    
-                        <div class="article-next">
-                            <a class="next"
-                            rel="next"
-                            href="/2022/09/07/pi-bei-yu-kun-juan/"
-                            >
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">疲惫与困倦</span>
-                                    <span class="post-nav-item">下一篇</span>
-                                </span>
-                                <span class="right arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </span>
-                            </a>
-                        </div>
-                    
-                </div>
-            
+      .article-content-container {
+        width 100% !important
+      }
+    }
+  }
 
 
-            
-        </div>
+  .article-content-container {
+    width 100%
+    transition width 0.2s ease
 
+    redefine-container(false, 0, 0, 30px, 30px)
+
+    +redefine-mobile() {
+      padding 1.2rem 0.2rem
+      box-shadow none
+    }
+
+
+
+    .article-title {
+      position relative
+      width 100%
+
+      img {
+        margin -30px -30px 0 -30px
+        width calc(100% + 60px)
+        height 350px
+        object-fit cover
+        border-radius $redefine-border-radius-large-top
+
+        +redefine-tablet() {
+          height 300px
+          margin -24px -24px 0 -24px
+          width calc(100% + 60px * 0.8)
+        }
+
+        +redefine-mobile() {
+          height 200px
+          border-radius $redefine-border-radius-medium
+          margin -18px -18px 0 -18px
+          width calc(100% + 60px * 0.6)
+        }
+      }
+
+      .article-title-regular {
+        font-size $article-title-font-size
+        font-weight bold
+        margin 10px 0 30px 0
+        line-height 1
+        color var(--second-text-color)
+        font-family "Noto Sans SC", sans-serif
+      }
+
+      .article-title-cover { 
+        display flex
+        padding 0.4rem 1.5rem 0.5rem 1.5rem
+        line-height 1.5
+        margin 0 auto
+        position absolute
+        bottom 36px
+        left 0
+        text-align center
+        font-family "Noto Sans SC", sans-serif
+        color var(--second-text-color)
+        font-size $article-title-font-size
+        font-weight 600
+        background-color var(--background-color-transparent)
+        backdrop-filter blur(10px)
+        -webkit-backdrop-filter blur(10px)
+        border 1.5px solid var(--first-screen-icons-container-border-color)
+        border-radius $redefine-border-radius-large
         
-            <div class="toc-content-container">
-                <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">此页目录</div>
-        <div class="page-title">香港札记（一）</div>
-        
+        +redefine-tablet() {
+          font-size $article-title-font-size * 0.8
+          bottom 36px * 0.8
+        }
 
-    </div>
-</div>
-            </div>
-        
-    </div>
-</div>
+        +redefine-mobile() {
+          font-size $article-title-font-size * 0.6
+          bottom 36px * 0.6
+          border-radius $redefine-border-radius-medium
+        }
+
+      }
+
+    }
+
+
+    .article-header {
+      font-family "Noto Sans", "Noto Sans SC", sans-serif
+      position relative
+      padding-left $avatarWidth
+      width 100%
+      height $avatarWidth
+      box-sizing border-box
+
+      .avatar {
+        position absolute
+        top 0
+        left 0
+        width $avatarWidth
+        height $avatarWidth
+        padding 1px
+        box-sizing border-box
+        border 1px solid var(--border-color)
+        border-radius $redefine-border-radius-medium
+
+        img {
+          border-radius $redefine-border-radius-medium * 0.87
+          width 100%
+          height 100%
+          //background var(--avatar-background-color)
+        }
+
+      }
+
+
+      .info {
+        padding 2px 0
+        margin-left 10px
+        box-sizing border-box
+        display flex
+        flex-direction column
+        justify-content space-between
+        width 100%
+        height 100%
+
+        .author {
+          font-weight regular
+          font-size 1.18rem
+          display flex
+          align-items center
+
+          .name {
+            color var(--default-text-color)
+          }
+
+          .author-label {
+            margin-left 10px
+            font-size 0.8rem
+            font-weight 500
+            padding 0 5px
+            border-radius $redefine-border-radius-small
+            color #fff
+            background var(--selection-color)
+          }
+
+        }
+      }
+
+    }
+
+
+    .article-header, .article-header-meta-info {
+      margin-top 16px
+      +redefine-tablet() {
+        transform scale(0.9)
+        transform-origin left top
+      }
+    }
+
+
+    .article-content {
+      margin-top $spacing-unit
+      padding-bottom 10px
+      word-wrap break-word
+      border-bottom 1px solid var(--border-color)
+      color var(--default-text-color)
+
+      &>:first-child {
+        margin-top 0 !important
+      }
+    }
+
+
+    .post-tags-box {
+      display none
+      margin-top 1.6rem
+      justify-content center
+      font-size 1.1rem
+
+      +redefine-tablet() {
+        display flex
+      }
+
+      +redefine-mobile() {
+        margin-top 1.2rem
+        font-size 1rem
+      }
+
+
+      .tag-item {
+        margin 0 0.25rem
+      }
+    }
+
+    .post-copyright-info {
+      margin-top $spacing-unit
+      width 100%
+
+      +redefine-tablet() {
+        margin-top ($spacing-unit * 0.8) !important
+      }
+    }
+
+
+    .article-nav {
+      height 40px
+      margin-top $spacing-unit
+
+      .article-prev, .article-next {
+        max-width $post-nav-max-width
+        height 100%
+        box-sizing border-box
+        border-radius $redefine-border-radius-medium !important
+
+        redefine-container(true, 1.03, 1.03, 10px, 0)
+
+        a {
+          position relative
+          display block
+          width 100%
+          height 100%
+          box-sizing border-box
+
+          &.prev {
+            padding-left $arrow-icon-width
+          }
+
+          &.next {
+            padding-right $arrow-icon-width
+          }
+
+          .arrow-icon {
+            position absolute
+            top 0
+            height 100%
+            width $arrow-icon-width
+
+            &.left {
+              left 0
+            }
+
+            &.right {
+              right 0
+            }
+          }
+
+          .title {
+            width 100%
+            height 100%
+          }
+        }
+
+      }
+
+      .article-prev {
+        float left
+      }
+
+      .article-next {
+        float right
+      }
+
+      .post-nav-item {
+        display none
+
+        +redefine-tablet() {
+          display inline-block
+        }
+
+      }
+
+
+      .post-nav-title-item {
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+
+        +redefine-tablet() {
+          display none
+        }
+      }
+    }
+
+    .recommended-article{
+      overflow: visible !important
+      .recommended-article-header{
+        margin 2rem 0 0.8rem 0
+        font-size 1.2rem
+        font-weight bold
+      }
+      .recommended-article-group{
+        padding 10px
+        display: flex
+        flex-wrap: wrap
+        overflow: visible !important
+        @media screen and (max-width: $device-tablet){
+          height: 190px
+          overflow: scroll
+          &::-webkit-scrollbar{
+            width: 0 !important
+          }
+          -ms-overflow-style: none
+        }
+        .recommended-article-item{
+          redefine-container(false, 0, 0, 10px, 0)
+          box-shadow var(--redefine-box-shadow-flat)
+          padding 12px !important
+          display: flex
+          flex-wrap: wrap
+          align-content: center;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden
+          width: "calc(100%/3 - %s)" % ($gap * 0.6)
+          @media screen and (max-width: $device-tablet){
+            width: "calc(100%/2 - %s)" % ($gap * 0.6)
+          }
+          @media screen and (max-width: $device-mobile){
+            width: "calc(100% - %s)" % ($gap * 0.6)
+          }
+          max-height: 200px
+          margin-top: $gap * 0.5
+          margin-left: $gap * 0.5
+          margin-right: 0
+          &:nth-child(3n+1) {
+            margin-left 0 !important
+          }
+          img{
+            display: flex;
+            width: calc(100% + 24px)
+            height: 150px
+            object-fit: cover
+            border-radius $redefine-border-radius-medium-top
+            margin -12px -12px 0 -12px !important
+            
+          }
+          span{
+            margin-top 0.5rem
+            display: block
+            display: -webkit-box
+            -webkit-box-orient: vertical
+            -webkit-line-clamp: 1;
+            overflow: hidden
+          }
+        }
+      }
+
+    }
+  }
+
+  .toc-content-container {
+    white-space: nowrap;
+    opacity 0
+    position sticky
+    top $menu-height + $spacing-unit
+    //border-radius $redefine-border-radius-large
+    border-radius $redefine-border-radius-none
+    //display none
+    //visibility hidden
+    //width $toc-container-width
+    width 0
+    height auto
+    max-height calc(100vh - 210px)
+    margin-left 30px
+    //z-index $z-index-6
+    overflow-y auto
+    overflow-x hidden
+    float right
+    padding 10px
+    box-sizing border-box
+    box-shadow none !important
+    transition opacity 0.3s ease-out 0.3s
+    
+
+    hover-style(false, 0, 0)
+
+    transition-t("display", "0", "0.3", "ease-out")
+
+    +redefine-tablet() {
+      left 0 !important
+      display none !important
+    }
+  }
+}
 
 
                 
@@ -704,6 +966,13 @@
 <script src="/js/plugins/tabs.js"></script>
 
     
+    
+        
+<script src="/js/libs/mermaid.min.js"></script>
+
+        
+<script src="/js/plugins/mermaid.js"></script>
+
     
 </div>
 

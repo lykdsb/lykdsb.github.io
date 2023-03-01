@@ -390,250 +390,460 @@ mjx-container[display="true"] + br {
             <div class="main-content">
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="post-page-container">
-        <div class="article-content-container">
+                    @import "../common/variables"
+$avatarWidth = 46px
+$arrow-icon-width = 16px
+$post-nav-max-width = 220px
+$article-title-font-size = 3.2rem 
+$temp-toc-width = hexo-config('style.right_side_width')
+$toc-container-width = $temp-toc-width ? convert($temp-toc-width) : 210px
+$without-toc-container-width = calc(100% - $temp-toc-width)
+$gap = 30px
 
-            
-            
-                <div class="article-title">
-                    <h1 class="article-title-regular">快捷指令</h1>
-                </div>
-            
-                
-            
+.post-page-container{
+  display flex
+  position relative
+  justify-content space-between
+  box-sizing border-box
+  width 100%
+  height 100%
 
-            
-                <div class="article-header">
-                    <div class="avatar">
-                        <img src="/images/redefine-avatar.svg">
-                    </div>
-                    <div class="info">
-                        <div class="author">
-                            <span class="name">Laiyikou</span>
-                            
-                                <span class="author-label">lol</span>
-                            
-                        </div>
-                        <div class="meta-info">
-                            <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2022-10-22 08:36:30</span>
-        <span class="mobile">2022-10-22 08:36</span>
-        <span class="hover-info">创建时间</span>
-    </span>
-    
-        <span class="article-date article-meta-item">
-            <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2022-10-22 11:07</span>
-            <span class="mobile">2022-10-22 11</span>
-            <span class="hover-info">更新时间</span>
-        </span>
-    
+  &.show-toc {
+    .toc-content-container {
+      display block
+      opacity 1
+      transition opacity 0.2s ease-in 0.2s
+      width $toc-container-width
 
-    
-        <span class="article-categories article-meta-item">
-            <i class="fa-regular fa-folders"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/categories/shell/">shell</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fa-regular fa-tags"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/tags/shell/">shell</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
+      &:hover::-webkit-scrollbar-thumb {
+        border: 3px solid rgba(183, 183, 183, 0.3);
+      }
 
-    
-    
-        <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-file-word"></i>&nbsp;<span>665 字</span>
-        </span>
-    
-    
-        <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 分钟</span>
-        </span>
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
-    
-</div>
+      &::-webkit-scrollbar {
+        width 6px
+        height 6px
+        transition all 0.2s ease
+        display block
+      }
+      
+      &::-webkit-scrollbar-track {
+        background transparent
+        border none
+      }
 
-                        </div>
-                    </div>
-                </div>
-            
+      &::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        border: 3px solid rgba(183, 183, 183, 0);
+        transition all 0.2s ease
+      }
+    }
 
-            <div class="article-content markdown-body">
-                <p>今天在写博客的时候发现，创建博客的步骤比较繁琐。大概需要执行以下几个步骤：</p>
-<ol>
-<li>进入到blog所在的文件夹</li>
-<li>输入<code>hexo  new blogname</code></li>
-</ol>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/Desktop/blog</span><br><span class="line">hexo new blogname</span><br></pre></td></tr></tbody></table></figure></div>
+    .article-content-container {
+      width calc(100% - 210px) !important
+    }
+  }
 
-<h2 id="Alias"><a href="#Alias" class="headerlink" title="Alias"></a>Alias</h2><h3 id="alias使用"><a href="#alias使用" class="headerlink" title="alias使用"></a>alias使用</h3><p>那么要如何简化这个过程呢？</p>
-<ol>
-<li>新建或者打开<code>~/.bashrc</code></li>
-</ol>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></tbody></table></figure></div>
+  +redefine-tablet() {
+    .toc-content-container {
+      display none !important
+    }
 
-<ol start="2">
-<li>在文件中使用alias指令添加别名</li>
-</ol>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alias goblog="cd ~/Desktop/blog"</span><br><span class="line">alias newblog="hexo new"</span><br></pre></td></tr></tbody></table></figure></div>
+    .article-content-container {
+      width 100% !important
+    }
 
-<ol start="3">
-<li>使别名生效</li>
-</ol>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></tbody></table></figure></div>
+    &.show-toc {
+      .toc-content-container {
+        display none
+      }
 
-<p>但是<strong>这个别名只能够在本session中使用</strong>，如果我们使用另一个session或者关闭这个session并重新打开，这个别名就会消失。必须在下一次打开session的时候，再调用一次这个指令就能重新使alias生效</p>
-<ol start="4">
-<li>如果需要使alias永久生效</li>
-</ol>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br></pre></td></tr></tbody></table></figure></div>
-
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></tbody></table></figure></div>
-
-<blockquote>
-<p>在<code>vim ~/.bash_profile</code>中出现的语句会在session打开时全部执行一遍</p>
-</blockquote>
-<p>这样就使得我们每次登陆session的时候alias都生效</p>
-<ol start="5">
-<li>使用</li>
-</ol>
-<p>我们只需要在命令行中使用</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lykdsb@MacBook-Pro-4 &gt; ~ &gt; goblog</span><br><span class="line">lykdsb@MacBook-Pro-4 &gt; ~/Desktop/blog &gt; newblog test</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>就可以创建博客了</p>
-<h3 id="alias多个语句"><a href="#alias多个语句" class="headerlink" title="alias多个语句"></a>alias多个语句</h3><p>但是这样需要输入两个语句，有点过于麻烦了。由于第一个语句是不会发生变化的，因此我们可以将两个语句设定为一个alias，这样我们只需要输入一个指令就可以执行这全部两个指令。</p>
-<p>我们只需要在<code>vim ~/.bashrc</code>之后输入</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias blog="cd ~/Desktop/blog&amp;&amp;hexo new"</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>这样我们就可以直接输入</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blog blogname</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>就可以直接创建博客了</p>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>但是还不算完。我们有这样一种习惯：在创建完博客之后一般都会直接打开博客来进行编辑，有没有办法让一个指令整合所有操作呢？</p>
-<p>如果我们仍然使用alias</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias blog="cd ~/Desktop/blog &amp;&amp; hexo new &amp;&amp; open"</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>会发现我们在<code>hexo new</code>和<code>open</code>后面都需要输入一个值，我们好像没有办法使用alias完成这个功能</p>
-<p>这个时候我们可以使用函数来完成这个功能</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">blog () {</span><br><span class="line">        cd ~/Desktop/blog</span><br><span class="line">        hexo new "$1"</span><br><span class="line">        cd /Users/lykdsb/Desktop/blog/source/_posts</span><br><span class="line">        open -a /Applications/Typora.app "$1.md"</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>这样我们就可以使用</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blog blogname</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>来完成上面所有的功能</p>
-<p>其中<code>"$1"</code>标识这个函数后面接受的第一个输入值。同理我们还可以通过这种方式输入多个变量并且分别使用。</p>
-<p>但是这样仍然是暂时的，因此我们可以像之前的方式一样将其写入到<code>～/.bshrc</code>中，这样我们就可以一步完成上面所有的工作了。</p>
-
-            </div>
-
-            
-                <div class="post-copyright-info">
-                    <div class="article-copyright-info-container">
-    <ul>
-        <li>本文标题：快捷指令</li>
-        <li>本文作者：Laiyikou</li>
-        <li>创建时间：2022-10-22 08:36:30</li>
-        <li>
-            本文链接：https://lykdsb.github.io/2022/10/22/kuai-jie-zhi-ling/
-        </li>
-        <li>
-            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
-        </li>
-    </ul>
-</div>
-
-                </div>
-            
-
-            
-                <ul class="post-tags-box">
-                    
-                        <li class="tag-item">
-                            <a href="/tags/shell/">#shell</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            
-
-            
-
-            
-                <div class="article-nav">
-                    
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2022/10/26/zhi-shao-you-k-ge-chong-fu-zi-fu-de-zui-chang-zi-chuan/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">至少有K个重复字符的最长子串</span>
-                                    <span class="post-nav-item">上一篇</span>
-                                </span>
-                            </a>
-                        </div>
-                    
-                    
-                        <div class="article-next">
-                            <a class="next"
-                            rel="next"
-                            href="/2022/10/21/xuan-zhuan-lian-biao/"
-                            >
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">旋转链表</span>
-                                    <span class="post-nav-item">下一篇</span>
-                                </span>
-                                <span class="right arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </span>
-                            </a>
-                        </div>
-                    
-                </div>
-            
+      .article-content-container {
+        width 100% !important
+      }
+    }
+  }
 
 
-            
-        </div>
+  .article-content-container {
+    width 100%
+    transition width 0.2s ease
 
+    redefine-container(false, 0, 0, 30px, 30px)
+
+    +redefine-mobile() {
+      padding 1.2rem 0.2rem
+      box-shadow none
+    }
+
+
+
+    .article-title {
+      position relative
+      width 100%
+
+      img {
+        margin -30px -30px 0 -30px
+        width calc(100% + 60px)
+        height 350px
+        object-fit cover
+        border-radius $redefine-border-radius-large-top
+
+        +redefine-tablet() {
+          height 300px
+          margin -24px -24px 0 -24px
+          width calc(100% + 60px * 0.8)
+        }
+
+        +redefine-mobile() {
+          height 200px
+          border-radius $redefine-border-radius-medium
+          margin -18px -18px 0 -18px
+          width calc(100% + 60px * 0.6)
+        }
+      }
+
+      .article-title-regular {
+        font-size $article-title-font-size
+        font-weight bold
+        margin 10px 0 30px 0
+        line-height 1
+        color var(--second-text-color)
+        font-family "Noto Sans SC", sans-serif
+      }
+
+      .article-title-cover { 
+        display flex
+        padding 0.4rem 1.5rem 0.5rem 1.5rem
+        line-height 1.5
+        margin 0 auto
+        position absolute
+        bottom 36px
+        left 0
+        text-align center
+        font-family "Noto Sans SC", sans-serif
+        color var(--second-text-color)
+        font-size $article-title-font-size
+        font-weight 600
+        background-color var(--background-color-transparent)
+        backdrop-filter blur(10px)
+        -webkit-backdrop-filter blur(10px)
+        border 1.5px solid var(--first-screen-icons-container-border-color)
+        border-radius $redefine-border-radius-large
         
-            <div class="toc-content-container">
-                <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">此页目录</div>
-        <div class="page-title">快捷指令</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Alias"><span class="nav-text">Alias</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#alias%E4%BD%BF%E7%94%A8"><span class="nav-text">alias使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alias%E5%A4%9A%E4%B8%AA%E8%AF%AD%E5%8F%A5"><span class="nav-text">alias多个语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-text">函数</span></a></li></ol>
+        +redefine-tablet() {
+          font-size $article-title-font-size * 0.8
+          bottom 36px * 0.8
+        }
 
-    </div>
-</div>
-            </div>
-        
-    </div>
-</div>
+        +redefine-mobile() {
+          font-size $article-title-font-size * 0.6
+          bottom 36px * 0.6
+          border-radius $redefine-border-radius-medium
+        }
+
+      }
+
+    }
+
+
+    .article-header {
+      font-family "Noto Sans", "Noto Sans SC", sans-serif
+      position relative
+      padding-left $avatarWidth
+      width 100%
+      height $avatarWidth
+      box-sizing border-box
+
+      .avatar {
+        position absolute
+        top 0
+        left 0
+        width $avatarWidth
+        height $avatarWidth
+        padding 1px
+        box-sizing border-box
+        border 1px solid var(--border-color)
+        border-radius $redefine-border-radius-medium
+
+        img {
+          border-radius $redefine-border-radius-medium * 0.87
+          width 100%
+          height 100%
+          //background var(--avatar-background-color)
+        }
+
+      }
+
+
+      .info {
+        padding 2px 0
+        margin-left 10px
+        box-sizing border-box
+        display flex
+        flex-direction column
+        justify-content space-between
+        width 100%
+        height 100%
+
+        .author {
+          font-weight regular
+          font-size 1.18rem
+          display flex
+          align-items center
+
+          .name {
+            color var(--default-text-color)
+          }
+
+          .author-label {
+            margin-left 10px
+            font-size 0.8rem
+            font-weight 500
+            padding 0 5px
+            border-radius $redefine-border-radius-small
+            color #fff
+            background var(--selection-color)
+          }
+
+        }
+      }
+
+    }
+
+
+    .article-header, .article-header-meta-info {
+      margin-top 16px
+      +redefine-tablet() {
+        transform scale(0.9)
+        transform-origin left top
+      }
+    }
+
+
+    .article-content {
+      margin-top $spacing-unit
+      padding-bottom 10px
+      word-wrap break-word
+      border-bottom 1px solid var(--border-color)
+      color var(--default-text-color)
+
+      &>:first-child {
+        margin-top 0 !important
+      }
+    }
+
+
+    .post-tags-box {
+      display none
+      margin-top 1.6rem
+      justify-content center
+      font-size 1.1rem
+
+      +redefine-tablet() {
+        display flex
+      }
+
+      +redefine-mobile() {
+        margin-top 1.2rem
+        font-size 1rem
+      }
+
+
+      .tag-item {
+        margin 0 0.25rem
+      }
+    }
+
+    .post-copyright-info {
+      margin-top $spacing-unit
+      width 100%
+
+      +redefine-tablet() {
+        margin-top ($spacing-unit * 0.8) !important
+      }
+    }
+
+
+    .article-nav {
+      height 40px
+      margin-top $spacing-unit
+
+      .article-prev, .article-next {
+        max-width $post-nav-max-width
+        height 100%
+        box-sizing border-box
+        border-radius $redefine-border-radius-medium !important
+
+        redefine-container(true, 1.03, 1.03, 10px, 0)
+
+        a {
+          position relative
+          display block
+          width 100%
+          height 100%
+          box-sizing border-box
+
+          &.prev {
+            padding-left $arrow-icon-width
+          }
+
+          &.next {
+            padding-right $arrow-icon-width
+          }
+
+          .arrow-icon {
+            position absolute
+            top 0
+            height 100%
+            width $arrow-icon-width
+
+            &.left {
+              left 0
+            }
+
+            &.right {
+              right 0
+            }
+          }
+
+          .title {
+            width 100%
+            height 100%
+          }
+        }
+
+      }
+
+      .article-prev {
+        float left
+      }
+
+      .article-next {
+        float right
+      }
+
+      .post-nav-item {
+        display none
+
+        +redefine-tablet() {
+          display inline-block
+        }
+
+      }
+
+
+      .post-nav-title-item {
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+
+        +redefine-tablet() {
+          display none
+        }
+      }
+    }
+
+    .recommended-article{
+      overflow: visible !important
+      .recommended-article-header{
+        margin 2rem 0 0.8rem 0
+        font-size 1.2rem
+        font-weight bold
+      }
+      .recommended-article-group{
+        padding 10px
+        display: flex
+        flex-wrap: wrap
+        overflow: visible !important
+        @media screen and (max-width: $device-tablet){
+          height: 190px
+          overflow: scroll
+          &::-webkit-scrollbar{
+            width: 0 !important
+          }
+          -ms-overflow-style: none
+        }
+        .recommended-article-item{
+          redefine-container(false, 0, 0, 10px, 0)
+          box-shadow var(--redefine-box-shadow-flat)
+          padding 12px !important
+          display: flex
+          flex-wrap: wrap
+          align-content: center;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden
+          width: "calc(100%/3 - %s)" % ($gap * 0.6)
+          @media screen and (max-width: $device-tablet){
+            width: "calc(100%/2 - %s)" % ($gap * 0.6)
+          }
+          @media screen and (max-width: $device-mobile){
+            width: "calc(100% - %s)" % ($gap * 0.6)
+          }
+          max-height: 200px
+          margin-top: $gap * 0.5
+          margin-left: $gap * 0.5
+          margin-right: 0
+          &:nth-child(3n+1) {
+            margin-left 0 !important
+          }
+          img{
+            display: flex;
+            width: calc(100% + 24px)
+            height: 150px
+            object-fit: cover
+            border-radius $redefine-border-radius-medium-top
+            margin -12px -12px 0 -12px !important
+            
+          }
+          span{
+            margin-top 0.5rem
+            display: block
+            display: -webkit-box
+            -webkit-box-orient: vertical
+            -webkit-line-clamp: 1;
+            overflow: hidden
+          }
+        }
+      }
+
+    }
+  }
+
+  .toc-content-container {
+    white-space: nowrap;
+    opacity 0
+    position sticky
+    top $menu-height + $spacing-unit
+    //border-radius $redefine-border-radius-large
+    border-radius $redefine-border-radius-none
+    //display none
+    //visibility hidden
+    //width $toc-container-width
+    width 0
+    height auto
+    max-height calc(100vh - 210px)
+    margin-left 30px
+    //z-index $z-index-6
+    overflow-y auto
+    overflow-x hidden
+    float right
+    padding 10px
+    box-sizing border-box
+    box-shadow none !important
+    transition opacity 0.3s ease-out 0.3s
+    
+
+    hover-style(false, 0, 0)
+
+    transition-t("display", "0", "0.3", "ease-out")
+
+    +redefine-tablet() {
+      left 0 !important
+      display none !important
+    }
+  }
+}
 
 
                 
@@ -868,6 +1078,13 @@ mjx-container[display="true"] + br {
 <script src="/js/plugins/tabs.js"></script>
 
     
+    
+        
+<script src="/js/libs/mermaid.min.js"></script>
+
+        
+<script src="/js/plugins/mermaid.js"></script>
+
     
 </div>
 
