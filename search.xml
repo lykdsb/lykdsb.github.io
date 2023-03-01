@@ -107,9 +107,9 @@
 </ul>
 <p>没有能够结束自旋是因为主线程对于<code>ready</code>的修改没有立即被<code>ReaderThread</code>读到:</p>
 <pre class="mermaid">graph LR;
-CPU1 --&gt; Cache1 --&gt; Memory
-CPU2 --&gt; Cache2 --&gt; Memory
-CPU3 --&gt; Cache3 --&gt; Memory</pre>
+CPU1 --&gt; Cache1 --&gt; Memory;
+CPU2 --&gt; Cache2 --&gt; Memory;
+CPU3 --&gt; Cache3 --&gt; Memory;</pre>
 
 <p>在多线程编程中，不同的线程往往要在不同的CPU上运行。由于每一个CPU都具有自己的cache。因此一个线程在读取Memory中的数据时，另一个线程可能没有将自己对于数据的修改写入到Memory中，<strong>进而出现了缓存不一致性</strong>。</p>
 <p>另一方面，打印出来的值为0的情况则是因为<code>number = 42;</code> 和<code>ready = true;</code>被重新排序。由于这两个语句在单线程情况中不存在<strong>数据依赖性</strong>，因此这两个语句会被重排而影响到多线程中的正确性。</p>
@@ -398,54 +398,6 @@ CPU3 --&gt; Cache3 --&gt; Memory</pre>
       </tags>
   </entry>
   <entry>
-    <title>至少有K个重复字符的最长子串</title>
-    <url>/2022/10/26/zhi-shao-you-k-ge-chong-fu-zi-fu-de-zui-chang-zi-chuan/</url>
-    <content><![CDATA[<p>给你一个字符串 <code>s</code> 和一个整数 <code>k</code> ，请你找出 <code>s</code> 中的最长子串， 要求该子串中的每一字符出现次数都不少于 <code>k</code> 。返回这一子串的长度。</p>
-<p><a class="link" href="https://leetcode.cn/problems/longest-substring-with-at-least-k-repeating-characters/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先需要注意的是子串和子序列之间的区别</p>
-<ul>
-<li>子串必须是数组/字符串中连续的多个元素</li>
-<li>子序列可以不连续，但是必须要保持原有的顺序</li>
-</ul>
-<blockquote>
-<p>一般在数组/字符串中，如果出现了“满足某一元素出现了多少次”这样的限制条件时，优先考虑滑动窗口的方法。</p>
-</blockquote>
-<p>但是我们在这里应该如何使用滑动窗口呢？由于我们只知道滑动窗口移动的时候如何改变一些参数，并不知道滑动窗口具体的长度和扩展、收缩滑动窗口的条件，我们可以考虑将其进行分类。</p>
-<p>我们按照这个子串中的字母种类进行分类，然后对1-26种字母个数分别使用滑动窗口的方式进行遍历。这样我们能够更加清楚的使用滑动窗口，同时时间复杂度仅仅只增加了26*</p>
-<p>然后就是按照滑动窗口的方式：</p>
-<ol>
-<li><p>右端点向右移动，直到窗口中的字母种类大于我们限定的窗口种类</p>
-</li>
-<li><p>左端点向右移动，直到窗口中的字母种类等于我们限定的窗口种类</p>
-</li>
-<li><p>记录r-l+1，并将其和当前最长子串的长度进行比较</p>
-</li>
-</ol>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestSubstring</span><span class="params">(String s, <span class="type">int</span> k)</span> {</span><br><span class="line">    <span class="type">int</span> length=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> t=<span class="number">1</span>;t&lt;=<span class="number">26</span>;t++){</span><br><span class="line">        <span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> kind=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> less=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span>[] map = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">        <span class="keyword">while</span>(r&lt;s.length()){</span><br><span class="line">            map[s.charAt(r)-<span class="string">'a'</span>]+=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(map[s.charAt(r)-<span class="string">'a'</span>]==<span class="number">1</span>){</span><br><span class="line">                less++;</span><br><span class="line">                kind++;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(map[s.charAt(r)-<span class="string">'a'</span>]==k){</span><br><span class="line">                less--;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">while</span>(kind&gt;t){</span><br><span class="line">                map[s.charAt(l)-<span class="string">'a'</span>]-=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span>(map[s.charAt(l)-<span class="string">'a'</span>]==k-<span class="number">1</span>){</span><br><span class="line">                    less++;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">if</span>(map[s.charAt(l)-<span class="string">'a'</span>]==<span class="number">0</span>){</span><br><span class="line">                    less--;</span><br><span class="line">                    kind--;</span><br><span class="line">                }</span><br><span class="line">                l++;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(less==<span class="number">0</span>){</span><br><span class="line">                length=Math.max(length,r-l+<span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">            r++;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> length;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>双指针</tag>
-        <tag>滑动窗口</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>疲惫与困倦</title>
-    <url>/2022/09/07/pi-bei-yu-kun-juan/</url>
-    <content><![CDATA[<p>此刻我站在床边打下这一段文字，用这种方式克服仿佛在高楼边缘向下看想要跳下去一般的困倦。立交桥上过往的车流发出低沉的声音，与远处维港中货轮发出的汽笛声纠结在一起，好像形成了共振一般放大了我思想的昏沉。要是能倒下去一睡不醒就好了，没有Peer Pressure、没有内卷、没有压迫、没有绝望，只有充满爱的留着奶与蜜的梦乡。“你恨它，但是你摆脱不了它”不知何方而来的这样的嘲讽更加深了神（也许有吧）的这种设计的滑稽性。我挥舞着利刃，想要将它刺穿，可是我从未击中，也许疲倦从此而来吧。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>滑动窗口的最大值</title>
     <url>/2023/03/01/hua-dong-chuang-kou-de-zui-da-zhi/</url>
     <content><![CDATA[<p>给你一个整数数组 <code>nums</code>，有一个大小为<code>k</code>的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的<code>k</code>个数字。滑动窗口每次只向右移动一位。</p>
@@ -480,6 +432,18 @@ CPU3 --&gt; Cache3 --&gt; Memory</pre>
       </tags>
   </entry>
   <entry>
+    <title>疲惫与困倦</title>
+    <url>/2022/09/07/pi-bei-yu-kun-juan/</url>
+    <content><![CDATA[<p>此刻我站在床边打下这一段文字，用这种方式克服仿佛在高楼边缘向下看想要跳下去一般的困倦。立交桥上过往的车流发出低沉的声音，与远处维港中货轮发出的汽笛声纠结在一起，好像形成了共振一般放大了我思想的昏沉。要是能倒下去一睡不醒就好了，没有Peer Pressure、没有内卷、没有压迫、没有绝望，只有充满爱的留着奶与蜜的梦乡。“你恨它，但是你摆脱不了它”不知何方而来的这样的嘲讽更加深了神（也许有吧）的这种设计的滑稽性。我挥舞着利刃，想要将它刺穿，可是我从未击中，也许疲倦从此而来吧。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>香港札记（一）</title>
     <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
     <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
@@ -493,6 +457,42 @@ CPU3 --&gt; Cache3 --&gt; Memory</pre>
       <tags>
         <tag>随笔</tag>
         <tag>香港</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>至少有K个重复字符的最长子串</title>
+    <url>/2022/10/26/zhi-shao-you-k-ge-chong-fu-zi-fu-de-zui-chang-zi-chuan/</url>
+    <content><![CDATA[<p>给你一个字符串 <code>s</code> 和一个整数 <code>k</code> ，请你找出 <code>s</code> 中的最长子串， 要求该子串中的每一字符出现次数都不少于 <code>k</code> 。返回这一子串的长度。</p>
+<p><a class="link" href="https://leetcode.cn/problems/longest-substring-with-at-least-k-repeating-characters/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先需要注意的是子串和子序列之间的区别</p>
+<ul>
+<li>子串必须是数组/字符串中连续的多个元素</li>
+<li>子序列可以不连续，但是必须要保持原有的顺序</li>
+</ul>
+<blockquote>
+<p>一般在数组/字符串中，如果出现了“满足某一元素出现了多少次”这样的限制条件时，优先考虑滑动窗口的方法。</p>
+</blockquote>
+<p>但是我们在这里应该如何使用滑动窗口呢？由于我们只知道滑动窗口移动的时候如何改变一些参数，并不知道滑动窗口具体的长度和扩展、收缩滑动窗口的条件，我们可以考虑将其进行分类。</p>
+<p>我们按照这个子串中的字母种类进行分类，然后对1-26种字母个数分别使用滑动窗口的方式进行遍历。这样我们能够更加清楚的使用滑动窗口，同时时间复杂度仅仅只增加了26*</p>
+<p>然后就是按照滑动窗口的方式：</p>
+<ol>
+<li><p>右端点向右移动，直到窗口中的字母种类大于我们限定的窗口种类</p>
+</li>
+<li><p>左端点向右移动，直到窗口中的字母种类等于我们限定的窗口种类</p>
+</li>
+<li><p>记录r-l+1，并将其和当前最长子串的长度进行比较</p>
+</li>
+</ol>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestSubstring</span><span class="params">(String s, <span class="type">int</span> k)</span> {</span><br><span class="line">    <span class="type">int</span> length=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> t=<span class="number">1</span>;t&lt;=<span class="number">26</span>;t++){</span><br><span class="line">        <span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> kind=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> less=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span>[] map = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">        <span class="keyword">while</span>(r&lt;s.length()){</span><br><span class="line">            map[s.charAt(r)-<span class="string">'a'</span>]+=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(map[s.charAt(r)-<span class="string">'a'</span>]==<span class="number">1</span>){</span><br><span class="line">                less++;</span><br><span class="line">                kind++;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(map[s.charAt(r)-<span class="string">'a'</span>]==k){</span><br><span class="line">                less--;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">while</span>(kind&gt;t){</span><br><span class="line">                map[s.charAt(l)-<span class="string">'a'</span>]-=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span>(map[s.charAt(l)-<span class="string">'a'</span>]==k-<span class="number">1</span>){</span><br><span class="line">                    less++;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">if</span>(map[s.charAt(l)-<span class="string">'a'</span>]==<span class="number">0</span>){</span><br><span class="line">                    less--;</span><br><span class="line">                    kind--;</span><br><span class="line">                }</span><br><span class="line">                l++;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(less==<span class="number">0</span>){</span><br><span class="line">                length=Math.max(length,r-l+<span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">            r++;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> length;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>滑动窗口</tag>
+        <tag>双指针</tag>
       </tags>
   </entry>
 </search>
