@@ -426,8 +426,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-03-02 18:55:21</span>
-            <span class="mobile">2023-03-02 18:55</span>
+            <span class="pc">2023-03-02 22:15:23</span>
+            <span class="mobile">2023-03-02 22:15</span>
             <span class="hover-info">更新时间</span>
         </span>
     
@@ -464,12 +464,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-file-word"></i>&nbsp;<span>933 字</span>
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.5k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>3 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 分钟</span>
         </span>
     
     
@@ -572,7 +572,41 @@ Runnable --&gt;|wait| Waiting/Time_Waiting;</pre>
 <div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>需要注意在<code>sleep</code>被中断抛出异常后，中断状态会被清除，因此要在下一个循环捕捉到的话，需要在<code>catch</code>中重新<code>interrupt()</code></p>
 </div>
 
-<h2 id="Wait-x2F-Notify"><a href="#Wait-x2F-Notify" class="headerlink" title="Wait/Notify"></a>Wait/Notify</h2>
+<h2 id="wait-x2F-notify"><a href="#wait-x2F-notify" class="headerlink" title="wait/notify"></a>wait/notify</h2><p><code>wait</code>和<code>notify</code>是两个<code>Object</code>类中的方法（**不是<code>Thread</code>**）中的。</p>
+<p>调用<code>wait</code>方法之后，线程会在对应对象上等待，直到有另一个线程调用<code>notify</code>方法。</p>
+<p>如果存在多个线程在同一个对象上<code>wait</code>的时候，这些线程会进入一个等待队列，当其他线程调用<code>notify</code>的时候，系统会<strong>随机选择一个线程</strong>进行唤醒。</p>
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p><code>notify</code>是不公平的，因为先进入等待队列的线程不会优先被选择</p>
+</div>
+
+<p>另外还有一个方法<code>notifyAll</code>能够将等待队列中的所有线程<strong>全部唤醒</strong></p>
+<p>需要注意的是，<code>Object.wait()</code>和<code>Object.notify()</code>的调用都必须在<code>synchronized</code>包含的块中，需要先获得目标对象的监视器。</p>
+<img lazyload="" src="/images/loading.svg" data-src="/2023/03/02/java-xian-cheng-ji-chu/wait_notify.png" class="" title="wait_notify">
+
+<p>通过上面这张图可以看出，被唤醒之后的线程并不能够立即执行，而是需要等待<code>notify()</code>的线程退出临界区之后才能够执行</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadTest</span> {</span><br><span class="line">    <span class="keyword">static</span> <span class="type">Object</span> <span class="variable">object</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException {</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">            <span class="keyword">synchronized</span> (object){</span><br><span class="line">                System.out.println(<span class="string">"T1进入临界区"</span>);</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    object.wait();</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">                System.out.println(<span class="string">"T1被唤醒"</span>);</span><br><span class="line"></span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;{</span><br><span class="line">            <span class="keyword">synchronized</span> (object){</span><br><span class="line">                System.out.println(<span class="string">"T2进入临界区"</span>);</span><br><span class="line">                object.notify();</span><br><span class="line">                System.out.println(<span class="string">"T2已经唤醒T1"</span>);</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    System.out.println(<span class="string">"T2开始sleep"</span>);</span><br><span class="line">                    Thread.currentThread().sleep(<span class="number">2000</span>);</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">                System.out.println(<span class="string">"T2结束sleep"</span>);</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>得到输出如下：</p>
+<img lazyload="" src="/images/loading.svg" data-src="/2023/03/02/java-xian-cheng-ji-chu/wait_output.png" class="" title="wait_output">
+
+<p>可以看出：<strong>在T2调用notify之后，等到T2离开临界区，T1才能够继续执行</strong></p>
+<h2 id="join"><a href="#join" class="headerlink" title="join"></a>join</h2><p>java中主要有两个<code>join</code>方法</p>
+<ul>
+<li><p><code>public final void join() throws InterruptedException</code></p>
+<p>当前线程会阻塞，直到目标线程执行完毕</p>
+</li>
+<li><p><code>public final synchronized void join(long millis)</code></p>
+<p>与上一个方法类似，但是超过等待时间之后就会继续执行</p>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadTest</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException {</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;{</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;<span class="number">10000</span>;j++)</span><br><span class="line">                i++;</span><br><span class="line">        });</span><br><span class="line">        t.start();</span><br><span class="line">        t.join();</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>上面的代码会在最后输出10000，因为主线程阻塞直到<code>t</code>执行完毕，因此<code>i</code>的值是10000。如果将<code>t.join</code>注释掉，则结果会变成一个不确定的值（因为主线程和<code>t</code>的轮流执行）</p>
+<h2 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h2><p>java中还有一个<code>Thread.yield()</code></p>
+<p>当这个方法执行的时候，它会使当前线程让出CPU。<strong>但是该线程仍然会参加进时间片的争夺中</strong></p>
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p><code>yield</code>一般用于一些被认为优先度比较低，或者害怕占用太多CPU资源的线程上。</p>
+</div>
+
+
             </div>
 
             
@@ -642,7 +676,7 @@ Runnable --&gt;|wait| Waiting/Time_Waiting;</pre>
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
         <div class="page-title">java线程基础</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-text">进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-text">线程的状态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B9%E6%B3%95"><span class="nav-text">创建方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B"><span class="nav-text">终止线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wait-x2F-Notify"><span class="nav-text">Wait&#x2F;Notify</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-text">进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-text">线程的状态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B9%E6%B3%95"><span class="nav-text">创建方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B"><span class="nav-text">终止线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wait-x2F-notify"><span class="nav-text">wait&#x2F;notify</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#join"><span class="nav-text">join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yield"><span class="nav-text">yield</span></a></li></ol>
 
     </div>
 </div>
