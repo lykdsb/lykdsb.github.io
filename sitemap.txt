@@ -1,3 +1,4 @@
+http://example.com/2023/03/02/java-xian-cheng-ji-chu/
 http://example.com/2023/03/02/dan-diao-zhan/
 http://example.com/2023/03/01/volatile/
 http://example.com/2023/03/01/hua-dong-chuang-kou-de-zui-da-zhi/
@@ -19,6 +20,7 @@ http://example.com/
 http://example.com/tags/%E6%8A%80%E6%9C%AF/
 http://example.com/tags/java/
 http://example.com/tags/%E9%9B%86%E5%90%88/
+http://example.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/
 http://example.com/tags/%E5%B9%B6%E5%8F%91/
 http://example.com/tags/%E7%AE%97%E6%B3%95/
 http://example.com/tags/%E5%8D%95%E8%B0%83%E6%A0%88/
