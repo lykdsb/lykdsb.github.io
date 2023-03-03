@@ -278,35 +278,83 @@
             <div class="main-content">
 
                 
-                    @import "../common/variables"
-$category-name-font-size = 1.6rem
+                    <div class="fade-in-down-animation">
+    <div class="category-container">
+        <div class="category-name">
+            <i class="fa-solid fa-folder"></i>&nbsp;java
+        </div>
+        <div class="category-post-list">
+            
+<div class="archive-list-container">
+    
+        <section class="archive-item">
+            <div class="archive-item-header">
+                <span class="archive-year">2023</span>
+                <span class="archive-year-post-count">[3]</span>
+            </div>
+            <ul class="article-list">
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2023/03/03/hashmap-de-si-xun-huan/"
+                        >HashMap的死循环</a>
+                        <span class="article-date">03-03</span>
+                    </li>
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2023/03/02/java-xian-cheng-ji-chu/"
+                        >java线程基础</a>
+                        <span class="article-date">03-02</span>
+                    </li>
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2023/03/01/volatile/"
+                        >volatile</a>
+                        <span class="article-date">03-01</span>
+                    </li>
+                
+            </ul>
+        </section>
+    
+        <section class="archive-item">
+            <div class="archive-item-header">
+                <span class="archive-year">2022</span>
+                <span class="archive-year-post-count">[2]</span>
+            </div>
+            <ul class="article-list">
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2022/09/09/biao-ji-jie-kou/"
+                        >标记接口</a>
+                        <span class="article-date">09-09</span>
+                    </li>
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2022/09/08/foreach-de-shi-xian-fang-shi/"
+                        >forEach的实现方式</a>
+                        <span class="article-date">09-08</span>
+                    </li>
+                
+            </ul>
+        </section>
+    
+</div>
 
-.category-container {
+        </div>
+    </div>
+    <div class="category-paginator">
+        <div class="paginator">
+    
 
-  redefine-container(false, 0, 0, 30px, 30px)
+    
+</div>
 
-  .category-name {
-    color var(--second-text-color)
-    font-size $category-name-font-size
-
-    i {
-      color var(--second-text-color)
-    }
-
-    +redefine-tablet() {
-      font-size $category-name-font-size * 0.9
-    }
-
-    +redefine-mobile() {
-      font-size $category-name-font-size * 0.8
-    }
-
-    font-weight 600
-    padding-bottom 20px
-    margin-bottom $spacing-unit
-    border-bottom 1px solid var(--border-color)
-  }
-}
+    </div>
+</div>
 
 
                 
