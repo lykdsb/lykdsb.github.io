@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>forEach的实现方式</title>
+    <url>/2022/09/08/foreach-de-shi-xian-fang-shi/</url>
+    <content><![CDATA[<p>今天本来想要研究一下java其中的<code>Collection</code>的，但是当我看到java源码中的第一行时，我忽然发现我对于这个<code>Iterable</code>接口几乎毫无了解，虽然知道它与<code>forEach</code>的实现有关，但是过程是什么样的我还没有研究过。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Collection</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">Iterable</span>&lt;E&gt;</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h2 id="Iterable"><a href="#Iterable" class="headerlink" title="Iterable"></a>Iterable</h2><p>可以看到Iterable有三个部分<code>iterator()</code> <code>forEach()</code> <code>spliterator()</code></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Iterable</span>&lt;T&gt; {</span><br><span class="line"></span><br><span class="line">    Iterator&lt;T&gt; <span class="title function_">iterator</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">forEach</span><span class="params">(Consumer&lt;? <span class="built_in">super</span> T&gt; action)</span> {</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">for</span> (T t : <span class="built_in">this</span>) {</span><br><span class="line">            action.accept(t);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> Spliterator&lt;T&gt; <span class="title function_">spliterator</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> Spliterators.spliteratorUnknownSize(iterator(), <span class="number">0</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h3 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h3><p>我们首先来看<code>Iterator</code></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Iterator</span>&lt;E&gt; {</span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">hasNext</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    E <span class="title function_">next</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">forEachRemaining</span><span class="params">(Consumer&lt;? <span class="built_in">super</span> E&gt; action)</span> {</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">while</span> (hasNext())</span><br><span class="line">            action.accept(next());</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>很明显这是一个接口。在这里需要注意一个知识点，就是<strong>接口中可以使用default方法老声明一个具体的方法</strong>。</p>
+<p>我们可以在<code>AbstractList</code>中找到一个<code>Iterator</code>的实现类</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">Itr</span> <span class="keyword">implements</span> <span class="title class_">Iterator</span>&lt;E&gt; {</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">cursor</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">lastRet</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">expectedModCount</span> <span class="operator">=</span> modCount;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasNext</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> cursor != size();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">next</span><span class="params">()</span> {</span><br><span class="line">        checkForComodification();</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> cursor;</span><br><span class="line">            <span class="type">E</span> <span class="variable">next</span> <span class="operator">=</span> get(i);</span><br><span class="line">            lastRet = i;</span><br><span class="line">            cursor = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span> next;</span><br><span class="line">        } <span class="keyword">catch</span> (IndexOutOfBoundsException e) {</span><br><span class="line">            checkForComodification();</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>(e);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">if</span> (lastRet &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>();</span><br><span class="line">        checkForComodification();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            AbstractList.<span class="built_in">this</span>.remove(lastRet);</span><br><span class="line">            <span class="keyword">if</span> (lastRet &lt; cursor)</span><br><span class="line">                cursor--;</span><br><span class="line">            lastRet = -<span class="number">1</span>;</span><br><span class="line">            expectedModCount = modCount;</span><br><span class="line">        } <span class="keyword">catch</span> (IndexOutOfBoundsException e) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ConcurrentModificationException</span>();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">checkForComodification</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">if</span> (modCount != expectedModCount)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ConcurrentModificationException</span>();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>有两个比较重要的量：</p>
+<ul>
+<li>cursor：Index of element to be returned by subsequent call to next.</li>
+<li>lastRet：Index of element returned by most recent call to next or previous. Reset to -1 if this element is deleted by a call to remove.</li>
+</ul>
+<p>可以看到迭代器的访问方式如下</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> cursor;</span><br><span class="line"><span class="type">E</span> <span class="variable">next</span> <span class="operator">=</span> get(i);</span><br><span class="line">lastRet = i;</span><br><span class="line">cursor = i + <span class="number">1</span>;</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>也就是说迭代器的底层实现也是通过记录游标，然后通过Collection的get方法得到值。在获取值之后，浮标向后移动一位。重复这个操作并且加上判断<code>hasNext()</code>就完成了集合的遍历。而变量<code>lastRet</code>则标识迭代器最后一个返回的值，当我们需要删除掉已经遍历过的上一个值之后就能够直接删除掉<code>lastRet</code>指向的值。</p>
+<h3 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h3><p><code>forEach</code>的代码中看起来没有提到<code>iterator</code>,但是通过查<a class="link" href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html#jls-14.14.2">资料 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>发现：</p>
+<img lazyload="" src="/images/loading.svg" data-src="/2022/09/08/foreach-de-shi-xian-fang-shi/forEach.png" class="" title="forEach">
+
+<p>也就是说，当我们调用<code>for(T t:ts)</code>时，Java会自动编译成上面这一段代码，这两段代码是一致的。需要注意的是在这个过程中是<strong>不能使用<code>Collection</code>中的<code>remove</code>删除元素的</strong>。因为在iterator的遍历是依赖于集合的index的，如果直接通过Collection删除元素，那么会导致iterator中的index的混乱。</p>
+<p>比如说：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Alice</td>
+<td>Bob</td>
+<td>Cart</td>
+<td>Diana</td>
+<td>Eric</td>
+</tr>
+</tbody></table>
+<p>当遍历到Bob的时候将其删除，此时<code>cursor</code>的值从1移动到2，但是由于Bob被删除，因此整个集合的值向前移动</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Alice</td>
+<td>Cart</td>
+<td>Diana</td>
+<td>Eric</td>
+</tr>
+</tbody></table>
+<p>本来应该访问到Cart的，但是由于不恰当的删除导致访问到的是新的index为2的Diana。</p>
+<p>为了避免这个问题，<code>Itr</code>使用了并发控制，在类初始化时，也就是第一次调用<code>iterator()</code>的时候，记录下当时的<code>modCount</code>。由于外部的修改会更改modCount值，因此在迭代器内部只需要检查<code>modCount</code>与<code>expectedModCount</code>是否相等即可知道是否发生了迭代器外部的改变。如果有发生则抛出<code>java.util.ConcurrentModificationException</code></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line">list.add(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">Iterator</span> <span class="variable">iterator</span> <span class="operator">=</span> list.iterator();iterator.hasNext();){</span><br><span class="line">   <span class="type">Integer</span> <span class="variable">next</span> <span class="operator">=</span>(Integer)iterator.next();</span><br><span class="line">   list.remove(next);</span><br><span class="line">}</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></tbody></table></figure></div>
+
+<img lazyload="" src="/images/loading.svg" data-src="/2022/09/08/foreach-de-shi-xian-fang-shi/Exception.png" class="" title="Exception">
+
+<p>正确的方式应该是：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line">list.add(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">Iterator</span> <span class="variable">iterator</span> <span class="operator">=</span> list.iterator();iterator.hasNext();){</span><br><span class="line">   <span class="type">Integer</span> <span class="variable">next</span> <span class="operator">=</span>(Integer)iterator.next();</span><br><span class="line">   iterator.remove();</span><br><span class="line">}</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>注意其中的<code>Consumer</code>用来传入函数引用，可以通过下面这种方式使用它</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line">list.forEach(System.out::println);</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>然后<code>Consumer</code>通过<code>apply</code>函数将这个传入的方法应用到调用<code>apply</code>函数的变量中。</p>
+<h3 id="spliterator"><a href="#spliterator" class="headerlink" title="spliterator()"></a>spliterator()</h3><p>这个方法主要用于集合的拆分。因为在多线程情况中，由于迭代器具有并发控制，只能够单线程运行，为了提升速度，可以将其进行拆分成多个部分，没个部分由一个线程来进行遍历，这样大大提高了遍历的速度。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>java</tag>
+        <tag>集合</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java线程基础</title>
     <url>/2023/03/02/java-xian-cheng-ji-chu/</url>
     <content><![CDATA[<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程是：</p>
@@ -124,6 +213,15 @@ Runnable --&gt;|wait| Waiting/Time_Waiting;</pre>
 <div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p><code>yield</code>一般用于一些被认为优先度比较低，或者害怕占用太多CPU资源的线程上。</p>
 </div>
 
+
+
+<h2 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h2><p>守护线程会在系统中所用的用户线程退出之后结束，同样的：<strong>当java应用中只有守护线程的时候，java虚拟机自动退出</strong>。</p>
+<p>java提供了<code>t.setDaemon(boolean on)</code>来将线程设置为守护线程</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException {</span><br><span class="line">    <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;{</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">            System.out.println(<span class="string">"Hello world"</span>);</span><br><span class="line">        }</span><br><span class="line">    });</span><br><span class="line">    t.setDaemon(<span class="literal">true</span>);</span><br><span class="line">    t.start();</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>上面这个程序会在连续输出1s的<code>"Hello World"</code>之后，在主线程执行完毕时结束。</p>
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>将线程设置为守护线程必须要在调用<code>start()</code> 之前。</p>
+</div>
 ]]></content>
       <categories>
         <category>java</category>
@@ -241,42 +339,6 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </tags>
   </entry>
   <entry>
-    <title>下一个排列</title>
-    <url>/2022/09/14/xia-yi-ge-pai-lie/</url>
-    <content><![CDATA[<p>整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。</p>
-<p>例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。<br>整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。</p>
-<p>例如，arr = [1,2,3] 的下一个排列是 [1,3,2] 。<br>类似地，arr = [2,3,1] 的下一个排列是 [3,1,2] 。<br>而 arr = [3,2,1] 的下一个排列是 [1,2,3] ，因为 [3,2,1] 不存在一个字典序更大的排列。<br>给你一个整数数组 nums ，找出 nums 的下一个排列。</p>
-<p>必须 <strong>原地 修改</strong>，只允许使用额外常数空间。</p>
-<p><a class="link" href="https://leetcode.cn/problems/next-permutation/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step1.png" class="" title="step1">
-
-<p>我们可以随便使用一个排列<code>12385764</code>，他的下一个排列是<code>12386457</code>，经过多次实验观察，我们可以发现这样的规律：</p>
-<ul>
-<li>我们只需要操作的是从某一个数开始的后面的数</li>
-</ul>
-<p>那么如何找到这个数呢？</p>
-<p>我们只需要确保只使用这个数及后面的部分就能够实现找到下一个更大的排列，那么我们需要找到一个数，<strong>这个数的后面一定有至少一个比他大的数</strong>。这样就能够保证在不使用前面的数的同时，生成一个更大的排列。我们只需要从右向左，一直比较相邻的数，只要左边的数比右边的数小，那么左边的数就是我们要找的数（因为由于我们刚刚的比较，右边的数是递减的，只要相邻的数比他大，那么右边一定有至少一个比它大的数）</p>
-<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step2.png" class="" title="step2">
-
-<p>然后为了保证生成的是<strong>下一个</strong>排列，我们需要保证增加的值最小，因此我们只需要从后往前找到一个比这个数更大的数，对于<code>12385764</code>来说是6，我们进行交换就得到了<code>12386754</code></p>
-<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step3.png" class="" title="step3">
-
-<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step4.png" class="" title="step4">
-
-<p>为了让这个排列最小，我们还需要保证6后面的数是升序排列，这是我们只需要将后面的数反转即可，因为后面的数一定是降序排列的。</p>
-  <img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step5.png" class="" title="step5">
-
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[]nums,<span class="type">int</span> i,<span class="type">int</span> j)</span>{</span><br><span class="line">        <span class="type">int</span> temp=nums[i];</span><br><span class="line">        nums[i]=nums[j];</span><br><span class="line">        nums[j]=temp;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">nextPermutation</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        <span class="type">int</span> len= nums.length;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=len-<span class="number">2</span>;i&gt;=<span class="number">0</span>;i--){</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;nums[i+<span class="number">1</span>])<span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(i&gt;=<span class="number">0</span>){</span><br><span class="line">        	<span class="keyword">for</span>(j=len-<span class="number">1</span>;j&gt;i;j--){</span><br><span class="line">            	<span class="keyword">if</span>(nums[j]&gt;nums[i])<span class="keyword">break</span>;</span><br><span class="line">        	}</span><br><span class="line">        	swap(nums,i,j);</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> m=i+<span class="number">1</span>;m&lt;=(len+i)/<span class="number">2</span>;m++){</span><br><span class="line">            </span><br><span class="line">            swap(nums,m,nums.length+i-m);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>单调栈</title>
     <url>/2023/03/02/dan-diao-zhan/</url>
     <content><![CDATA[<h2 id="什么是单调栈"><a href="#什么是单调栈" class="headerlink" title="什么是单调栈"></a>什么是单调栈</h2><p>单调栈是一种数据结构，一般直接通过栈来实现。特点在于能够保证栈中的元素是单调递增或者单调递减的。如果要实现单调栈，我们只需要（以单调递增为例）：</p>
@@ -346,92 +408,60 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </tags>
   </entry>
   <entry>
-    <title>forEach的实现方式</title>
-    <url>/2022/09/08/foreach-de-shi-xian-fang-shi/</url>
-    <content><![CDATA[<p>今天本来想要研究一下java其中的<code>Collection</code>的，但是当我看到java源码中的第一行时，我忽然发现我对于这个<code>Iterable</code>接口几乎毫无了解，虽然知道它与<code>forEach</code>的实现有关，但是过程是什么样的我还没有研究过。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Collection</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">Iterable</span>&lt;E&gt;</span><br></pre></td></tr></tbody></table></figure></div>
+    <title>下一个排列</title>
+    <url>/2022/09/14/xia-yi-ge-pai-lie/</url>
+    <content><![CDATA[<p>整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。</p>
+<p>例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。<br>整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。</p>
+<p>例如，arr = [1,2,3] 的下一个排列是 [1,3,2] 。<br>类似地，arr = [2,3,1] 的下一个排列是 [3,1,2] 。<br>而 arr = [3,2,1] 的下一个排列是 [1,2,3] ，因为 [3,2,1] 不存在一个字典序更大的排列。<br>给你一个整数数组 nums ，找出 nums 的下一个排列。</p>
+<p>必须 <strong>原地 修改</strong>，只允许使用额外常数空间。</p>
+<p><a class="link" href="https://leetcode.cn/problems/next-permutation/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step1.png" class="" title="step1">
 
-<h2 id="Iterable"><a href="#Iterable" class="headerlink" title="Iterable"></a>Iterable</h2><p>可以看到Iterable有三个部分<code>iterator()</code> <code>forEach()</code> <code>spliterator()</code></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Iterable</span>&lt;T&gt; {</span><br><span class="line"></span><br><span class="line">    Iterator&lt;T&gt; <span class="title function_">iterator</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">forEach</span><span class="params">(Consumer&lt;? <span class="built_in">super</span> T&gt; action)</span> {</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">for</span> (T t : <span class="built_in">this</span>) {</span><br><span class="line">            action.accept(t);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> Spliterator&lt;T&gt; <span class="title function_">spliterator</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> Spliterators.spliteratorUnknownSize(iterator(), <span class="number">0</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-<h3 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h3><p>我们首先来看<code>Iterator</code></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Iterator</span>&lt;E&gt; {</span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">hasNext</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    E <span class="title function_">next</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">forEachRemaining</span><span class="params">(Consumer&lt;? <span class="built_in">super</span> E&gt; action)</span> {</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">while</span> (hasNext())</span><br><span class="line">            action.accept(next());</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>很明显这是一个接口。在这里需要注意一个知识点，就是<strong>接口中可以使用default方法老声明一个具体的方法</strong>。</p>
-<p>我们可以在<code>AbstractList</code>中找到一个<code>Iterator</code>的实现类</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">Itr</span> <span class="keyword">implements</span> <span class="title class_">Iterator</span>&lt;E&gt; {</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">cursor</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">lastRet</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">expectedModCount</span> <span class="operator">=</span> modCount;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasNext</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> cursor != size();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">next</span><span class="params">()</span> {</span><br><span class="line">        checkForComodification();</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> cursor;</span><br><span class="line">            <span class="type">E</span> <span class="variable">next</span> <span class="operator">=</span> get(i);</span><br><span class="line">            lastRet = i;</span><br><span class="line">            cursor = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span> next;</span><br><span class="line">        } <span class="keyword">catch</span> (IndexOutOfBoundsException e) {</span><br><span class="line">            checkForComodification();</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>(e);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">if</span> (lastRet &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>();</span><br><span class="line">        checkForComodification();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            AbstractList.<span class="built_in">this</span>.remove(lastRet);</span><br><span class="line">            <span class="keyword">if</span> (lastRet &lt; cursor)</span><br><span class="line">                cursor--;</span><br><span class="line">            lastRet = -<span class="number">1</span>;</span><br><span class="line">            expectedModCount = modCount;</span><br><span class="line">        } <span class="keyword">catch</span> (IndexOutOfBoundsException e) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ConcurrentModificationException</span>();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">checkForComodification</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">if</span> (modCount != expectedModCount)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ConcurrentModificationException</span>();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>有两个比较重要的量：</p>
+<p>我们可以随便使用一个排列<code>12385764</code>，他的下一个排列是<code>12386457</code>，经过多次实验观察，我们可以发现这样的规律：</p>
 <ul>
-<li>cursor：Index of element to be returned by subsequent call to next.</li>
-<li>lastRet：Index of element returned by most recent call to next or previous. Reset to -1 if this element is deleted by a call to remove.</li>
+<li>我们只需要操作的是从某一个数开始的后面的数</li>
 </ul>
-<p>可以看到迭代器的访问方式如下</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> cursor;</span><br><span class="line"><span class="type">E</span> <span class="variable">next</span> <span class="operator">=</span> get(i);</span><br><span class="line">lastRet = i;</span><br><span class="line">cursor = i + <span class="number">1</span>;</span><br></pre></td></tr></tbody></table></figure></div>
+<p>那么如何找到这个数呢？</p>
+<p>我们只需要确保只使用这个数及后面的部分就能够实现找到下一个更大的排列，那么我们需要找到一个数，<strong>这个数的后面一定有至少一个比他大的数</strong>。这样就能够保证在不使用前面的数的同时，生成一个更大的排列。我们只需要从右向左，一直比较相邻的数，只要左边的数比右边的数小，那么左边的数就是我们要找的数（因为由于我们刚刚的比较，右边的数是递减的，只要相邻的数比他大，那么右边一定有至少一个比它大的数）</p>
+<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step2.png" class="" title="step2">
 
-<p>也就是说迭代器的底层实现也是通过记录游标，然后通过Collection的get方法得到值。在获取值之后，浮标向后移动一位。重复这个操作并且加上判断<code>hasNext()</code>就完成了集合的遍历。而变量<code>lastRet</code>则标识迭代器最后一个返回的值，当我们需要删除掉已经遍历过的上一个值之后就能够直接删除掉<code>lastRet</code>指向的值。</p>
-<h3 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h3><p><code>forEach</code>的代码中看起来没有提到<code>iterator</code>,但是通过查<a class="link" href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html#jls-14.14.2">资料 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>发现：</p>
-<img lazyload="" src="/images/loading.svg" data-src="/2022/09/08/foreach-de-shi-xian-fang-shi/forEach.png" class="" title="forEach">
+<p>然后为了保证生成的是<strong>下一个</strong>排列，我们需要保证增加的值最小，因此我们只需要从后往前找到一个比这个数更大的数，对于<code>12385764</code>来说是6，我们进行交换就得到了<code>12386754</code></p>
+<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step3.png" class="" title="step3">
 
-<p>也就是说，当我们调用<code>for(T t:ts)</code>时，Java会自动编译成上面这一段代码，这两段代码是一致的。需要注意的是在这个过程中是<strong>不能使用<code>Collection</code>中的<code>remove</code>删除元素的</strong>。因为在iterator的遍历是依赖于集合的index的，如果直接通过Collection删除元素，那么会导致iterator中的index的混乱。</p>
-<p>比如说：</p>
-<table>
-<thead>
-<tr>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Alice</td>
-<td>Bob</td>
-<td>Cart</td>
-<td>Diana</td>
-<td>Eric</td>
-</tr>
-</tbody></table>
-<p>当遍历到Bob的时候将其删除，此时<code>cursor</code>的值从1移动到2，但是由于Bob被删除，因此整个集合的值向前移动</p>
-<table>
-<thead>
-<tr>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Alice</td>
-<td>Cart</td>
-<td>Diana</td>
-<td>Eric</td>
-</tr>
-</tbody></table>
-<p>本来应该访问到Cart的，但是由于不恰当的删除导致访问到的是新的index为2的Diana。</p>
-<p>为了避免这个问题，<code>Itr</code>使用了并发控制，在类初始化时，也就是第一次调用<code>iterator()</code>的时候，记录下当时的<code>modCount</code>。由于外部的修改会更改modCount值，因此在迭代器内部只需要检查<code>modCount</code>与<code>expectedModCount</code>是否相等即可知道是否发生了迭代器外部的改变。如果有发生则抛出<code>java.util.ConcurrentModificationException</code></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line">list.add(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">Iterator</span> <span class="variable">iterator</span> <span class="operator">=</span> list.iterator();iterator.hasNext();){</span><br><span class="line">   <span class="type">Integer</span> <span class="variable">next</span> <span class="operator">=</span>(Integer)iterator.next();</span><br><span class="line">   list.remove(next);</span><br><span class="line">}</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></tbody></table></figure></div>
+<img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step4.png" class="" title="step4">
 
-<img lazyload="" src="/images/loading.svg" data-src="/2022/09/08/foreach-de-shi-xian-fang-shi/Exception.png" class="" title="Exception">
+<p>为了让这个排列最小，我们还需要保证6后面的数是升序排列，这是我们只需要将后面的数反转即可，因为后面的数一定是降序排列的。</p>
+  <img lazyload="" src="/images/loading.svg" data-src="/2022/09/14/xia-yi-ge-pai-lie/step5.png" class="" title="step5">
 
-<p>正确的方式应该是：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line">list.add(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">Iterator</span> <span class="variable">iterator</span> <span class="operator">=</span> list.iterator();iterator.hasNext();){</span><br><span class="line">   <span class="type">Integer</span> <span class="variable">next</span> <span class="operator">=</span>(Integer)iterator.next();</span><br><span class="line">   iterator.remove();</span><br><span class="line">}</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></tbody></table></figure></div>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[]nums,<span class="type">int</span> i,<span class="type">int</span> j)</span>{</span><br><span class="line">        <span class="type">int</span> temp=nums[i];</span><br><span class="line">        nums[i]=nums[j];</span><br><span class="line">        nums[j]=temp;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">nextPermutation</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        <span class="type">int</span> len= nums.length;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=len-<span class="number">2</span>;i&gt;=<span class="number">0</span>;i--){</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;nums[i+<span class="number">1</span>])<span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(i&gt;=<span class="number">0</span>){</span><br><span class="line">        	<span class="keyword">for</span>(j=len-<span class="number">1</span>;j&gt;i;j--){</span><br><span class="line">            	<span class="keyword">if</span>(nums[j]&gt;nums[i])<span class="keyword">break</span>;</span><br><span class="line">        	}</span><br><span class="line">        	swap(nums,i,j);</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> m=i+<span class="number">1</span>;m&lt;=(len+i)/<span class="number">2</span>;m++){</span><br><span class="line">            </span><br><span class="line">            swap(nums,m,nums.length+i-m);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
 
-<p>注意其中的<code>Consumer</code>用来传入函数引用，可以通过下面这种方式使用它</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line">list.forEach(System.out::println);</span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>然后<code>Consumer</code>通过<code>apply</code>函数将这个传入的方法应用到调用<code>apply</code>函数的变量中。</p>
-<h3 id="spliterator"><a href="#spliterator" class="headerlink" title="spliterator()"></a>spliterator()</h3><p>这个方法主要用于集合的拆分。因为在多线程情况中，由于迭代器具有并发控制，只能够单线程运行，为了提升速度，可以将其进行拆分成多个部分，没个部分由一个线程来进行遍历，这样大大提高了遍历的速度。</p>
 ]]></content>
       <categories>
-        <category>java</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>java</tag>
-        <tag>技术</tag>
-        <tag>集合</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>合并k个升序链表</title>
+    <url>/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/</url>
+    <content><![CDATA[<p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
+<p><a class="link" href="https://leetcode.cn/problems/merge-k-sorted-lists/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>其实这里很容易就会想到归并排序中，两个有序数组合并的过程，这里使用的也是相同的思想。但是需要注意的是这里需要合并的是多个链表，也就是说每一次要进行K次的比较，如果采用这种方式的话，时间复杂度为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="7.507ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3318 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D43E" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"></path></g><g data-mml-node="mi" transform="translate(2041,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(2929,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>。</p>
+<p>但是如果我们在这里使用<strong>堆</strong>就能比较容易得解决这个问题。我们建立一个堆，根据链表所指节点的值来进行比较，每次挑选出堆顶的一个节点，选出后将这个节点的值用于建立新链表，同时将这个节点的下一个节点放入堆中，并进行调整，重复直到所有链表节点都已经遍历。</p>
+<p>我们可以将这道题的思路总结成下面这样：</p>
+<blockquote>
+<p>如果我们要在一组数中挑选出最小的或者最大的一个，而且这组数是动态变化的，那么我们一般优先考虑使用堆/优先队列来解决这个问题</p>
+</blockquote>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeKLists</span><span class="params">(ListNode[] lists)</span> {</span><br><span class="line">        <span class="keyword">if</span>(lists.length==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">        ListNode cur=head;</span><br><span class="line">        PriorityQueue&lt;ListNode&gt;heap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;a.val-b.val);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;lists.length;i++){</span><br><span class="line">            <span class="keyword">if</span>(lists[i]!=<span class="literal">null</span>)heap.offer(lists[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span>(!heap.isEmpty()){</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">peek</span> <span class="operator">=</span> heap.poll();</span><br><span class="line">            <span class="keyword">if</span>(peek.next!=<span class="literal">null</span>)</span><br><span class="line">                heap.offer(peek.next);</span><br><span class="line">            cur.next=<span class="keyword">new</span> <span class="title class_">ListNode</span>(peek.val);</span><br><span class="line">            cur=cur.next;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> head.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -454,27 +484,6 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
 
 <h2 id="一些值得注意的地方"><a href="#一些值得注意的地方" class="headerlink" title="一些值得注意的地方"></a>一些值得注意的地方</h2><p>要获得最后一位1有一个很巧妙的方式：<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="19.845ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 8771.6 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mi" transform="translate(1051,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(1580,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(2049,0)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g><g data-mml-node="mo" transform="translate(2847.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(3903.6,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mtext" fill="red" stroke="red" transform="translate(4503.6,0)"><path data-c="5C" d="M56 731Q56 740 62 745T75 750Q85 750 92 740Q96 733 270 255T444 -231Q444 -239 438 -244T424 -250Q414 -250 407 -240Q404 -236 230 242T56 731Z"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(500,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(1000,0)"></path><path data-c="64" d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z" transform="translate(1556,0)"></path></g><g data-mml-node="mo" transform="translate(6615.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mo" transform="translate(7004.6,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mi" transform="translate(7782.6,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(8382.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container><br>首先在计算机中二进制取负是取反再加一。比如a的二进制是 00010000，取反就是11101111，加1就是11110000。前面?的部分是和原来a相反的，相与必然都是0，所以最后整体相与的结果就是00010000。</p>
 <p>另外，java中计算<code>(nums[i]&amp;mask)==0</code>的时候需要加括号，<strong>因为==的优先级高于&amp;</strong></p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>合并k个升序链表</title>
-    <url>/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/</url>
-    <content><![CDATA[<p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
-<p><a class="link" href="https://leetcode.cn/problems/merge-k-sorted-lists/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>其实这里很容易就会想到归并排序中，两个有序数组合并的过程，这里使用的也是相同的思想。但是需要注意的是这里需要合并的是多个链表，也就是说每一次要进行K次的比较，如果采用这种方式的话，时间复杂度为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="7.507ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3318 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D43E" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"></path></g><g data-mml-node="mi" transform="translate(2041,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(2929,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>。</p>
-<p>但是如果我们在这里使用<strong>堆</strong>就能比较容易得解决这个问题。我们建立一个堆，根据链表所指节点的值来进行比较，每次挑选出堆顶的一个节点，选出后将这个节点的值用于建立新链表，同时将这个节点的下一个节点放入堆中，并进行调整，重复直到所有链表节点都已经遍历。</p>
-<p>我们可以将这道题的思路总结成下面这样：</p>
-<blockquote>
-<p>如果我们要在一组数中挑选出最小的或者最大的一个，而且这组数是动态变化的，那么我们一般优先考虑使用堆/优先队列来解决这个问题</p>
-</blockquote>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeKLists</span><span class="params">(ListNode[] lists)</span> {</span><br><span class="line">        <span class="keyword">if</span>(lists.length==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">        ListNode cur=head;</span><br><span class="line">        PriorityQueue&lt;ListNode&gt;heap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;a.val-b.val);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;lists.length;i++){</span><br><span class="line">            <span class="keyword">if</span>(lists[i]!=<span class="literal">null</span>)heap.offer(lists[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span>(!heap.isEmpty()){</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">peek</span> <span class="operator">=</span> heap.poll();</span><br><span class="line">            <span class="keyword">if</span>(peek.next!=<span class="literal">null</span>)</span><br><span class="line">                heap.offer(peek.next);</span><br><span class="line">            cur.next=<span class="keyword">new</span> <span class="title class_">ListNode</span>(peek.val);</span><br><span class="line">            cur=cur.next;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> head.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
 ]]></content>
       <categories>
         <category>算法</category>
@@ -559,47 +568,6 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </tags>
   </entry>
   <entry>
-    <title>旋转链表</title>
-    <url>/2022/10/21/xuan-zhuan-lian-biao/</url>
-    <content><![CDATA[<p>给你一个链表的头节点 <code>head</code> ，旋转链表，将链表每个节点向右移动 <code>k</code> 个位置。</p>
-<p><a class="link" href="https://leetcode.cn/problems/rotate-list/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先这道题是向右边移动，如果是向左移动可能实现上会比较简单一点。比如说：</p>
-<div class="highlight-container" data-rel="Basic"><figure class="iseeu highlight basic"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">2 </span><span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">1</span></span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>如果这样移动的话，只需要将头节点移动到尾节点上（我们可以同时维护头节点和尾节点），然后旋转几次就重复几次即可。</p>
-<p>但是这道是需要向右移动</p>
-<div class="highlight-container" data-rel="Basic"><figure class="iseeu highlight basic"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">5 </span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br></pre></td></tr></tbody></table></figure></div>
-
-<p>那么如果还是需要按照之前的方式进行移动的话，会发现我们每一次都需要将最后一个节点移到最前面。这时会发现我们需要时时维护一个倒数第二个节点，而这个<strong>节点是没有办法通过链表指向来进行更新的</strong>。我们每一次进行旋转都需要额外进行一次链表的遍历，将时间复杂度从<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.495ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2429 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(2040,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>提高到了<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="7.873ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3480 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mi" transform="translate(2040,0)"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mo" transform="translate(3091,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>显然效率不高。</p>
-<p>每当涉及到与链表方向相反的遍历的时候，我们都需要有一个思路：</p>
-<blockquote>
-<p>将链表首尾相连，然后向后移Length-k就可以得到向右移动k个节点的情况</p>
-</blockquote>
-<p>最后我们将链表在需要的时候断开，就可以得到答案了。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode {</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() {}</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) { this.val = val; }</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }</span></span><br><span class="line"><span class="comment"> * }</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">rotateRight</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> {</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="literal">null</span>)<span class="keyword">return</span> head;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">tail</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span>(tail.next!=<span class="literal">null</span>){</span><br><span class="line">            tail=tail.next;</span><br><span class="line">            len++;</span><br><span class="line">        }</span><br><span class="line">        k = k%len;</span><br><span class="line">        <span class="keyword">if</span>(k==<span class="number">0</span>)<span class="keyword">return</span> head;</span><br><span class="line">        tail.next=head;</span><br><span class="line">        k=len-k;</span><br><span class="line">        <span class="keyword">while</span>(k&gt;<span class="number">0</span>){</span><br><span class="line">            head=head.next;</span><br><span class="line">            tail=tail.next;</span><br><span class="line">            k--;</span><br><span class="line">        }</span><br><span class="line">        tail.next = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>标记接口</title>
-    <url>/2022/09/09/biao-ji-jie-kou/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>滑动窗口的最大值</title>
     <url>/2023/03/01/hua-dong-chuang-kou-de-zui-da-zhi/</url>
     <content><![CDATA[<p>给你一个整数数组 <code>nums</code>，有一个大小为<code>k</code>的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的<code>k</code>个数字。滑动窗口每次只向右移动一位。</p>
@@ -634,6 +602,51 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </tags>
   </entry>
   <entry>
+    <title>旋转链表</title>
+    <url>/2022/10/21/xuan-zhuan-lian-biao/</url>
+    <content><![CDATA[<p>给你一个链表的头节点 <code>head</code> ，旋转链表，将链表每个节点向右移动 <code>k</code> 个位置。</p>
+<p><a class="link" href="https://leetcode.cn/problems/rotate-list/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先这道题是向右边移动，如果是向左移动可能实现上会比较简单一点。比如说：</p>
+<div class="highlight-container" data-rel="Basic"><figure class="iseeu highlight basic"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">2 </span><span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">1</span></span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>如果这样移动的话，只需要将头节点移动到尾节点上（我们可以同时维护头节点和尾节点），然后旋转几次就重复几次即可。</p>
+<p>但是这道是需要向右移动</p>
+<div class="highlight-container" data-rel="Basic"><figure class="iseeu highlight basic"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">5 </span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>那么如果还是需要按照之前的方式进行移动的话，会发现我们每一次都需要将最后一个节点移到最前面。这时会发现我们需要时时维护一个倒数第二个节点，而这个<strong>节点是没有办法通过链表指向来进行更新的</strong>。我们每一次进行旋转都需要额外进行一次链表的遍历，将时间复杂度从<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.495ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2429 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(2040,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>提高到了<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="7.873ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3480 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mi" transform="translate(2040,0)"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mo" transform="translate(3091,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>显然效率不高。</p>
+<p>每当涉及到与链表方向相反的遍历的时候，我们都需要有一个思路：</p>
+<blockquote>
+<p>将链表首尾相连，然后向后移Length-k就可以得到向右移动k个节点的情况</p>
+</blockquote>
+<p>最后我们将链表在需要的时候断开，就可以得到答案了。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode {</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() {}</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) { this.val = val; }</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }</span></span><br><span class="line"><span class="comment"> * }</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">rotateRight</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> {</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="literal">null</span>)<span class="keyword">return</span> head;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">tail</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span>(tail.next!=<span class="literal">null</span>){</span><br><span class="line">            tail=tail.next;</span><br><span class="line">            len++;</span><br><span class="line">        }</span><br><span class="line">        k = k%len;</span><br><span class="line">        <span class="keyword">if</span>(k==<span class="number">0</span>)<span class="keyword">return</span> head;</span><br><span class="line">        tail.next=head;</span><br><span class="line">        k=len-k;</span><br><span class="line">        <span class="keyword">while</span>(k&gt;<span class="number">0</span>){</span><br><span class="line">            head=head.next;</span><br><span class="line">            tail=tail.next;</span><br><span class="line">            k--;</span><br><span class="line">        }</span><br><span class="line">        tail.next = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>香港札记（一）</title>
+    <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
+    <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
+<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
+<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
+<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>香港</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>疲惫与困倦</title>
     <url>/2022/09/07/pi-bei-yu-kun-juan/</url>
     <content><![CDATA[<p>此刻我站在床边打下这一段文字，用这种方式克服仿佛在高楼边缘向下看想要跳下去一般的困倦。立交桥上过往的车流发出低沉的声音，与远处维港中货轮发出的汽笛声纠结在一起，好像形成了共振一般放大了我思想的昏沉。要是能倒下去一睡不醒就好了，没有Peer Pressure、没有内卷、没有压迫、没有绝望，只有充满爱的留着奶与蜜的梦乡。“你恨它，但是你摆脱不了它”不知何方而来的这样的嘲讽更加深了神（也许有吧）的这种设计的滑稽性。我挥舞着利刃，想要将它刺穿，可是我从未击中，也许疲倦从此而来吧。</p>
@@ -643,6 +656,18 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </categories>
       <tags>
         <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>标记接口</title>
+    <url>/2022/09/09/biao-ji-jie-kou/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -679,22 +704,6 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
         <tag>算法</tag>
         <tag>滑动窗口</tag>
         <tag>双指针</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>香港札记（一）</title>
-    <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
-    <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
-<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
-<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
-<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>香港</tag>
       </tags>
   </entry>
 </search>
