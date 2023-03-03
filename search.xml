@@ -521,6 +521,66 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </tags>
   </entry>
   <entry>
+    <title>可重入锁</title>
+    <url>/2023/03/03/ke-chong-ru-suo/</url>
+    <content><![CDATA[<p>重入锁基本上可以完全替代<code>synchronized</code>关键字，因为可重入锁：</p>
+<ul>
+<li>获得/释放锁通过调用方法实现，更加灵活</li>
+<li>具有一些额外的功能，应用要更加广泛</li>
+<li>性能很好</li>
+</ul>
+<p>但是在<code>JDK6.0</code>之后，<code>synchronized</code>进行了很多的优化，这两种加锁的方式的性能已经差不多了</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReenterLock</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>{</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;<span class="number">10000</span>;j++){</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="keyword">try</span>{</span><br><span class="line">                i++;</span><br><span class="line">            }<span class="keyword">finally</span> {</span><br><span class="line">                lock.unlock();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException {</span><br><span class="line">        <span class="type">ReenterLock</span> <span class="variable">l</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReenterLock</span>();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(l);</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(l);</span><br><span class="line">        t1.start();t2.start();</span><br><span class="line">        t1.join();t2.join();</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>输出值为：<code>20000</code></p>
+<p>可重入锁允许同一个线程获取两次及以上同一个锁</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line">lock.lock();</span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span>{</span><br><span class="line">  ...</span><br><span class="line">}<span class="keyword">finally</span>{</span><br><span class="line">  lock.unlock();</span><br><span class="line">  lock.unlock();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>使用可重入锁的时候需要注意</p>
+<div class="note-large notel-blue"><div class="notel-title"><p>可重入锁的使用</p>
+</div><div class="notel-content"><ul>
+<li>如果不允许锁的可重入，那么同一个线程再一次请求锁时会发生<strong>死锁</strong></li>
+<li><code>lock</code>的数量和<code>unlock</code>的数量应该相等<ul>
+<li>如果<code>lock</code>的数量更多，那么其他线程再也不能进入临界区</li>
+<li>如果<code>unlock</code>的数量更多，那么会抛出<code>IllegalMonitorStateException</code></li>
+</ul>
+</li>
+</ul>
+ </div></div>
+
+<p>为了保证<code>lock</code>与<code>unlock</code>的数量相等，我们在释放锁的时候应该使用<code>lock.isHeldByCurrentThread()</code></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(lock.isHeldByCurrentThread){</span><br><span class="line">  lock.unlock;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+
+
+<h2 id="中断响应"><a href="#中断响应" class="headerlink" title="中断响应"></a>中断响应</h2><p>对于<code>synchronized</code>来说，请求锁只有两种可能性：</p>
+<ul>
+<li>获得到这个锁</li>
+<li>保持等待</li>
+</ul>
+<p>但是<code>ReentrantLock</code>提供了<code>interrupt</code>的方法，能够使正在等待的线程中止等待并且抛出异常，这样就能够解决一部分死锁的问题。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IntLock</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>{</span><br><span class="line">    <span class="keyword">static</span> <span class="type">ReentrantLock</span> <span class="variable">lock1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line">    <span class="keyword">static</span> <span class="type">ReentrantLock</span> <span class="variable">lock2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line">    <span class="type">int</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">IntLock</span><span class="params">(<span class="type">int</span> lock)</span>{</span><br><span class="line">        <span class="built_in">this</span>.lock = lock;</span><br><span class="line">    }</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>{</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="keyword">if</span> (lock == <span class="number">1</span>) {</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    lock1.lockInterruptibly();</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    lock2.lockInterruptibly();</span><br><span class="line">                    System.out.println(<span class="string">"T1 is working"</span>);</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">                System.out.println(<span class="string">"T1 completed"</span>);</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    lock2.lockInterruptibly();</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    lock1.lockInterruptibly();</span><br><span class="line">                    System.out.println(<span class="string">"T2 is working"</span>);</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">                System.out.println(<span class="string">"T2 completed"</span>);</span><br><span class="line">            }</span><br><span class="line">        }<span class="keyword">finally</span> {</span><br><span class="line">            <span class="keyword">if</span>(lock1.isHeldByCurrentThread())</span><br><span class="line">                lock1.unlock();</span><br><span class="line">            <span class="keyword">if</span>(lock2.isHeldByCurrentThread())</span><br><span class="line">                lock2.unlock();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException {</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">IntLock</span>(<span class="number">1</span>));</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">IntLock</span>(<span class="number">2</span>));</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        t2.interrupt();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>可以看到结果为：</p>
+<img lazyload="" src="/images/loading.svg" data-src="/2023/03/03/ke-chong-ru-suo/result1.png" class="" title="result1">
+
+<ol>
+<li>两个线程相互争用，形成死锁</li>
+<li>主线程通知<code>t2</code>中断</li>
+<li><code>t2</code>中断并抛出异常，释放资源</li>
+<li><code>t1</code>获得资源，因此能够继续工作</li>
+<li><code>t1</code>运行结束，释放资源</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>并发</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>合并k个升序链表</title>
     <url>/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/</url>
     <content><![CDATA[<p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
@@ -568,18 +628,6 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       <tags>
         <tag>算法</tag>
         <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>标记接口</title>
-    <url>/2022/09/09/biao-ji-jie-kou/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>技术</tag>
       </tags>
   </entry>
   <entry>
@@ -658,6 +706,18 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </tags>
   </entry>
   <entry>
+    <title>标记接口</title>
+    <url>/2022/09/09/biao-ji-jie-kou/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>滑动窗口的最大值</title>
     <url>/2023/03/01/hua-dong-chuang-kou-de-zui-da-zhi/</url>
     <content><![CDATA[<p>给你一个整数数组 <code>nums</code>，有一个大小为<code>k</code>的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的<code>k</code>个数字。滑动窗口每次只向右移动一位。</p>
@@ -704,6 +764,22 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </tags>
   </entry>
   <entry>
+    <title>香港札记（一）</title>
+    <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
+    <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
+<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
+<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
+<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>香港</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>至少有K个重复字符的最长子串</title>
     <url>/2022/10/26/zhi-shao-you-k-ge-chong-fu-zi-fu-de-zui-chang-zi-chuan/</url>
     <content><![CDATA[<p>给你一个字符串 <code>s</code> 和一个整数 <code>k</code> ，请你找出 <code>s</code> 中的最长子串， 要求该子串中的每一字符出现次数都不少于 <code>k</code> 。返回这一子串的长度。</p>
@@ -737,22 +813,6 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
         <tag>算法</tag>
         <tag>滑动窗口</tag>
         <tag>双指针</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>香港札记（一）</title>
-    <url>/2022/09/07/xiang-gang-zha-ji-yi/</url>
-    <content><![CDATA[<p>不知不觉已经在香港已经过了快两个星期，在几乎无法感受到的时间的流逝中，我逐渐习惯了在香港的生活。有人说香港人的生活节奏很快，不过从我居住的西营盘周围来看倒并不见得。这里的居民几乎都是老年人和学生，不需要赶很早的地铁，也不像大陆的互联网社畜晚上十点十一点才能够回家，我总是能看到在西边街和正街的陡坡上拍摄如同金鱼一般颜色的夕阳，也能看到中年大叔在顺德烧味店里熟练的说“唔该，半斤叉烧”，然后悠然而去。</p>
-<p>不管是什么店铺，在香港十点钟之前总是要关门的。如果下课时间正好接近十点的我走进店铺中，店员会在我挑选东西的时候，忙着把店中的灯关掉、整理货物，甚至半带上卷帘门，不知是为了督促我快一点还是就是为了能在我结账完之后马上下班（好像没什么区别），经常破坏我购物的兴致，让我无心挑选，随便在去往收银台的路径上拿几件必需品，甚至连价格都没看清楚，难怪华仔会有“今時今日咁既服務態度”的宣传片。</p>
-<p>往往下课回家，门口的保安都不在了，令人不禁疑惑最需要保安的时候不应该就是晚上吗？为什么保安晚上能下班呢？而且他中午也在保安室的玻璃窗上挂一个“午膳中”，然后就不知踪影，真想知道他们一天上多久的班，能领多少钱。不过保安人还是挺不错的，他长得有点像火云邪神，不过头发要多几根，笑起来的时候简直一模一样，记得第一天来的时候，他先用粤语和我讲话，我只能用非常蹩脚的粤语回话，他发现我不是本地人之后，就用英语来问我，很惭愧我的口语水平还不如保安，只能嗯嗯啊啊用普通话回复他。见的多了之后，我们也开始互相说“早晨”了，只是有碍于我的语言能力不行，到现在也只会说“早晨”，只能说毫无进步。</p>
-<p>不过粤语倒并没有成为在香港生活的障碍，记得第一次走进惠康的时候，结账时憋的脸红脖子粗，即便粤语能力能大致应对这个场景，但是没有自信的人是在母语者面前是说不出口的。最后配合手势才说清楚要两个塑料袋。待了一段时间之后，我发现香港大部分人都会讲普通话，甚至我之前以为必定只会说粤语的钱大妈的中年收银员都能说一口标准的普通话，从此我和香港人打交道一般先说粤语，等到说到第三句的时候我一般就听不懂了，这时候就能够切换成普通话，既表现了我对他们文化的尊重，又锻炼了我的粤语水平（也许吧），还不影响交流。这大概也算融入进去了吧。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>香港</tag>
       </tags>
   </entry>
 </search>
