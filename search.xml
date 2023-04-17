@@ -139,6 +139,37 @@
       </tags>
   </entry>
   <entry>
+    <title>JDK并发包</title>
+    <url>/2023/03/04/jdk-bing-fa-bao/</url>
+    <content><![CDATA[<h2 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h2><p><code>Condition</code>是和<code>ReentreentLock</code>配套一起使用的。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line">Condition condition= lock.newCondition()</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p><code>Condition</code>有<code>await</code>和<code>signal</code>两个方法，与<code>synchronized</code>相同，这一对操作同样需要在<code>lock.lock()</code>和<code>lock.unlock()</code>之间发挥作用</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>{</span><br><span class="line">  lock.lock();</span><br><span class="line">  condition.await();</span><br><span class="line">}<span class="keyword">catch</span>(InterruptedException e){</span><br><span class="line">  e.printStackTree();</span><br><span class="line">}<span class="keyword">finally</span>{</span><br><span class="line">  lock.unlock();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+
+
+<h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><p><strong>Semaphore允许指定数量以内的多个线程访问相同的资源</strong>、</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestSemaphore</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>{</span><br><span class="line">    <span class="keyword">final</span> <span class="type">Semaphore</span> <span class="variable">semaphore</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Semaphore</span>(<span class="number">5</span>);</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>{</span><br><span class="line">        <span class="keyword">try</span>{</span><br><span class="line">            semaphore.acquire();</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            System.out.println(Thread.currentThread().getId()+<span class="string">":done"</span>);</span><br><span class="line">            semaphore.release();</span><br><span class="line">        }<span class="keyword">catch</span>(InterruptedException e){</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">exec</span> <span class="operator">=</span> Executors.newFixedThreadPool(<span class="number">20</span>);</span><br><span class="line">        <span class="keyword">final</span> TestSemaphore ts= <span class="keyword">new</span> <span class="title class_">TestSemaphore</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">20</span>;i++){</span><br><span class="line">            exec.submit(ts);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>可以看到输出结果是五个五个一起输出的。</p>
+<div class="note note-info icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>一定要注意acquire之后需要release。要不然最后可用的资源会越来越少。</p>
+</div>
+
+<h2 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">ReentrantReadWriteLock</span> <span class="variable">readWriteLock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantReadWriteLock</span>();</span><br><span class="line"><span class="type">Lock</span> <span class="variable">readLock</span> <span class="operator">=</span> readWriteLock.readLock();</span><br><span class="line"><span class="type">Lock</span> <span class="variable">writeLock</span> <span class="operator">=</span> readWriteLock.writeLock();</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>可以通过这样分别加锁来提升读操作比较多的时候的性能</p>
+<h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2>]]></content>
+      <categories>
+        <category>java</category>
+        <category>并发</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>并发</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java线程基础</title>
     <url>/2023/03/02/java-xian-cheng-ji-chu/</url>
     <content><![CDATA[<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程是：</p>
@@ -512,29 +543,8 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
 <p>那么问题就解决了！🎆</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] singleNumber(<span class="type">int</span>[] nums) {</span><br><span class="line">        <span class="type">int</span> <span class="variable">xor</span> <span class="operator">=</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> nums.length;</span><br><span class="line">        <span class="type">int</span>[] res = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;len;i++)</span><br><span class="line">            xor^=nums[i];</span><br><span class="line">        <span class="type">int</span> <span class="variable">mask</span> <span class="operator">=</span> xor&amp;(-xor);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;len;i++){</span><br><span class="line">            <span class="keyword">if</span>((nums[i]&amp;mask)==<span class="number">0</span>){</span><br><span class="line">                res[<span class="number">1</span>]^=nums[i];</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">else</span>{</span><br><span class="line">                res[<span class="number">0</span>]^=nums[i];</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure></div>
 
-<h2 id="一些值得注意的地方"><a href="#一些值得注意的地方" class="headerlink" title="一些值得注意的地方"></a>一些值得注意的地方</h2><p>要获得最后一位1有一个很巧妙的方式：<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="19.845ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 8771.6 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mi" transform="translate(1051,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(1580,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(2049,0)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g><g data-mml-node="mo" transform="translate(2847.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(3903.6,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mtext" fill="red" stroke="red" transform="translate(4503.6,0)"><path data-c="5C" d="M56 731Q56 740 62 745T75 750Q85 750 92 740Q96 733 270 255T444 -231Q444 -239 438 -244T424 -250Q414 -250 407 -240Q404 -236 230 242T56 731Z"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(500,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(1000,0)"></path><path data-c="64" d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z" transform="translate(1556,0)"></path></g><g data-mml-node="mo" transform="translate(6615.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mo" transform="translate(7004.6,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mi" transform="translate(7782.6,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(8382.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container><br>首先在计算机中二进制取负是取反再加一。比如a的二进制是 00010000，取反就是11101111，加1就是11110000。前面?的部分是和原来a相反的，相与必然都是0，所以最后整体相与的结果就是00010000。</p>
+<h2 id="一些值得注意的地方"><a href="#一些值得注意的地方" class="headerlink" title="一些值得注意的地方"></a>一些值得注意的地方</h2><p>要获得最后一位1有一个很巧妙的方式：<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.452ex;" xmlns="http://www.w3.org/2000/svg" width="17.647ex" height="2.149ex" role="img" focusable="false" viewBox="0 -750 7800 950"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="merror" data-mjx-error="Misplaced &amp;" title="Misplaced &amp;"><rect data-background="true" width="7800" height="950" y="-200"></rect><title>Misplaced &amp;</title><g data-mml-node="mtext" style="font-family: serif;"><text data-variant="-explicitFont" transform="scale(1,-1)" font-size="884px"> Mask=n&amp;(-n) </text></g></g></g></g></svg></mjx-container><br>首先在计算机中二进制取负是取反再加一。比如a的二进制是 00010000，取反就是11101111，加1就是11110000。前面?的部分是和原来a相反的，相与必然都是0，所以最后整体相与的结果就是00010000。</p>
 <p>另外，java中计算<code>(nums[i]&amp;mask)==0</code>的时候需要加括号，<strong>因为==的优先级高于&amp;</strong></p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>合并k个升序链表</title>
-    <url>/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/</url>
-    <content><![CDATA[<p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
-<p><a class="link" href="https://leetcode.cn/problems/merge-k-sorted-lists/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>其实这里很容易就会想到归并排序中，两个有序数组合并的过程，这里使用的也是相同的思想。但是需要注意的是这里需要合并的是多个链表，也就是说每一次要进行K次的比较，如果采用这种方式的话，时间复杂度为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="7.507ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3318 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D43E" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"></path></g><g data-mml-node="mi" transform="translate(2041,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(2929,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>。</p>
-<p>但是如果我们在这里使用<strong>堆</strong>就能比较容易得解决这个问题。我们建立一个堆，根据链表所指节点的值来进行比较，每次挑选出堆顶的一个节点，选出后将这个节点的值用于建立新链表，同时将这个节点的下一个节点放入堆中，并进行调整，重复直到所有链表节点都已经遍历。</p>
-<p>我们可以将这道题的思路总结成下面这样：</p>
-<blockquote>
-<p>如果我们要在一组数中挑选出最小的或者最大的一个，而且这组数是动态变化的，那么我们一般优先考虑使用堆/优先队列来解决这个问题</p>
-</blockquote>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeKLists</span><span class="params">(ListNode[] lists)</span> {</span><br><span class="line">        <span class="keyword">if</span>(lists.length==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">        ListNode cur=head;</span><br><span class="line">        PriorityQueue&lt;ListNode&gt;heap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;a.val-b.val);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;lists.length;i++){</span><br><span class="line">            <span class="keyword">if</span>(lists[i]!=<span class="literal">null</span>)heap.offer(lists[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span>(!heap.isEmpty()){</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">peek</span> <span class="operator">=</span> heap.poll();</span><br><span class="line">            <span class="keyword">if</span>(peek.next!=<span class="literal">null</span>)</span><br><span class="line">                heap.offer(peek.next);</span><br><span class="line">            cur.next=<span class="keyword">new</span> <span class="title class_">ListNode</span>(peek.val);</span><br><span class="line">            cur=cur.next;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> head.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
-
 ]]></content>
       <categories>
         <category>算法</category>
@@ -602,6 +612,27 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       <tags>
         <tag>java</tag>
         <tag>并发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>合并k个升序链表</title>
+    <url>/2022/09/09/he-bing-k-ge-sheng-xu-lian-biao/</url>
+    <content><![CDATA[<p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
+<p><a class="link" href="https://leetcode.cn/problems/merge-k-sorted-lists/">题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>其实这里很容易就会想到归并排序中，两个有序数组合并的过程，这里使用的也是相同的思想。但是需要注意的是这里需要合并的是多个链表，也就是说每一次要进行K次的比较，如果采用这种方式的话，时间复杂度为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="7.507ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3318 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D43E" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"></path></g><g data-mml-node="mi" transform="translate(2041,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(2929,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>。</p>
+<p>但是如果我们在这里使用<strong>堆</strong>就能比较容易得解决这个问题。我们建立一个堆，根据链表所指节点的值来进行比较，每次挑选出堆顶的一个节点，选出后将这个节点的值用于建立新链表，同时将这个节点的下一个节点放入堆中，并进行调整，重复直到所有链表节点都已经遍历。</p>
+<p>我们可以将这道题的思路总结成下面这样：</p>
+<blockquote>
+<p>如果我们要在一组数中挑选出最小的或者最大的一个，而且这组数是动态变化的，那么我们一般优先考虑使用堆/优先队列来解决这个问题</p>
+</blockquote>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeKLists</span><span class="params">(ListNode[] lists)</span> {</span><br><span class="line">        <span class="keyword">if</span>(lists.length==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">        ListNode cur=head;</span><br><span class="line">        PriorityQueue&lt;ListNode&gt;heap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a,b)-&gt;a.val-b.val);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;lists.length;i++){</span><br><span class="line">            <span class="keyword">if</span>(lists[i]!=<span class="literal">null</span>)heap.offer(lists[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span>(!heap.isEmpty()){</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">peek</span> <span class="operator">=</span> heap.poll();</span><br><span class="line">            <span class="keyword">if</span>(peek.next!=<span class="literal">null</span>)</span><br><span class="line">                heap.offer(peek.next);</span><br><span class="line">            cur.next=<span class="keyword">new</span> <span class="title class_">ListNode</span>(peek.val);</span><br><span class="line">            cur=cur.next;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> head.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -677,6 +708,282 @@ CPU3 --&gt; Cache3 --&gt; Memory;</pre>
       </categories>
       <tags>
         <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统</title>
+    <url>/2023/04/17/cao-zuo-xi-tong/</url>
+    <content><![CDATA[<h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><h4 id="什么是中断？"><a href="#什么是中断？" class="headerlink" title="什么是中断？"></a>什么是中断？</h4><p>操作系统收到硬件的中断请求，会打断正在执行的进程，然后调用内核中的中断处理程序来响应请求</p>
+<h4 id="什么是软中断？"><a href="#什么是软中断？" class="headerlink" title="什么是软中断？"></a>什么是软中断？</h4><p>由于CPU在处理一个中断的时候不能够同时处理另一个。</p>
+<p>那 Linux 系统<strong>为了解决中断处理程序执行过长和中断丢失的问题，将中断过程分成了两个阶段，分别是「上半部和下半部分」</strong>。</p>
+<ul>
+<li><strong>上半部用来快速处理中断</strong>，一般会暂时关闭中断请求，主要负责处理跟硬件紧密相关或者时间敏感的事情。</li>
+<li><strong>下半部用来延迟处理上半部未完成的工作</strong>，一般以「内核线程」的方式运行。</li>
+</ul>
+<p>假设点了两份外卖，由于第一个配送员长时间跟我通话，则导致第二位配送员无法拨通我的电话，其实当我接到第一位配送员的电话，可以告诉配送员说我现在下楼，剩下的事情，等我们见面再说（上半部），然后就可以挂断电话，到楼下后，在拿外卖，以及跟配送员说其他的事情（下半部）。</p>
+<p>这样，第一位配送员就不会占用我手机太多时间，当第二位配送员正好过来时，会有很大几率拨通我的电话。</p>
+<p>硬中断（上半部）是会打断 CPU 正在执行的任务，然后立即执行中断处理程序，而软中断（下半部）是以内核线程的方式执行</p>
+<h4 id="软中断有哪些类型？"><a href="#软中断有哪些类型？" class="headerlink" title="软中断有哪些类型？"></a>软中断有哪些类型？</h4><p><code>NET_RX</code>:网络接受中断</p>
+<p><code>NET_TX</code>：网络发送中断</p>
+<p><code>TIMER</code>：定时中断</p>
+<p>…</p>
+<h4 id="如果软中断导致CPU占用率过高？"><a href="#如果软中断导致CPU占用率过高？" class="headerlink" title="如果软中断导致CPU占用率过高？"></a>如果软中断导致CPU占用率过高？</h4><p>在<code>/proc/softirqs</code>中可以看到软中断情况</p>
+<ol>
+<li>发现<code>NET_RX</code>变化速率很快</li>
+<li>使用<code>tcpdump</code>进行抓包</li>
+<li>如果有大量非法地址可以考虑防火墙拦截</li>
+</ol>
+<h3 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h3><h4 id="进程与线程的区别是什么？"><a href="#进程与线程的区别是什么？" class="headerlink" title="进程与线程的区别是什么？"></a>进程与线程的区别是什么？</h4><ul>
+<li>进程时分配资源的最小单位</li>
+<li>线程时CPU调度的最小单位</li>
+<li>同一进程中的不同线程可以直接通信</li>
+<li>进程的开销要远远大于线程的开销</li>
+</ul>
+<h4 id="进程有哪些状态？"><a href="#进程有哪些状态？" class="headerlink" title="进程有哪些状态？"></a>进程有哪些状态？</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/ProcessState.png" alt="img"></p>
+<h4 id="进程有哪些通信方式？"><a href="#进程有哪些通信方式？" class="headerlink" title="进程有哪些通信方式？"></a>进程有哪些通信方式？</h4><ul>
+<li>管道：只能在父子进程或者兄弟进程中使用</li>
+<li>FIFO：去除了上面的限制</li>
+<li>消息队列<ul>
+<li>消息队列可以独立于读写进程存在，从而避免了 FIFO 中同步管道的打开和关闭时可能产生的困难；</li>
+<li>避免了 FIFO 的同步阻塞问题，不需要进程自己提供同步方法；</li>
+<li>读进程可以根据消息类型有选择地接收消息，而不像 FIFO 那样只能默认地接收。</li>
+</ul>
+</li>
+<li>共享内存</li>
+<li>Socket</li>
+<li>信号量</li>
+</ul>
+<h4 id="多进程和多线程之间的区别是什么？"><a href="#多进程和多线程之间的区别是什么？" class="headerlink" title="多进程和多线程之间的区别是什么？"></a>多进程和多线程之间的区别是什么？</h4><ul>
+<li>多进程更耗资源。每个进程都有独立的资源，线程间共享资源</li>
+<li>多进程更安全。线程间共享内存，进程间通信更麻烦</li>
+<li>多进程更稳定。一个进程崩溃了不一会影响其他进程。一个线程崩溃了可能会使整个进程崩溃</li>
+</ul>
+<h4 id="为什么chrome浏览器很多地方都使用进程？"><a href="#为什么chrome浏览器很多地方都使用进程？" class="headerlink" title="为什么chrome浏览器很多地方都使用进程？"></a>为什么chrome浏览器很多地方都使用进程？</h4><ul>
+<li><p>速度更快</p>
+<p>当一个浏览器存在更多的渲染任务的时候，多进程的并行化程度往往更高。因为互不相关的网页渲染过程彼此独立，减少了不必要的 CPU 争用，整体性能可能反而会更高。</p>
+</li>
+<li><p>安全性</p>
+<p>进程间没有共享的内存，因此隔离程度更高，一个Tab有病毒不容易影响到另一个</p>
+</li>
+<li><p>可靠性</p>
+<p>每个tab使用一个进程，一个tab的快慢或者崩溃不会影响其他tab。而每个tab使用一个线程，当一个tab崩溃了就会影响所有tab，尤其是开启了很多tab，继续开tab会很慢。</p>
+</li>
+</ul>
+<h4 id="使用多进程的缺点有什么？"><a href="#使用多进程的缺点有什么？" class="headerlink" title="使用多进程的缺点有什么？"></a>使用多进程的缺点有什么？</h4><ol>
+<li>当开启的页面过多，太多的进程会导致消耗很多资源</li>
+<li>进程启动比线程慢</li>
+</ol>
+<p>但是现在设备内存已经不像二十年前了，不需要太计较内存大小，而且进程启动方面也可以优化，因此浏览器使用多进程已经是大势所趋</p>
+<h4 id="并行和并发有什么区别？"><a href="#并行和并发有什么区别？" class="headerlink" title="并行和并发有什么区别？"></a>并行和并发有什么区别？</h4><h4 id="同步和异步有什么区别？"><a href="#同步和异步有什么区别？" class="headerlink" title="同步和异步有什么区别？"></a>同步和异步有什么区别？</h4><h4 id="进程的调度方式有哪些？"><a href="#进程的调度方式有哪些？" class="headerlink" title="进程的调度方式有哪些？"></a>进程的调度方式有哪些？</h4><ul>
+<li><strong>先到先服务(FCFS)调度算法</strong> : 从就绪队列中选择一个最先进入该队列的进程为之分配资源，使它立即执行并一直执行到完成或发生某事件而被阻塞放弃占用 CPU 时再重新调度。</li>
+<li><strong>短作业优先(SJF)的调度算法</strong> : 从就绪队列中选出一个估计运行时间最短的进程为之分配资源，使它立即执行并一直执行到完成或发生某事件而被阻塞放弃占用 CPU 时再重新调度。</li>
+<li><strong>时间片轮转调度算法</strong> : 时间片轮转调度是一种最古老，最简单，最公平且使用最广的算法，又称 RR(Round robin)调度。每个进程被分配一个时间段，称作它的时间片，即该进程允许运行的时间。</li>
+<li><strong>多级反馈队列调度算法</strong> ：前面介绍的几种进程调度的算法都有一定的局限性。如<strong>短进程优先的调度算法，仅照顾了短进程而忽略了长进程</strong> 。多级反馈队列调度算法既能使高优先级的作业得到响应又能使短作业（进程）迅速完成。，因而它是目前<strong>被公认的一种较好的进程调度算法</strong>，UNIX 操作系统采取的便是这种调度算法。</li>
+<li><strong>优先级调度</strong> ： 为每个流程分配优先级，首先执行具有最高优先级的进程，依此类推。具有相同优先级的进程以 FCFS 方式执行。可以根据内存要求，时间要求或任何其他资源要求来确定优先级。</li>
+</ul>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><h4 id="必要条件是什么？"><a href="#必要条件是什么？" class="headerlink" title="必要条件是什么？"></a>必要条件是什么？</h4><ul>
+<li>互斥</li>
+<li>持有并等待</li>
+<li>不可抢夺</li>
+<li>环路等待</li>
+</ul>
+<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li>鸵鸟政策：不管</li>
+<li>死锁预防：破坏四个条件从根本上杜绝</li>
+<li>死锁检测与死锁恢复：通过dfs检测成环，然后：<ul>
+<li>抢占</li>
+<li>回滚</li>
+<li>杀死线程</li>
+</ul>
+</li>
+<li>死锁避免：使用银行家算法，在分配资源的时候检测是否可能发生死锁</li>
+</ul>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><h4 id="为什么要有虚拟内存？"><a href="#为什么要有虚拟内存？" class="headerlink" title="为什么要有虚拟内存？"></a>为什么要有虚拟内存？</h4><ol>
+<li>如果直接使用物理内存，那么进程能够直接访问到物理内存，这样会导致进程能够对于计算机有一些破坏性的操作<ol>
+<li>访问隐私数据</li>
+<li>破坏操作系统</li>
+</ol>
+</li>
+<li>不利于多个进程的运行。比如说几个进程容易写到对方的存储空间中，这个时候我们就需要虚拟地址将这些进程的存储空间隔离开</li>
+</ol>
+<h4 id="如何进行虚拟内存和物理内存之间的转换？"><a href="#如何进行虚拟内存和物理内存之间的转换？" class="headerlink" title="如何进行虚拟内存和物理内存之间的转换？"></a>如何进行虚拟内存和物理内存之间的转换？</h4><p>使用内存管理单元MMU进行</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/72ab76ba697e470b8ceb14d5fc5688d9.png" alt="img"></p>
+<h4 id="为什么要使用内存分段？"><a href="#为什么要使用内存分段？" class="headerlink" title="为什么要使用内存分段？"></a>为什么要使用内存分段？</h4><p>因为进程在内存中是这样存储的（代码+堆+栈），如果我们将这三个部分放到一起，由于堆和栈都是要增长的，所以我们只能将其放在存储空间的两端向中间自然增长，这样就导致存储空间的内部存在大量的内部碎片。</p>
+<p>如果我们能够将堆、栈、代码根据其逻辑上的不同分开存放，就能够避免这种内部碎片的出现。</p>
+<h4 id="内存分段有什么缺点？"><a href="#内存分段有什么缺点？" class="headerlink" title="内存分段有什么缺点？"></a>内存分段有什么缺点？</h4><p>虽然内存分段解决了内部碎片的问题，但是仍然还有外部碎片的问题。比如说有很多小的空间没有办法分配比较大的内存空间</p>
+<p>出现这种问题的根本原因在于：<strong>不同分段的长度是不一样的</strong></p>
+<p><strong><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/6142bc3c917e4a6298bdb62936e0d332.png" alt="img"></strong></p>
+<p>要解决外部碎片的问题可以使用内存交换的方法，将占用比较大的内存区域换到磁盘中，进行分配之后再换回来（比如说先将音乐占用的交换到磁盘中，就可以分配256MB的新的内存，分配完之后将音乐的部分交换回来，这样就都分配成功了）。但是这样频繁的交换会导致机器的卡顿（由于读写磁盘比较慢）</p>
+<p><strong>所以我们需要使用内存分页的手段</strong></p>
+<h4 id="什么是内存分页？"><a href="#什么是内存分页？" class="headerlink" title="什么是内存分页？"></a>什么是内存分页？</h4><p><strong>分页是把整个虚拟和物理内存空间切成一段段固定尺寸的大小</strong>。这样一个连续并且尺寸固定的内存空间，我们叫<strong>页</strong>（<em>Page</em>）。在 Linux 下，每一页的大小为 <code>4KB</code>。</p>
+<p>虚拟地址和物理地址之间使用页表来进行映射</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/08a8e315fedc4a858060db5cb4a654af.png" alt="img"></p>
+<p>由于分页是紧密排列的，因此不会带来外部碎片。</p>
+<h4 id="内存分页有什么缺点？"><a href="#内存分页有什么缺点？" class="headerlink" title="内存分页有什么缺点？"></a>内存分页有什么缺点？</h4><ol>
+<li>分页用不满，很可能带来内部碎片</li>
+<li>页表本身会非常大</li>
+</ol>
+<h4 id="多级页表是什么？"><a href="#多级页表是什么？" class="headerlink" title="多级页表是什么？"></a>多级页表是什么？</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/19296e249b2240c29f9c52be70f611d5.png" alt="img"></p>
+<p>原本是只有前四分之一的内存空间有被使用，但是页表仍然需要维持完整的映射（N项）</p>
+<p>如果使用多级页表的话，那么后四分之三的内存空间的页表不需要进行分配，实际分配的空间是：</p>
+<ul>
+<li>4：一级页表的表项树木</li>
+<li>1/4 N：二级页表表项数目</li>
+</ul>
+<p>即总共是1/4 N+4.大大降低了页表的大小</p>
+<h4 id="TLB是什么？"><a href="#TLB是什么？" class="headerlink" title="TLB是什么？"></a>TLB是什么？</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/a3cdf27646b24614a64cfc5d7ccffa35.png" alt="img"></p>
+<p>虚拟地址到物理地址的转换比较花费时间，因此可以使用Cache（CPU与内存之间)保存使用频繁的页，这样就能降低到内存中查询页表的次数，大大降低了地址转换的时间花费。</p>
+<h4 id="什么是段页式内存？"><a href="#什么是段页式内存？" class="headerlink" title="什么是段页式内存？"></a>什么是段页式内存？</h4><ul>
+<li>先将程序划分为多个有逻辑意义的段，也就是前面提到的分段机制；</li>
+<li>接着再把每个段划分为多个页，也就是对分段划分出来的连续空间，再划分固定大小的页；</li>
+</ul>
+<p>地址 = 段号+页号+偏移量</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/8904fb89ae0c49c4b0f2f7b5a0a7b099.png" alt="img"></p>
+<p>段页式地址变换中要得到物理地址须经过三次内存访问：</p>
+<ul>
+<li>第一次访问段表，得到页表起始地址；</li>
+<li>第二次访问页表，得到物理页号；</li>
+<li>第三次将物理页号与页内位移组合，得到物理地址。</li>
+</ul>
+<h4 id="linux的内存管理"><a href="#linux的内存管理" class="headerlink" title="linux的内存管理"></a>linux的内存管理</h4><blockquote>
+<p>Linux 系统中的每个段都是从 0 地址开始的整个 4GB 虚拟空间（32 位环境下），也就是所有的段的起始地址都是一样的。这意味着，Linux 系统中的代码，包括操作系统本身的代码和应用程序代码，所面对的地址空间都是线性地址空间（虚拟地址），这种做法相当于屏蔽了处理器中的逻辑地址概念，段只被用于访问控制和内存保护。</p>
+</blockquote>
+<p>但是，由于绝大多数硬件平台都不支持段机制，只支持分页机制，所以为了让 Linux 具有更好的可移植性，我们需要去掉段机制而只使用分页机制。但不幸的是，IA32规定段机制是不可禁止的，因此不可能绕过它直接给出线性地址空间的地址。万般无奈之下，Linux的设计人员干脆让段的基地址为0，而段的界限为4GB，这时任意给出一个偏移量，则等式为“0+偏移量=线性地址”，也就是说“偏移量＝线性地址”。</p>
+<h4 id="linux虚拟地址空间是如何分布的？"><a href="#linux虚拟地址空间是如何分布的？" class="headerlink" title="linux虚拟地址空间是如何分布的？"></a>linux虚拟地址空间是如何分布的？</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/3a6cb4e3f27241d3b09b4766bb0b1124-20230309234553726.png" alt="img"></p>
+<ul>
+<li><code>32</code> 位系统的内核空间占用 <code>1G</code>，位于最高处，剩下的 <code>3G</code> 是用户空间；</li>
+<li><code>64</code> 位系统的内核空间和用户空间都是 <code>128T</code>，分别占据整个内存空间的最高和最低处，剩下的中间部分是未定义的。</li>
+</ul>
+<p>再来说说，内核空间与用户空间的区别：</p>
+<ul>
+<li>进程在用户态时，只能访问用户空间内存；</li>
+<li>只有进入内核态后，才可以访问内核空间的内存；</li>
+</ul>
+<p>内核空间和用户空间的关系：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/c88bda5db60029f3ea57e4306e7da936.png" alt="图片"></p>
+<h4 id="用户空间的分布情况是什么样？"><a href="#用户空间的分布情况是什么样？" class="headerlink" title="用户空间的分布情况是什么样？"></a>用户空间的分布情况是什么样？</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com/gh/xiaolincoder/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/32%E4%BD%8D%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.png" alt="虚拟内存空间划分"></p>
+<ul>
+<li>代码段：二进制可执行代码</li>
+<li>数据段：已经初始化的静态常量和全局变量（在编译时已确定）</li>
+<li>BSS段：未初始化的静态变量和全局变量（在编译时已确定）</li>
+<li>堆段：动态分配的内存</li>
+<li>栈段：局部变量和函数调用的上下文</li>
+<li>文件映射段：动态库、共享内存等</li>
+</ul>
+<h4 id="malloc如何分配内存？"><a href="#malloc如何分配内存？" class="headerlink" title="malloc如何分配内存？"></a>malloc如何分配内存？</h4><ul>
+<li><p>使用<code>brk()</code>系统调用从堆分配内存</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/brk%E7%94%B3%E8%AF%B7.png" alt="img"></p>
+</li>
+<li><p>使用<code>mmap()</code>系统调用在文件映射区域分配内存</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/mmap%E7%94%B3%E8%AF%B7.png" alt="img"></p>
+</li>
+</ul>
+<p>如果：</p>
+<ol>
+<li>分配内存小于128K，则通过<code>brk()</code>分配内存</li>
+<li>分配内存大于128K，则通过<code>mmap()</code>分配内存</li>
+</ol>
+<h4 id="malloc分配的是物理内存吗？"><a href="#malloc分配的是物理内存吗？" class="headerlink" title="malloc分配的是物理内存吗？"></a>malloc分配的是物理内存吗？</h4><p>是虚拟内存</p>
+<h4 id="malloc-1-分配多大的虚拟内存？"><a href="#malloc-1-分配多大的虚拟内存？" class="headerlink" title="malloc(1)分配多大的虚拟内存？"></a>malloc(1)分配多大的虚拟内存？</h4><p>不会按照用户输入进行分配，<strong>而是会预分配更大的空间作为内存池</strong></p>
+<h4 id="使用free-的时候发生了什么？"><a href="#使用free-的时候发生了什么？" class="headerlink" title="使用free()的时候发生了什么？"></a>使用free()的时候发生了什么？</h4><ul>
+<li>如果是<code>brk()</code>分配的内存，那么不会释放，而是缓存进内存池，当下次分配的时候可以复用</li>
+<li>如果是<code>mmap()</code>分配的内存，那么使用<code>free()</code>就会释放内存</li>
+</ul>
+<h4 id="为什么不全部使用mmap来分配内存？"><a href="#为什么不全部使用mmap来分配内存？" class="headerlink" title="为什么不全部使用mmap来分配内存？"></a>为什么不全部使用mmap来分配内存？</h4><p>mmap分配内存的原理：</p>
+<ol>
+<li>建立进程虚拟地址空间与文件内容空间之间的映射</li>
+<li><strong>而后第一次读写mmap映射的内存时，由于页表并未与物理内存映射，触发缺页异常</strong></li>
+<li>缺页异常程序先根据要访问的偏移和大小从page cache中查询是否有该文件的缓存，如果找到就更新进程页表指向page cache那段物理内存</li>
+<li>没找到就将文件从磁盘加载到内核page cache，然后再令进程的mmap虚拟地址的页表指向这段page cache中文件部分的物理内存</li>
+</ol>
+<p>所以结论是，内核会把文件读到page cache中。</p>
+<p>因为mmap必然会导致缺页异常，因此不能全部使用mmap</p>
+<h4 id="为什么不全部使用brk？"><a href="#为什么不全部使用brk？" class="headerlink" title="为什么不全部使用brk？"></a>为什么不全部使用brk？</h4><p>这样分配大空间的时候很容易出现内存碎片</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/75edee0cb75450e7987a8a482b975bda.png" alt="图片"></p>
+<h4 id="free函数只传入起始地址，为什么知道释放多大内存？"><a href="#free函数只传入起始地址，为什么知道释放多大内存？" class="headerlink" title="free函数只传入起始地址，为什么知道释放多大内存？"></a>free函数只传入起始地址，为什么知道释放多大内存？</h4><p> malloc 返回给用户态的内存起始地址比进程的堆空间起始地址多了 16 字节</p>
+<p><strong>这个多出来的 16 字节就是保存了该内存块的描述信息，比如有该内存块的大小。</strong></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/cb6e3ce4532ff0a6bfd60fe3e52a806e.png" alt="图片"></p>
+<h4 id="内存分配的过程是怎么样的？"><a href="#内存分配的过程是怎么样的？" class="headerlink" title="内存分配的过程是怎么样的？"></a>内存分配的过程是怎么样的？</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/2f61b0822b3c4a359f99770231981b07.png" alt="img"></p>
+<h4 id="哪些内存可以被回收？"><a href="#哪些内存可以被回收？" class="headerlink" title="哪些内存可以被回收？"></a>哪些内存可以被回收？</h4><ul>
+<li>文件页：可以直接被回收（除了脏页），因为磁盘中有备份</li>
+<li>匿名页：不知道会不会再使用，因此一般不回收，而是放入swap区域</li>
+</ul>
+<h4 id="内存水位是什么概念？"><a href="#内存水位是什么概念？" class="headerlink" title="内存水位是什么概念？"></a>内存水位是什么概念？</h4><p>kswapd 会定期扫描内存的使用情况，根据剩余内存（pages_free）的情况来进行内存回收的工作。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com//mysql/other/166bc9f5b7c545d89f1e36ab8dd772cf.png" alt="img"></p>
+<ul>
+<li>图中绿色部分：如果剩余内存（pages_free）大于 页高阈值（pages_high），说明剩余内存是充足的；</li>
+<li>图中蓝色部分：如果剩余内存（pages_free）在页高阈值（pages_high）和页低阈值（pages_low）之间，说明内存有一定压力，但还可以满足应用程序申请内存的请求；</li>
+<li>图中橙色部分：如果剩余内存（pages_free）在页低阈值（pages_low）和页最小阈值（pages_min）之间，说明内存压力比较大，剩余内存不多了。<strong>这时 kswapd0 会执行内存回收，直到剩余内存大于高阈值（pages_high）为止</strong>。虽然会触发内存回收，但是不会阻塞应用程序，因为两者关系是异步的。</li>
+<li>图中红色部分：如果剩余内存（pages_free）小于页最小阈值（pages_min），说明用户可用内存都耗尽了，此时就会<strong>触发直接内存回收</strong>，这时应用程序就会被阻塞，因为两者关系是同步的。</li>
+</ul>
+<h4 id="如何防止一个进程被杀掉呢？"><a href="#如何防止一个进程被杀掉呢？" class="headerlink" title="如何防止一个进程被杀掉呢？"></a>如何防止一个进程被杀掉呢？</h4><p>在系统空闲内存不足的情况，进程申请了一个很大的内存，如果直接内存回收都无法回收出足够大的空闲内存，那么就会触发 OOM 机制，内核就会根据算法选择一个进程杀掉。</p>
+<p>通过计算点数：</p>
+<p>$$</p>
+<p>$$</p>
+<p>这个值越大越容易被杀掉</p>
+<ul>
+<li>可以降低<code>oom_score_adj</code>的值降低被杀的可能性</li>
+<li>将其设置为<code>oom_score_adj=-1000</code>可以保证绝对不会被杀掉</li>
+</ul>
+<p>这个值存储在<code>/proc</code>文件中</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">cat</span> /proc/2196/oom_score_adj</span></span><br><span class="line">0</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h4 id="在4GB物理内存的机器上申请8GB的内存会怎么样？"><a href="#在4GB物理内存的机器上申请8GB的内存会怎么样？" class="headerlink" title="在4GB物理内存的机器上申请8GB的内存会怎么样？"></a>在4GB物理内存的机器上申请8GB的内存会怎么样？</h4><ol>
+<li>应用程序通过malloc分配内存的时候，实际申请的是虚拟内存，并不会分配物理内存</li>
+<li>当应用读写这一块虚拟内存的时候，如果发现这一块虚拟内存没有映射到物理内存，那么就会产生<strong>缺页中断</strong>，进程会从用户态切换到内核态，并将缺页中断交给内核的Page Fault Handler处理<ol>
+<li>如果还有空闲的物理内存，那么直接分配内存</li>
+<li>如果没有则先进行回收内存的操作，如果回收之后还是没有足够的物理内存，则触发OOM</li>
+</ol>
+</li>
+</ol>
+<h4 id="什么是页面置换？"><a href="#什么是页面置换？" class="headerlink" title="什么是页面置换？"></a>什么是页面置换？</h4><p>地址映射过程中，若在页面中发现所要访问的页面不在内存中，则发生缺页中断 。</p>
+<blockquote>
+<p><strong>缺页中断</strong> 就是要访问的<strong>页</strong>不在主存，需要操作系统将其调入主存后再进行访问。 在这个时候，被内存映射的文件实际上成了一个分页交换文件。</p>
+</blockquote>
+<p>当发生缺页中断时，如果当前内存中并没有空闲的页面，操作系统就必须在内存选择一个页面将其移出内存，以便为即将调入的页面让出空间。用来选择淘汰哪一页的规则叫做页面置换算法，我们可以把页面置换算法看成是淘汰页面的规则。</p>
+<h4 id="有哪些页面置换算法？"><a href="#有哪些页面置换算法？" class="headerlink" title="有哪些页面置换算法？"></a>有哪些页面置换算法？</h4><ul>
+<li><strong>OPT 页面置换算法（最佳页面置换算法）</strong> ：最佳(Optimal, OPT)置换算法所选择的被淘汰页面将是以后永不使用的，或者是在最长时间内不再被访问的页面,这样可以保证获得最低的缺页率。但由于人们目前无法预知进程在内存下的若千页面中哪个是未来最长时间内不再被访问的，因而该算法无法实现。一般作为衡量其他置换算法的方法。</li>
+<li><strong>FIFO（First In First Out） 页面置换算法（先进先出页面置换算法）</strong> : 总是淘汰最先进入内存的页面，即选择在内存中驻留时间最久的页面进行淘汰。</li>
+<li><strong>LRU （Least Recently Used）页面置换算法（最近最久未使用页面置换算法）</strong> ：LRU 算法赋予每个页面一个访问字段，用来记录一个页面自上次被访问以来所经历的时间 T，当须淘汰一个页面时，选择现有页面中其 T 值最大的，即最近最久未使用的页面予以淘汰。</li>
+<li><strong>LFU （Least Frequently Used）页面置换算法（最少使用页面置换算法）</strong> : 该置换算法选择在之前时期使用最少的页面作为淘汰页。</li>
+<li><strong>时钟算法（CLOCK）</strong>：当某页被访问时，其访问位置为1，当需要淘汰一个页面时，只需检查页的访问位。如果是0，就选择该页换出；如果是1，则将它置为0，暂不换出，继续检查下一个页面，若第一轮扫描中所有页面都是1，则将这些页面的访问位依次置为0后，再进行第二轮扫描（第二轮扫描中一定会有访问位为0的页面，因此简单的CLOCK算法选择一个淘汰页面最多会经过两轮扫描）</li>
+</ul>
+<h3 id="设备管理"><a href="#设备管理" class="headerlink" title="设备管理"></a>设备管理</h3><h4 id="有哪些磁盘调度算法"><a href="#有哪些磁盘调度算法" class="headerlink" title="有哪些磁盘调度算法"></a>有哪些磁盘调度算法</h4><ul>
+<li>FIFO</li>
+<li>最短寻道时间优先</li>
+<li>扫描算法：磁头在一个方向上移动，访问所有未完成的请求，直到磁头到达该方向上的最后的磁道，才调换方向，这就是扫描（Scan）算法。</li>
+<li>循环扫描算法：循环扫描（<em>Circular Scan, CSCAN</em> ）规定：只有磁头朝某个特定方向移动时，才处理磁道访问请求，而返回时直接快速移动至最靠边缘的磁道，也就是复位磁头，这个过程是很快的，并且<strong>返回中途不处理任何请求</strong>，该算法的特点，就是<strong>磁道只响应一个方向上的请求</strong>。</li>
+<li>LOOK算法：那针对 SCAN 算法的优化则叫 LOOK 算法，它的工作方式，磁头在每个方向上仅仅移动到最远的请求位置，然后立即反向移动，而不需要移动到磁盘的最始端或最末端，<strong>反向移动的途中会响应请求</strong>。</li>
+<li>CLOOK算法：而针 C-SCAN 算法的优化则叫 C-LOOK，它的工作方式，磁头在每个方向上仅仅移动到最远的请求位置，然后立即反向移动，而不需要移动到磁盘的最始端或最末端，<strong>反向移动的途中不会响应请求</strong></li>
+</ul>
+<h3 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h3><h4 id="文件系统的结构"><a href="#文件系统的结构" class="headerlink" title="文件系统的结构"></a>文件系统的结构</h4><p>数据块的位图是放在磁盘块里的，假设是放在一个块里，一个块 4K，每位表示一个数据块，共可以表示 <code>4 * 1024 * 8 = 2^15</code> 个空闲块，由于 1 个数据块是 4K 大小，那么最大可以表示的空间为 <code>2^15 * 4 * 1024 = 2^27</code> 个 byte，也就是 128M。</p>
+<p>也就是说按照上面的结构，如果采用「一个块的位图 + 一系列的块」，外加「一个块的 inode 的位图 + 一系列的 inode 的结构」能表示的最大空间也就 128M，这太少了，现在很多文件都比这个大。</p>
+<p>在 Linux 文件系统，把这个结构称为一个<strong>块组</strong>，那么有 N 多的块组，就能够表示 N 大的文件。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/%E5%9D%97%E7%BB%84.png" alt="img"></p>
+<ul>
+<li><em>超级块</em>，包含的是文件系统的重要信息，比如 inode 总个数、块总个数、每个块组的 inode 个数、每个块组的块个数等等。</li>
+<li><em>块组描述符</em>，包含文件系统中各个块组的状态，比如块组中空闲块和 inode 的数目等，每个块组都包含了文件系统中「所有块组的组描述符信息」。</li>
+<li><em>数据位图和 inode 位图</em>， 用于表示对应的数据块或 inode 是空闲的，还是被使用中。</li>
+<li><em>inode 列表</em>，包含了块组中所有的 inode，inode 用于保存文件系统中与各个文件和目录相关的所有元数据。</li>
+<li><em>数据块</em>，包含文件的有用数据。</li>
+</ul>
+<h3 id="网络系统"><a href="#网络系统" class="headerlink" title="网络系统"></a>网络系统</h3><h4 id="DMA的作用是什么？"><a href="#DMA的作用是什么？" class="headerlink" title="DMA的作用是什么？"></a>DMA的作用是什么？</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost2/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9B%B6%E6%8B%B7%E8%B4%9D/DRM%20I_O%20%E8%BF%87%E7%A8%8B.png" alt="img"></p>
+<ul>
+<li>用户进程调用 read 方法，向操作系统发出 I/O 请求，请求读取数据到自己的内存缓冲区中，进程进入阻塞状态；</li>
+<li>操作系统收到请求后，进一步将 I/O 请求发送 DMA，然后让 CPU 执行其他任务；</li>
+<li>DMA 进一步将 I/O 请求发送给磁盘；</li>
+<li>磁盘收到 DMA 的 I/O 请求，把数据从磁盘读取到磁盘控制器的缓冲区中，当磁盘控制器的缓冲区被读满后，向 DMA 发起中断信号，告知自己缓冲区已满；</li>
+<li><strong>DMA 收到磁盘的信号，将磁盘控制器缓冲区中的数据拷贝到内核缓冲区中，此时不占用 CPU，CPU 可以执行其他任务</strong>；</li>
+<li>当 DMA 读取了足够多的数据，就会发送中断信号给 CPU；</li>
+<li>CPU 收到 DMA 的信号，知道数据已经准备好，于是将数据从内核拷贝到用户空间，系统调用返回；</li>
+</ul>
+]]></content>
+      <categories>
+        <category>八股文</category>
+      </categories>
+      <tags>
+        <tag>八股文</tag>
+        <tag>操作系统</tag>
       </tags>
   </entry>
   <entry>
